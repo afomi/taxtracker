@@ -1,12 +1,12 @@
 module.exports = {
-  purge: [
+  content: [
     './_includes/**/*.html',
     './_layouts/**/*.html',
     './_posts/*.md',
     './*.md',
     './*.html',
   ],
-  darkMode: false,
+  media: false,
   theme: {
     extend: {},
   },
