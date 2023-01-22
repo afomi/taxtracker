@@ -1,0 +1,16 @@
+- name: Property Tax
+  description: Property taxes are based on the assessed value of a home.
+  source: Solano County Tax Collector
+  url: https://www.solanocounty.com/depts/ttcc/tax_collector/faq.asp
+- name: Private Railroad Car Tax Rate & Roll
+  description: The Private Railroad Car tax is an in-lieu property tax on railroad cars owned by non-railroad companies and operated upon California railroads.
+  source: California State Board of Equalization
+  url: https://www.boe.ca.gov/proptaxes/private_rr_car_tax.htm
+- name: Sales Tax
+  description: The statewide tax rate is 7.25%. In most areas of California, local jurisdictions have added district taxes that increase the tax owed by a seller. Those district tax rates range from 0.10% to 1.00%. Some areas may have more than one district tax in effect. Sellers are required to report and pay the applicable district taxes for their taxable sales and purchases.
+  source: California Department of Tax and Fee Administration
+  url: https://www.cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm
+- name: Transient Occupancy Tax
+  description: If you own or operate a property as a rental in the unincorporated area of the county, you are responsible for collecting and remitting TOT for guests that stay 30 days or less.
+  source: Solano County Tax Collector
+  url: https://www.solanocounty.com/depts/ttcc/tax_collector/transient_occupancy_tax.asp

@@ -87,62 +87,26 @@ permalink: /types-of-taxes/
               </p>
             </dd>
 
-            <dt>
-              <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
-                <span class="text-base font-semibold leading-7">
-                  Property Tax
-                </span>
-              </button>
-            </dt>
-            <dd class="mt-2 pr-12" id="faq-0">
-              <p class="text-base leading-7 text-gray-600">
-                Property taxes are based on the assessed value of a home.
-              </p>
-              <p class="text-base leading-7 text-gray-600" markdown="1">
-                Source:
-                <a href="https://www.solanocounty.com/depts/ttcc/tax_collector/faq.asp"
-                  target="_blank"
-                  rel="noopener">Solano County Tax Collector</a>
-              </p>
-            </dd>
-
-            <dt>
-              <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
-                <span class="text-base font-semibold leading-7">
-                  Sales Tax
-                </span>
-              </button>
-            </dt>
-            <dd class="mt-2 pr-12" id="faq-0">
-              <p class="text-base leading-7 text-gray-600">
-                The statewide tax rate is 7.25%. In most areas of California, local jurisdictions have added district taxes that increase the tax owed by a seller. Those district tax rates range from 0.10% to 1.00%. Some areas may have more than one district tax in effect. Sellers are required to report and pay the applicable district taxes for their taxable sales and purchases.
-              </p>
-              <p class="text-base leading-7 text-gray-600" markdown="1">
-                Source:
-                <a href="https://www.cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm"
-                  target="_blank"
-                  rel="noopener">California Department of Tax and Fee Administration</a>
-              </p>
-            </dd>
-
-            <dt>
-              <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
-                <span class="text-base font-semibold leading-7">
-                  Transient Occupancy Tax
-                </span>
-              </button>
-            </dt>
-            <dd class="mt-2 pr-12" id="faq-0">
-              <p class="text-base leading-7 text-gray-600">
-                If you own or operate a property as a rental in the unincorporated area of the county, you are responsible for collecting and remitting TOT for guests that stay 30 days or less.
-              </p>
-              <p class="text-base leading-7 text-gray-600" markdown="1">
-                Source:
-                <a href="https://www.solanocounty.com/depts/ttcc/tax_collector/transient_occupancy_tax.asp"
-                  target="_blank"
-                  rel="noopener">Solano County Tax Collector</a>
-              </p>
-            </dd>
+            {% for tax in site.data.taxes %}
+              <dt>
+                <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
+                  <span class="text-base font-semibold leading-7">
+                    {{ tax.name }}
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-0">
+                <p class="text-base leading-7 text-gray-600">
+                  {{ tax.description }}
+                </p>
+                <p class="text-base leading-7 text-gray-600" markdown="1">
+                  Source:
+                  <a href="{{ tax.url }}"
+                    target="_blank"
+                    rel="noopener">{{ tax.source }}</a>
+                </p>
+              </dd>
+            {% endfor %}
           </div>
         </dl>
       </div>
