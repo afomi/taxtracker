@@ -11,4 +11,5 @@ postcss:
 exclude:
   - postcss.config.js
   - tailwind.config.js
+  - package.json
   - package-lock.json
