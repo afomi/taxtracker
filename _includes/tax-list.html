@@ -1,11 +1,13 @@
 <ul role="list" class="divide-y divide-gray-200">
   {% for tax in site.data.taxes %}
-  <li class="relative bg-white px-4 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 hover:bg-gray-50">
+  <li class="relative bg-white px-4 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 hover:bg-gray-50" id="{{ tax.name | slugify }}">
     <div class="flex justify-between space-x-3">
       <div class="min-w-0 flex-1">
         <div class="block focus:outline-none">
           <p class="truncate text-sm font-medium text-gray-900">
-            {{ tax.name }}
+            <a href="#{{ tax.name | slugify }}">
+              {{ tax.name }}
+            </a>
           </p>
           <p class="truncate text-sm text-blue-500">
             <a href="{{ tax.url }}"
