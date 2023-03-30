@@ -1,8 +1,10 @@
 ---
 layout: default
-title: Types of taxes
-permalink: /types-of-taxes/
+title: Inventory of taxes
+permalink: /taxes/
 ---
+
+<a href="../" class="rounded-md bg-indigo-600 px-2.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><span aria-hidden="true">←</span> TaxTracker home</a>
 
 <div class="relative overflow-hidden bg-white py-16">
   <div class="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-full lg:[overflow-anchor:none]">
@@ -38,7 +40,7 @@ permalink: /types-of-taxes/
       <h1>
         <span class="block text-center text-lg font-semibold text-indigo-600">An inventory of</span>
         <span class="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-          Types of taxes
+          Taxes
         </span>
       </h1>
       <p class="mt-8 text-xl leading-8 text-gray-500">
@@ -49,14 +51,10 @@ permalink: /types-of-taxes/
       <p>
         Taxes are imposed on income of individuals and corporations by the federal, most state, and some local governments.
         Income subject to tax is determined under tax accounting rules, not financial accounting principles, and includes almost all income from whatever source.
-
       </p>
 
       <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
-        <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">
-          Examples of different types of taxes levied
-        </h2>
-        <dl class="mt-10 space-y-6 divide-y divide-gray-900/10">
+        <dl class="mt-4 space-y-6 divide-y divide-gray-900/10">
           <div class="pt-6">
             <dt>
               <!-- Expand/collapse question button -->
@@ -79,38 +77,34 @@ permalink: /types-of-taxes/
                 Customs duties or tariffs are only imposed by the federal government.
                 A wide variety of user fees or license fees are also imposed.
               </p>
-              <p class="text-base leading-7 text-gray-600">
+              <p class="text-sm text-gray-600">
                 Source:
                 <a href="https://en.wikipedia.org/wiki/Taxation_in_the_United_States"
-                  target="_blank"
-                  rel="noopener">Wikipedia</a>
+                target="_blank"
+                rel="noopener">Wikipedia</a>
               </p>
             </dd>
-
-            {% for tax in site.data.taxes %}
-              <dt>
-                <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
-                  <span class="text-base font-semibold leading-7">
-                    {{ tax.name }}
-                  </span>
-                </button>
-              </dt>
-              <dd class="mt-2 pr-12" id="faq-0">
-                <p class="text-base leading-7 text-gray-600">
-                  {{ tax.description }}
-                </p>
-                <p class="text-base leading-7 text-gray-600" markdown="1">
-                  Source:
-                  <a href="{{ tax.url }}"
-                    target="_blank"
-                    rel="noopener">{{ tax.source }}</a>
-                </p>
-              </dd>
-            {% endfor %}
           </div>
         </dl>
       </div>
     </div>
+
+    <br>
+    <hr class="mt-5 mb-5">
+    <br>
+
+    <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">
+      Examples of different types of taxes levied
+    </h2>
+
+    <div class="mx-auto mt-6 text-gray-500">
+      {% include tax-list.html %}
+    </div>
+
+    <hr class="mb-5">
+    <br>
+
+    {% include cta.html %}
 
   </div>
 </div>
