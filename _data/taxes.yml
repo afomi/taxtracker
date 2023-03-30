@@ -18,10 +18,18 @@
   description: A tax levied on certain forms of entertainment, such as movie tickets, concert tickets, and sporting events.
   source: State and local laws
   url: https://www.taxpolicycenter.org/briefing-book/what-amusement-tax-and-how-does-it-work
+- name: Bagel tax
+  description: A tax levied on sliced bagels in New York City due to a controversial interpretation of the state's sales tax law.
+  source: The New York Times
+  url: https://www.nytimes.com/2010/09/23/nyregion/23bagel.html
 - name: Bank Tax
   description: A tax on the assets and liabilities of financial institutions such as banks and credit unions.
   source: The Balance
   url: https://www.thebalance.com/what-is-a-bank-tax-4150578
+- name: Blueberry tax
+  description: A tax levied on each pound of blueberries sold in Maine to fund research and promotion of blueberries.
+  source: Maine Department of Agriculture, Conservation and Forestry
+  url: https://www.maine.gov/dacf/about/pdfs/12mr_sfb.pdf
 - name: Cable Television Franchise Fee
   description: A fee paid by cable television companies to local governments in exchange for the right to operate within their jurisdictions.
   source: Federal laws and local agreements
@@ -46,6 +54,10 @@
   description: A tax levied on the profits earned by corporations.
   source: Internal Revenue Code
   url: https://www.irs.gov/businesses/small-businesses-self-employed/corporation-income-tax
+- name: Cowboy tax
+  description: A tax levied on cowboys in Oklahoma in the early 1900s to help fund the construction of a new state capitol building.
+  source: Oklahoma Historical Society
+  url: https://www.okhistory.org/publications/enc/entry.php?entry=CO035
 - name: Documentary Transfer Tax
   description: A tax levied on the transfer of real property ownership.
   source: State and local laws
@@ -74,6 +86,10 @@
   description: A tax levied on the income earned by fiduciaries, such as trustees and executors of estates.
   source: State and federal laws
   url: https://www.irs.gov/businesses/small-businesses-self-employed/fiduciary-income-tax
+- name: Flush tax
+  description: A tax levied on homeowners and businesses in Maryland to fund the upgrading of wastewater treatment plants and reducing pollution in the Chesapeake Bay.
+  source: Maryland Department of the Environment
+  url: https://mde.maryland.gov/programs/water/tributaryrestoration/fundprogram/pages/flushfee.aspx
 - name: Franchise tax
   description: A tax levied on the income or net worth of businesses operating within a state.
   source: State laws
@@ -94,6 +110,10 @@
   description: A tax levied on the rental of hotel rooms and other short-term accommodations.
   source: State and local laws
   url: https://www.taxpolicycenter.org/briefing-book/how-does-hotel-tax-work
+- name: Illegal drug tax
+  description: A tax levied on illegal drugs in some states as a way to collect revenue and deter drug use.
+  source: Tax Foundation
+  url: https://taxfoundation.org/illegal-drug-tax-stamps/
 - name: Income tax
   description: A tax levied on individuals' earnings.
   source: Internal Revenue Code
@@ -106,6 +126,10 @@
   description: A tax levied on online purchases made by consumers.
   source: State and federal laws
   url: https://www.irs.gov/businesses/small-businesses-self-employed/understanding-small-business-tax-concerns
+- name: Jock tax
+  description: A tax levied on athletes who earn income in a state where they do not reside.
+  source: Investopedia
+  url: https://www.investopedia.com/terms/j/jock-tax.asp
 - name: Luxury tax
   description: A tax levied on high-end consumer goods, such as yachts, jewelry, or private planes.
   source: Internal Revenue Code
@@ -202,6 +226,10 @@
   description: A tax levied on the value added at each stage of production and distribution of goods and services.
   source: International and some state laws
   url: https://www.taxpolicycenter.org/briefing-book/what-value-added-tax-and-how-does-it-work
+- name: Vampire tax
+  description: A tax levied on owners of vacant properties in Detroit that are believed to be a haven for vandals and squatters.
+  source: The Washington Post
+  url: https://www.washingtonpost.com/news/wonk/wp/2014/07/28/the-vampire-tax-and-the-other-innovative-ways-detroit-is-trying-to-fix-its-vacant-property-problem/
 - name: Vehicle Registration Fees
   description: Likely have to pay fees if your vehicle is registered.
   source: State of California Department of Motor Vehicles
@@ -218,73 +246,3 @@
   description: A tax levied on employers to fund the workers' compensation insurance program.
   source: State and federal laws
   url: https://www.dol.gov/general/topic/workcomp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
