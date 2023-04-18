@@ -11,45 +11,45 @@
   source: California State Board of Equalization
   url: https://www.boe.ca.gov/sptaxprog/alcoholic_bev_tax.htm
 - name: Alternative Minimum Tax (AMT)
-  description: A tax imposed on high-income taxpayers who take advantage of tax breaks and deductions.
-  source: IRS
-  url: https://www.irs.gov/businesses/small-businesses-self-employed/alternative-minimum-tax-for-individuals
+  description: Under the tax law, certain tax benefits can significantly reduce a taxpayer's regular tax amount. The alternative minimum tax (AMT) applies to taxpayers with high economic income by setting a limit on those benefits.
+  source: irs.gov - Topic No. 556, Alternative Minimum Tax
+  url: https://www.irs.gov/taxtopics/tc556
 - name: Amusement Tax
   description: A tax levied on certain forms of entertainment, such as movie tickets, concert tickets, and sporting events.
   source: State and local laws
   url: https://www.taxpolicycenter.org/briefing-book/what-amusement-tax-and-how-does-it-work
 - name: Bagel tax
   description: A tax levied on sliced bagels in New York City due to a controversial interpretation of the state's sales tax law.
-  source: The New York Times
-  url: https://www.nytimes.com/2010/09/23/nyregion/23bagel.html
+  source: New York State Department of Taxation and Finance
+  url: https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/sandwiches.htm
 - name: Bank Tax
   description: A tax on the assets and liabilities of financial institutions such as banks and credit unions.
   source: The Balance
   url: https://www.thebalance.com/what-is-a-bank-tax-4150578
 - name: Blueberry tax
   description: A tax levied on each pound of blueberries sold in Maine to fund research and promotion of blueberries.
-  source: Maine Department of Agriculture, Conservation and Forestry
-  url: https://www.maine.gov/dacf/about/pdfs/12mr_sfb.pdf
+  source: Maine Legislation, Title 36, Part 7, Chapter 701
+  url: https://legislature.maine.gov/statutes/36/title36sec4303.html
 - name: Cable Television Franchise Fee
   description: A fee paid by cable television companies to local governments in exchange for the right to operate within their jurisdictions.
-  source: Federal laws and local agreements
-  url: https://www.fcc.gov/consumers/guides/cable-television-rules
+  source: fcc.gov - Cable television
+  url: https://www.fcc.gov/media/engineering/cable-television
 - name: Capital gains tax
   description: A tax levied on the profits earned from the sale of assets, such as stocks or property.
   source: Internal Revenue Code
   url: https://www.irs.gov/taxtopics/tc409
 - name: Capital Stock Tax
   description: A tax levied on the capital stock of corporations.
-  source: State laws
-  url: https://taxfoundation.org/capital-stock-taxes/
+  source: Tax Foundation - Capital Stock Tax
+  url: https://taxfoundation.org/tax-basics/capital-stock-tax-franchise-tax/
 - name: Carbon Tax
   description: A tax on carbon emissions, designed to reduce greenhouse gas emissions and combat climate change.
   source: World Bank
   url: https://www.worldbank.org/en/topic/climatechange/brief/carbon-pricing
 - name: Cigarette Tax
   description: A tax levied on the sale of cigarettes.
-  source: State and federal laws
-  url: https://www.irs.gov/businesses/small-businesses-self-employed/tobacco-industry
+  source: Urban Institute - Cigarette and Vaping Taxes
+  url: https://www.urban.org/policy-centers/cross-center-initiatives/state-and-local-finance-initiative/state-and-local-backgrounders/cigarette-and-vaping-taxes
 - name: Corporate income tax
   description: A tax levied on the profits earned by corporations.
   source: Internal Revenue Code
@@ -72,16 +72,16 @@
   url: https://www.irs.gov/businesses/small-businesses-self-employed/estate-tax
 - name: Estate Tax (Generation-Skipping)
   description: A tax on property that is passed down to someone who is at least two generations younger than the donor.
-  source: IRS
-  url: https://www.irs.gov/businesses/small-businesses-self-employed/generation-skipping-transfer-tax
+  source: Investopedia
+  url: https://www.investopedia.com/terms/g/generation-skipping-transfer-tax.asp
 - name: Excise tax
   description: A tax levied on specific goods, such as gasoline, tobacco, or alcohol.
-  source: Internal Revenue Code
+  source: Cornell LII - 26 U.S. Code § 4251 - Imposition of tax
   url: https://www.irs.gov/businesses/small-businesses-self-employed/excise-tax
 - name: Excise Tax (Communications)
   description: A tax on the use of certain communication services such as phone and internet services.
   source: IRS
-  url: https://www.irs.gov/businesses/small-businesses-self-employed/excise-tax-on-communications
+  url: https://www.law.cornell.edu/uscode/text/26/4251
 - name: Fiduciary Tax
   description: A tax levied on the income earned by fiduciaries, such as trustees and executors of estates.
   source: State and federal laws
@@ -96,8 +96,8 @@
   url: https://taxfoundation.org/franchise-tax-basics/
 - name: Fuel tax
   description: A tax levied on the sale of gasoline and other fuels.
-  source: Internal Revenue Code
-  url: https://www.irs.gov/businesses/small-businesses-self-employed/fuel-tax-credits-and-ref
+  source: Urban Institute - Motor Fuel Taxes
+  url: https://www.urban.org/policy-centers/cross-center-initiatives/state-and-local-finance-initiative/state-and-local-backgrounders/motor-fuel-taxes
 - name: Gift Tax
   description: A tax levied on the transfer of property as a gift from one individual to another.
   source: Internal Revenue Code
@@ -140,8 +140,8 @@
   url: https://www.irs.gov/businesses/small-businesses-self-employed/additional-medicare-tax
 - name: Mining Tax
   description: A tax levied on the extraction of natural resources, such as coal, oil, and minerals.
-  source: State and federal laws
-  url: https://taxfoundation.org/mining-taxes/
+  source: cga.ct.gov - OLR Research Report - Mining Taxes in Other States
+  url: https://www.cga.ct.gov/2007/rpt/2007-R-0239.htm
 - name: Occupation tax
   description: A tax levied on certain professions or occupations, such as lawyers or real estate agents. Established in law in various states in the United States, with rates and rules varying by jurisdiction.
   source: State of Nebraska
@@ -160,8 +160,8 @@
   url: https://www.boe.ca.gov/proptaxes/private_rr_car_tax.htm
 - name: Property tax
   description: A tax levied on the value of real estate and other property.
-  source: State and local laws
-  url: https://taxfoundation.org/property-tax-basics/
+  source: Thomson-Reuters - Property Tax 101
+  url: https://tax.thomsonreuters.com/blog/property-tax-101/
 - name: Property Tax (Real Estate Improvement)
   description: A tax on the increased value of real estate that results from improvements or renovations.
   source: Zacks
@@ -196,20 +196,20 @@
   url: https://www.taxpolicycenter.org/briefing-book/what-sweetened-beverage-tax-and-how-does-it-work
 - name: Tariff tax
   description: A tax levied on imported goods.
-  source: Tariff Act of 1930
-  url: https://www.usitc.gov/tariff_affairs/tariff_act_of_1930.htm
+  source: Wikipedia- Tariff Act of 1930
+  url: https://en.wikipedia.org/wiki/Smoot%E2%80%93Hawley_Tariff_Act
 - name: Telephone Excise Tax
   description: A tax levied on long-distance telephone services.
   source: Internal Revenue Code
   url: https://www.irs.gov/newsroom/the-telephone-excise-tax
 - name: Tobacco Tax (Tobacco Product)
   description: A tax on tobacco products such as cigarettes and cigars.
-  source: Campaign for Tobacco-Free Kids
-  url: https://www.tobaccofreekids.org/what-we-do/us/taxes
+  source: cbo.gov - Increase Excise Taxes on Tobacco Products
+  url: https://www.cbo.gov/budget-options/58706
 - name: Toll tax
   description: A tax levied on the use of certain roads or bridges.
   source: State and local laws
-  url: https://taxfoundation.org/toll-road-basics/
+  url: https://taxfoundation.org/state-infrastructure-spending/
 - name: Transient Occupancy Tax
   description: If you own or operate a property as a rental in the unincorporated area of the county, you are responsible for collecting and remitting TOT for guests that stay 30 days or less.
   source: Solano County Tax Collector
