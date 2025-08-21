@@ -1,6 +1,6 @@
 url: "https://taxtracker.org" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
-title: "taxtracker.org"
+title: "TaxTracker – See where taxes come from and go"
 
 plugins:
   - jekyll-postcss

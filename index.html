@@ -6,79 +6,204 @@ layout: default
 title: Home
 ---
 
-<div class="bg-white pb-8 sm:pb-12 lg:pb-12">
-  <div class="overflow-hidden pt-8 sm:pt-12 lg:relative lg:py-48">
-    <div class="mx-auto max-w-md px-6 sm:max-w-3xl lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-24 lg:px-8">
-      <div>
-        <div>
-          <img class="h-11 w-auto" src="/assets/images/tax-tracker-mark.svg" alt="taxtracker logo">
+
+<!-- Header (minimal, only existing link) -->
+<header
+  class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/90 border-b border-slate-200">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker" class="h-8 w-8" />
+      <span class="sr-only">TaxTracker</span>
+      <span class="font-semibold tracking-tight hidden sm:inline">taxtracker.org</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="flex items-center gap-8 text-sm">
+        <li><a class="hover:text-indigo-700" href="/taxes">Taxes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-y-0 right-0 w-1/2 bg-slate-50"></div>
+    <svg class="absolute -left-40 -top-40 h-[36rem] w-[36rem] opacity-30" viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#EEF2FF"
+        d="M39.2,-53.4C52.1,-45.5,64,-34.2,70.8,-20.1C77.6,-6.1,79.4,10.7,73.9,25.3C68.4,39.9,55.6,52.3,41.7,62.3C27.8,72.3,13.9,79.9,0.4,79.3C-13,78.6,-26,69.8,-38.6,60.3C-51.2,50.8,-63.3,40.5,-70.2,27.2C-77.2,14,-79,-2.3,-74.7,-16.4C-70.4,-30.5,-60,-42.4,-47.5,-50.6C-35,-58.9,-20.5,-63.5,-5.7,-60.9C9.1,-58.3,18.2,-48.4,39.2,-53.4Z"
+        transform="translate(100 100)" />
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-6">
+        <p
+          class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          Public alpha
+        </p>
+        <h1 class="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Making taxation visible
+        </h1>
+        <!-- Affordance link below H1 -->
+        <p class="mt-3">
+          <a href="/taxes" class="inline-flex items-center gap-2 text-indigo-700 font-semibold hover:underline">
+            View an inventory of taxes
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+              aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+        </p>
+
+        <p class="mt-4 text-lg text-slate-600 max-w-prose">
+          Trace every dollar from <span class="font-medium">origination</span> through <span
+            class="font-medium">collection</span> to <span class="font-medium">expenditure</span>.
+        </p>
+
+        <!-- Primary action (only existing route) -->
+        <div class="mt-8">
+          <a href="/taxes"
+            class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-3 text-white font-semibold hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/50">
+            Explore taxes
+            <svg class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
         </div>
-        <div class="mt-20">
-          <div>
-            <a href="/taxes" class="inline-flex space-x-4">
-              <span class="inline-flex items-center space-x-1 text-sm font-medium text-indigo-600">
-                <span>View an inventory of taxes</span>
-                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                </svg>
-              </span>
-            </a>
+
+        <!-- Trust signals -->
+        <dl class="mt-8 grid grid-cols-3 gap-4 text-center">
+          <div class="rounded-xl border border-slate-200 p-3">
+            <dt class="text-xs text-slate-500">Data Sources</dt>
+            <dd class="mt-1 text-base font-semibold">State & Local</dd>
           </div>
-          <div class="mt-6 sm:max-w-xl">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              taxtracker.org
-            </h1>
-            <p class="mt-6 text-xl text-gray-500">
-              Making taxation visible; from origination through collection to expenditure. </p>
+          <div class="rounded-xl border border-slate-200 p-3">
+            <dt class="text-xs text-slate-500">Updated</dt>
+            <dd class="mt-1 text-base font-semibold">Monthly</dd>
           </div>
-          <div class="mt-6 hidden">
-            <div class="inline-flex items-center divide-x divide-gray-300">
-              <div class="flex flex-shrink-0 pr-5">
-                <!-- Heroicon name: mini/star -->
-                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                </svg>
-                <!-- Heroicon name: mini/star -->
-                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                </svg>
-                <!-- Heroicon name: mini/star -->
-                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                </svg>
-                <!-- Heroicon name: mini/star -->
-                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                </svg>
-                <!-- Heroicon name: mini/star -->
-                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div class="min-w-0 flex-1 py-1 pl-5 text-sm text-gray-500 sm:py-3"><span class="font-medium text-gray-900">Rated 5 stars</span> by over <span class="font-medium text-indigo-600">500 beta users</span></div>
-            </div>
+          <div class="rounded-xl border border-slate-200 p-3">
+            <dt class="text-xs text-slate-500">Open License</dt>
+            <dd class="mt-1 text-base font-semibold">CC BY 4.0</dd>
+          </div>
+        </dl>
+
+        <!-- Featured jurisdictions (non-clickable for now) -->
+        <div class="mt-8 hidden">
+          <h2 class="text-sm font-semibold text-slate-700">Featured jurisdictions</h2>
+          <div class="mt-3 overflow-x-auto whitespace-nowrap [-webkit-overflow-scrolling:touch]">
+            <ul class="inline-flex gap-3 pr-2">
+              <li>
+                <div aria-disabled="true"
+                  class="cursor-default inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                  <img src="/assets/logos/california.svg" alt="California" class="h-5 w-5" />
+                  <span class="text-sm font-medium">California</span>
+                </div>
+              </li>
+              <li>
+                <div aria-disabled="true"
+                  class="cursor-default inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                  <img src="/assets/logos/colorado.svg" alt="Colorado" class="h-5 w-5" />
+                  <span class="text-sm font-medium">Colorado</span>
+                </div>
+              </li>
+              <li>
+                <div aria-disabled="true"
+                  class="cursor-default inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                  <img src="/assets/logos/solano.svg" alt="Solano County" class="h-5 w-5" />
+                  <span class="text-sm font-medium">Solano County</span>
+                </div>
+              </li>
+              <li>
+                <div aria-disabled="true"
+                  class="cursor-default inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                  <img src="/assets/logos/vacaville.svg" alt="Vacaville" class="h-5 w-5" />
+                  <span class="text-sm font-medium">Vacaville</span>
+                </div>
+              </li>
+              <li>
+                <div aria-disabled="true"
+                  class="cursor-default inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                  <img src="/assets/logos/denver.svg" alt="Denver" class="h-5 w-5" />
+                  <span class="text-sm font-medium">Denver</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="sm:mx-auto sm:max-w-3xl sm:px-6">
-      <div class="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <div class="hidden sm:block">
-          <div class="absolute inset-y-0 left-1/2 w-screen rounded-l-3xl bg-gray-50 lg:left-80 lg:right-0 lg:w-full"></div>
-          <svg class="absolute top-8 right-1/2 -mr-3 lg:left-0 lg:m-0" width="404" height="392" fill="none" viewBox="0 0 404 392">
-            <defs>
-              <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
-          </svg>
-        </div>
-        <div class="relative -mr-40 pl-6 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
-          <img class="w-full rounded-md shadow-xl ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none" src="./assets/images/tbg.jpg" alt="">
-        </div>
+      <!-- Visual -->
+      <div class="lg:col-span-6">
+        <figure class="relative">
+          <img src="/assets/images/tbg.jpg" alt="Diagram showing tax flows from payers to services"
+            class="w-full rounded-3xl border border-slate-200 shadow-xl" />
+          <figcaption class="sr-only">Illustration of tax flow transparency</figcaption>
+          <!-- Floating card WITH sparkline; no external link yet -->
+          <div
+            class="hidden md:block absolute -bottom-6 right-6 w-64 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-lg">
+            <div class="p-4">
+              <p class="text-xs text-slate-500">Example</p>
+              <p class="mt-1 text-sm font-semibold">Sales Tax → General Fund → Parks Dept → Vendor #8312</p>
+              <div class="mt-2 flex items-center justify-between text-xs">
+                <span class="text-slate-600">$2.8M FY24</span>
+                <span class="text-slate-500 hidden">See details</span>
+              </div>
+            </div>
+          </div>
+        </figure>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- Single value prop (others deferred) -->
+<section class="py-16 border-t border-slate-200">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-8 md:grid-cols-3">
+      <div class="rounded-2xl border border-slate-200 p-6">
+        <div class="h-10 w-10 rounded-lg bg-indigo-50 grid place-content-center mb-4">
+          <span class="text-indigo-700">📊</span>
+        </div>
+        <h3 class="text-lg font-semibold">Inventory of Taxes</h3>
+        <p class="mt-2 text-slate-600">Browse tax types, statutes, rates, collections, and responsible agencies.</p>
+        <a href="/taxes" class="mt-4 inline-flex items-center text-indigo-700 font-semibold hover:underline">Browse
+          taxes</a>
+      </div>
+      <!-- Placeholder cards (no links yet) -->
+      <div class="rounded-2xl border border-dashed border-slate-200 p-6 text-slate-500">
+        <h3 class="text-lg font-semibold">Follow the Money</h3>
+        <p class="mt-2">Trace funds across accounts and vendors.
+          <br> (Fund this feature)
+        </p>
+      </div>
+      <div class="rounded-2xl border border-dashed border-slate-200 p-6 text-slate-500">
+        <h3 class="text-lg font-semibold">APIs & Downloads</h3>
+        <p class="mt-2">Export CSV/JSON or query our API.
+          <br>
+          (Fund this feature)
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (minimal) -->
+<footer class="border-t border-slate-200 py-10">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker logo" class="h-16 w-16" />
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  </footer>
