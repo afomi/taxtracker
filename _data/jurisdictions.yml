@@ -1,0 +1,20 @@
+- name: California
+  slug: california
+  logo: /assets/logos/california.svg
+- name: Colorado
+  slug: colorado
+  logo: /assets/logos/colorado.svg
+
+- name: Solano County
+  slug: solano-county
+  logo: /assets/logos/solano-county.svg
+
+- name: Denver
+  slug: denver
+  logo: /assets/logos/denver.svg
+- name: Vacaville
+  slug: vacaville
+  logo: /assets/logos/vacaville.svg
+- name: Lafayette
+  slug: lafayette-ca
+  logo: /assets/logos/lafayette-ca.svg

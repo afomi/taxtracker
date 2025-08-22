@@ -13,3 +13,8 @@ exclude:
   - tailwind.config.js
   - package.json
   - package-lock.json
+
+collections:
+  jurisdictions:
+    output: true
+    permalink: /jurisdictions/:slug/
