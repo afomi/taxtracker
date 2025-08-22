@@ -46,11 +46,14 @@ permalink: /flows/
   </section>
 
   <!-- Legend -->
-  <section class="mb-3 flex flex-wrap items-center gap-3 text-xs text-slate-600">
-    <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-indigo-600/70"></span>Residents → Tax</span>
-    <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-teal-600/70"></span>Businesses → Tax</span>
-    <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-amber-600/70"></span>Tax → Spending</span>
-  </section>
+<section class="mb-3 flex flex-wrap items-center gap-3 text-xs text-slate-600">
+  <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-indigo-600/70"></span>Households → Collector</span>
+  <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-teal-600/70"></span>Businesses → Collector</span>
+  <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-amber-600/70"></span>Collector → Spending</span>
+  <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-emerald-600/70"></span>Public payroll → Households</span>
+  <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-rose-600/70"></span>Private vendor → Households</span>
+</section>
+
 
   <!-- Canvas wrapper -->
   <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
@@ -67,6 +70,40 @@ permalink: /flows/
 </main>
 
 <script>
+  // Read URL params
+  const params = new URLSearchParams(location.search);
+  const param = (k, fn) => {
+    if (!params.has(k)) return null;
+    const v = params.get(k);
+    try { return fn ? fn(v) : v; } catch(_) { return null; }
+  };
+
+  // Share of spending that goes directly to public payroll (rest to private vendors)
+  const sharePublicPayroll = param('wages_public', v => Math.max(0, Math.min(0.95, parseFloat(v)))) ?? 0.60;
+  // Number of private vendors (employers)
+  const privateCount = param('private_count', v => Math.max(4, Math.min(64, parseInt(v, 10)))) ?? 16;
+
+
+  // Defaults: purely illustrative (normalize below)
+  const defaultMix = { federal: 0.45, state: 0.25, county: 0.12, city: 0.10, special: 0.08 };
+
+  // Parse mix=federal:0.45,state:0.25,county:0.12,city:0.10,special:0.08
+  function parseMix(str) {
+    const out = { ...defaultMix };
+    (str || '').split(',').forEach(pair => {
+      const [kRaw, vRaw] = pair.split(':');
+      const k = (kRaw || '').trim().toLowerCase();
+      const v = parseFloat((vRaw || '').trim());
+      if (!isNaN(v) && k) out[k] = v;
+    });
+    // normalize to 1.0
+    const sum = Object.values(out).reduce((a, b) => a + b, 0) || 1;
+    Object.keys(out).forEach(k => out[k] = out[k] / sum);
+    return out;
+  }
+
+  const mix = parseMix(param('mix'));// or defaultMix normalized
+
   const c = document.getElementById('fibers');
   const overlay = document.getElementById('overlay');
   const ctx = c.getContext('2d');
@@ -79,10 +116,27 @@ permalink: /flows/
     businesses: 30,
     speed: 1,
     paused: false,
-    entities: { people: [], biz: [], taxes: [], spends: [] },
-    flows: [], // array of {from, via, to, colorA, colorB, curve1, curve2}
-    packets: [] // moving particles along flows
+    entities: { people: [], biz: [], collectors: [], spends: [], priv: [] },
+    paths: [],   // each path = { segments: [{curve,color,width}], kind: 'public'|'private' }
+    packets: []  // moving particles along multi-segment paths
   };
+
+
+  // Apply if provided
+    state.residents = param('residents', v => Math.max(10, Math.min(300, parseInt(v, 10)))) ?? state.residents;
+    state.businesses = param('businesses', v => Math.max(5, Math.min(120, parseInt(v, 10)))) ?? state.businesses;
+    state.speed = param('speed', v => Math.max(0.25, Math.min(3, parseFloat(v)))) ?? state.speed;
+
+    // Optional: custom labels (comma-separated), e.g. ?spend=Education,Health,Transport
+    const spendCsv = param('spend');
+    if (spendCsv) {
+      const labels = spendCsv.split(',').map(s => s.trim()).filter(Boolean);
+      if (labels.length >= 3) {
+        // overwrite labels used in layout()
+        window.__customSpends = labels;
+      }
+    }
+
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -101,77 +155,139 @@ permalink: /flows/
   function jitter(v, j) { return v + rand(-j, j); }
 
   function layout() {
-    // positions for clusters
-    const Lx1 = 90, Lx2 = 150; // left clusters
-    const Cx = W * 0.55; // collectors center x
-    const Rx = W - 120; // spenders x
+    // positions
+    const Lx1 = 90, Lx2 = 150; // left clusters (households + businesses)
+    const Cx  = W * 0.55;      // collectors x
+    const Rx  = W - 120;       // agencies (spending) x
+    const Px  = W * 0.78;      // private vendors x (near agencies)
     const topPad = 60, botPad = H - 60;
 
-    state.entities.people = Array.from({ length: state.residents }, (_, i) => ({
+    // nodes
+    state.entities.people = Array.from({ length: state.residents }, () => ({
       x: jitter(Lx1, 18), y: rand(topPad, botPad)
     }));
     state.entities.biz = Array.from({ length: state.businesses }, () => ({
       x: jitter(Lx2, 18), y: rand(topPad, botPad)
     }));
-    state.entities.taxes = [
-      { label: 'Federal', x: Cx, y: H * 0.35 },
-      { label: 'State', x: Cx, y: H * 0.65 }
-    ];
-    const spendLabels = ['Education','Health','Transport','Public Safety','Parks','Admin'];
+
+    const collectorLabels = ['Federal','State','County','City','Special District'];
+    state.entities.collectors = collectorLabels.map((label, i) => ({
+      label,
+      x: Cx,
+      y: topPad + (i + 0.5) * ((botPad - topPad) / collectorLabels.length)
+    }));
+
+    const spendLabels = (window.__customSpends && window.__customSpends.length)
+      ? window.__customSpends
+      : ['Education','Health','Transport','Public Safety','Parks','Admin'];
     state.entities.spends = spendLabels.map((label, i) => ({
       label,
       x: Rx,
-      y: topPad + (i + 0.5) * ( (botPad - topPad) / spendLabels.length )
+      y: topPad + (i + 0.5) * ((botPad - topPad) / spendLabels.length)
     }));
 
-    // flows
-    state.flows = [];
-    const chooseTax = () => Math.random() < 0.55 ? state.entities.taxes[0] : state.entities.taxes[1];
-    const chooseSpend = () => state.entities.spends[Math.floor(Math.random() * state.entities.spends.length)];
+    // private vendors (employers)
+    state.entities.priv = Array.from({ length: privateCount }, () => ({
+      label: 'Vendor',
+      x: jitter(Px, 22),
+      y: rand(topPad, botPad)
+    }));
+
+    // weighted collector choice
+    const weights = [
+      mix.federal ?? 0, mix.state ?? 0, mix.county ?? 0, mix.city ?? 0, mix.special ?? 0
+    ];
+    const chooseCollector = () => {
+      const r = Math.random();
+      let acc = 0;
+      for (let i = 0; i < weights.length; i++) { acc += weights[i]; if (r <= acc) return state.entities.collectors[i]; }
+      return state.entities.collectors[weights.length - 1];
+    };
+
+    const chooseSpend = () =>
+      state.entities.spends[Math.floor(Math.random() * state.entities.spends.length)];
+    const choosePrivate = () =>
+      state.entities.priv[Math.floor(Math.random() * state.entities.priv.length)];
+    const chooseResident = () =>
+      state.entities.people[Math.floor(Math.random() * state.entities.people.length)];
 
     const mkCurve = (p0, p3, bend=0.2) => {
-      // cubic bezier control points
-      const dx = p3.x - p0.x; const dy = p3.y - p0.y;
+      const dx = p3.x - p0.x, dy = p3.y - p0.y;
       const p1 = { x: p0.x + dx * 0.35, y: p0.y + dy * 0.15 + (dy>0?1:-1) * bend*40 };
       const p2 = { x: p0.x + dx * 0.65, y: p0.y + dy * 0.85 - (dy>0?1:-1) * bend*40 };
       return { p0, p1, p2, p3 };
     };
 
-    const persons = state.entities.people.map((src) => {
-      const via = chooseTax();
-      const to = chooseSpend();
-      return {
-        from: src, via, to,
-        colorA: 'rgba(79,70,229,0.7)', // indigo-600 → tax
-        colorB: 'rgba(245,158,11,0.7)', // amber-600 → spend
-        curve1: mkCurve(src, via, 0.25),
-        curve2: mkCurve(via, to, 0.15)
-      };
-    });
-    const biz = state.entities.biz.map((src) => {
-      const via = chooseTax();
-      const to = chooseSpend();
-      return {
-        from: src, via, to,
-        colorA: 'rgba(13,148,136,0.7)', // teal-600 → tax
-        colorB: 'rgba(245,158,11,0.7)', // amber-600 → spend
-        curve1: mkCurve(src, via, 0.2),
-        curve2: mkCurve(via, to, 0.15)
-      };
-    });
-    state.flows = persons.concat(biz);
+    // Build circular paths.
+    // Each path has segments:
+    //   Households→Collector (indigo) or Businesses→Collector (teal)
+    //   Collector→Spending (amber)
+    //   Spending→Households (emerald)   [public payroll]   OR
+    //   Spending→Private (amber) → Households (rose)       [vendor payroll]
+    state.paths = [];
 
-    // overlay labels
+    // From households
+    state.entities.people.forEach(src => {
+      const collector = chooseCollector();
+      const spend = chooseSpend();
+
+      const baseSegments = [
+        { curve: mkCurve(src, collector, 0.25), color: 'rgba(79,70,229,0.7)', width: 1.6 },   // indigo
+        { curve: mkCurve(collector, spend, 0.15), color: 'rgba(245,158,11,0.7)', width: 1.6 } // amber
+      ];
+
+      if (Math.random() < sharePublicPayroll) {
+        // Public payroll → resident (close the loop)
+        const dest = src; // wages to this household
+        baseSegments.push({ curve: mkCurve(spend, dest, 0.18), color: 'rgba(16,185,129,0.7)', width: 1.6 }); // emerald-500
+        state.paths.push({ segments: baseSegments, kind: 'public' });
+      } else {
+        // Vendor route: Spending → Private → resident
+        const vendor = choosePrivate();
+        const dest = src;
+        baseSegments.push({ curve: mkCurve(spend, vendor, 0.12), color: 'rgba(245,158,11,0.55)', width: 1.4 }); // amber (lighter)
+        baseSegments.push({ curve: mkCurve(vendor, dest, 0.22), color: 'rgba(244,63,94,0.7)', width: 1.6 }); // rose-500
+        state.paths.push({ segments: baseSegments, kind: 'private' });
+      }
+    });
+
+    // From businesses (their taxes too)
+    state.entities.biz.forEach(src => {
+      const collector = chooseCollector();
+      const spend = chooseSpend();
+
+      const baseSegments = [
+        { curve: mkCurve(src, collector, 0.20), color: 'rgba(13,148,136,0.7)', width: 1.6 }, // teal
+        { curve: mkCurve(collector, spend, 0.15), color: 'rgba(245,158,11,0.7)', width: 1.6 } // amber
+      ];
+
+      if (Math.random() < sharePublicPayroll) {
+        const dest = chooseResident(); // business taxes ultimately payroll to residents
+        baseSegments.push({ curve: mkCurve(spend, dest, 0.18), color: 'rgba(16,185,129,0.7)', width: 1.6 });
+        state.paths.push({ segments: baseSegments, kind: 'public' });
+      } else {
+        const vendor = choosePrivate();
+        const dest = chooseResident();
+        baseSegments.push({ curve: mkCurve(spend, vendor, 0.12), color: 'rgba(245,158,11,0.55)', width: 1.4 });
+        baseSegments.push({ curve: mkCurve(vendor, dest, 0.22), color: 'rgba(244,63,94,0.7)', width: 1.6 });
+        state.paths.push({ segments: baseSegments, kind: 'private' });
+      }
+    });
+
+    // Overlay labels
     overlay.innerHTML = '';
     const addLabel = (x,y,txt) => {
       const e = document.createElement('div');
       e.className = 'absolute -translate-x-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-white/80 backdrop-blur border border-slate-200 shadow-sm';
       e.style.left = x+'px'; e.style.top = y+'px'; e.textContent = txt; overlay.appendChild(e);
     };
-    addLabel(state.entities.taxes[0].x, state.entities.taxes[0].y, 'Federal');
-    addLabel(state.entities.taxes[1].x, state.entities.taxes[1].y, 'State');
+    addLabel(Lx1, (topPad+botPad)/2, 'Households');
+    addLabel((Lx1+Lx2)/2, topPad+14, ''); // spacer
+    state.entities.collectors.forEach(t => addLabel(t.x, t.y, t.label));
     state.entities.spends.forEach(s => addLabel(s.x, s.y, s.label));
+    addLabel(Px, topPad+16, 'Private sector');
   }
+
 
   function drawCurve(curve, color, width, alpha) {
     ctx.globalAlpha = alpha;
@@ -186,64 +302,65 @@ permalink: /flows/
 
   function drawStatic() {
     ctx.clearRect(0,0,W,H);
-    // faint background fibers
-    const alpha = 0.05; // density
-    state.flows.forEach(f => {
-      drawCurve(f.curve1, f.colorA, 0.8, alpha);
-      drawCurve(f.curve2, f.colorB, 0.8, alpha);
+    const alpha = 0.05;
+    state.paths.forEach(path => {
+      path.segments.forEach(seg => {
+        drawCurve(seg.curve, seg.color, 0.8, alpha);
+      });
     });
   }
 
+
   // Particle animation along curves
   function sampleCurve(curve, t) {
-    const {p0,p1,p2,p3} = curve;
-    const u = 1-t;
+    const {p0,p1,p2,p3} = curve, u = 1-t;
     const x = u*u*u*p0.x + 3*u*u*t*p1.x + 3*u*t*t*p2.x + t*t*t*p3.x;
     const y = u*u*u*p0.y + 3*u*u*t*p1.y + 3*u*t*t*p2.y + t*t*t*p3.y;
     return {x,y};
   }
 
-  function seedPackets(count=220) {
-    state.packets = Array.from({length: count}, () => {
-      const f = state.flows[Math.floor(Math.random()*state.flows.length)];
-      const phase = Math.random() < 0.6 ? 1 : 2; // start on 1st or 2nd leg
+  function seedPackets(count = 260) {
+    state.packets = Array.from({ length: count }, () => {
+      const path = state.paths[Math.floor(Math.random() * state.paths.length)];
+      // start on a random segment and progress within it
+      const segIdx = Math.floor(Math.random() * path.segments.length);
       const t = Math.random();
-      return { f, phase, t };
+      return { path, segIdx, t };
     });
   }
 
   let last=0;
   function frame(ts) {
     if (state.paused || prefersReducedMotion) { requestAnimationFrame(frame); return; }
-    const dt = Math.min(50,(ts - last) || 16) * 0.001 * state.speed; // seconds
+    const dt = Math.min(50,(ts - last) || 16) * 0.001 * state.speed;
     last = ts;
 
-    // redraw static background with slight fade for trails
+    // gentle fade for trails
     ctx.fillStyle = 'rgba(255,255,255,0.08)';
     ctx.fillRect(0,0,W,H);
 
-    // draw packets
     ctx.lineCap = 'round';
     state.packets.forEach(p => {
-      const curve = p.phase === 1 ? p.f.curve1 : p.f.curve2;
-      const pos = sampleCurve(curve, p.t);
-      const color = p.phase === 1 ? p.f.colorA : p.f.colorB;
+      const seg = p.path.segments[p.segIdx];
+      const pos1 = sampleCurve(seg.curve, p.t);
+      const pos2 = sampleCurve(seg.curve, Math.min(1, p.t + 0.02));
       ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 1.6;
+      ctx.strokeStyle = seg.color;
+      ctx.lineWidth = seg.width;
       ctx.globalAlpha = 0.9;
-      ctx.moveTo(pos.x, pos.y);
-      const pos2 = sampleCurve(curve, Math.min(1, p.t + 0.02));
+      ctx.moveTo(pos1.x, pos1.y);
       ctx.lineTo(pos2.x, pos2.y);
       ctx.stroke();
       ctx.globalAlpha = 1;
 
       p.t += dt * (0.20 + Math.random()*0.15);
       if (p.t >= 1) {
-        if (p.phase === 1) { p.phase = 2; p.t = 0; } else {
-          // recycle
-          const f = state.flows[Math.floor(Math.random()*state.flows.length)];
-          p.f = f; p.phase = 1; p.t = 0;
+        p.segIdx += 1;
+        p.t = 0;
+        if (p.segIdx >= p.path.segments.length) {
+          // recycle onto a new path
+          const newPath = state.paths[Math.floor(Math.random()*state.paths.length)];
+          p.path = newPath; p.segIdx = 0; p.t = 0;
         }
       }
     });

@@ -1,20 +1,40 @@
 - name: California
   slug: california
   logo: /assets/logos/california.svg
+  residents: 30_000_000
+  businesses: 40_000
+  mix: "federal:0.40,state:0.25,county:0.18,city:0.10,special:0.07"
+
 - name: Colorado
   slug: colorado
   logo: /assets/logos/colorado.svg
+  residents: 5_000_000
+  businesses: 20_000
+  mix: "federal:0.40,state:0.25,county:0.18,city:0.10,special:0.07"
+
 
 - name: Solano County
   slug: solano-county
   logo: /assets/logos/solano-county.svg
+  residents: 450_000
+  businesses: 40
+  mix: "federal:0.40,state:0.25,county:0.18,city:0.10,special:0.07"
+
 
 - name: Denver
   slug: denver
   logo: /assets/logos/denver.svg
+  residents: 1_200_000
+  businesses: 40
+  mix: "federal:0.40,state:0.25,county:0.18,city:0.10,special:0.07"
+
 - name: Vacaville
   slug: vacaville
   logo: /assets/logos/vacaville.svg
+  residents: 105_000
+  businesses: 40
 - name: Lafayette
   slug: lafayette-ca
   logo: /assets/logos/lafayette-ca.svg
+  residents: 30_000
+  businesses: 40
