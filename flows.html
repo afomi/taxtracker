@@ -1,0 +1,282 @@
+---
+layout: default
+title: Prototype visualization
+---
+
+<meta name="description" content="Low-resolution flow visualization prototype with visual fibers from residents & businesses to tax collectors to spending." />
+<style>
+  /* Improve canvas crispness on some browsers */
+  canvas { image-rendering: -webkit-optimize-contrast; }
+</style>
+
+{% include header.html %}
+
+<main class="mx-auto max-w-7xl p-4 sm:p-8">
+
+  <header class="mb-4">
+    <h1 class="text-3xl tracking-tight mb-4">Tax flows
+      <span
+        class="text-slate-400 italic font-light"
+      >prototype</span>
+    </h1>
+    <p class="mt-1 text-slate-600 max-w-prose">
+      A simplified depiction of cyclical flows: ~people & businesses → federal/state → spending departments.
+    </p>
+  </header>
+
+  <!-- Controls -->
+  <section class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Residents</span>
+      <input id="residents" type="range" min="10" max="300" step="10" value="100" class="w-40" />
+    </label>
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Businesses</span>
+      <input id="businesses" type="range" min="5" max="120" step="5" value="30" class="w-40" />
+    </label>
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Speed</span>
+      <input id="speed" type="range" min="0.25" max="3" step="0.25" value="1" class="w-40" />
+    </label>
+    <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <button id="reset" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-semibold hover:bg-slate-50">Reset</button>
+      <button id="pause" class="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-1.5 font-semibold text-white hover:bg-indigo-700">Pause</button>
+    </div>
+  </section>
+
+  <!-- Legend -->
+  <section class="mb-3 flex flex-wrap items-center gap-3 text-xs text-slate-600">
+    <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-indigo-600/70"></span>Residents → Tax</span>
+    <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-teal-600/70"></span>Businesses → Tax</span>
+    <span class="inline-flex items-center gap-2"><span class="inline-block h-2 w-6 rounded bg-amber-600/70"></span>Tax → Spending</span>
+  </section>
+
+  <!-- Canvas wrapper -->
+  <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+    <div class="relative">
+      <canvas id="fibers" class="block w-full h-[420px] rounded-xl"></canvas>
+      <!-- Labels (positioned over canvas) -->
+      <div id="overlay" class="pointer-events-none absolute inset-0 text-[11px] font-medium text-slate-700">
+        <!-- dynamic labels inserted by JS -->
+      </div>
+    </div>
+  </section>
+
+  <p class="mt-3 text-xs text-slate-500 hidden">Tip: This honors <code>prefers-reduced-motion</code>. On large screens, resize the window to see the layout adapt.</p>
+</main>
+
+<script>
+  const c = document.getElementById('fibers');
+  const overlay = document.getElementById('overlay');
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+
+  // State
+  const state = {
+    residents: 100,
+    businesses: 30,
+    speed: 1,
+    paused: false,
+    entities: { people: [], biz: [], taxes: [], spends: [] },
+    flows: [], // array of {from, via, to, colorA, colorB, curve1, curve2}
+    packets: [] // moving particles along flows
+  };
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() {
+    const rect = c.getBoundingClientRect();
+    W = Math.max(640, Math.floor(rect.width));
+    H = Math.max(360, 420);
+    c.width = Math.floor(W * dpr);
+    c.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    layout();
+    drawStatic();
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function jitter(v, j) { return v + rand(-j, j); }
+
+  function layout() {
+    // positions for clusters
+    const Lx1 = 90, Lx2 = 150; // left clusters
+    const Cx = W * 0.55; // collectors center x
+    const Rx = W - 120; // spenders x
+    const topPad = 60, botPad = H - 60;
+
+    state.entities.people = Array.from({ length: state.residents }, (_, i) => ({
+      x: jitter(Lx1, 18), y: rand(topPad, botPad)
+    }));
+    state.entities.biz = Array.from({ length: state.businesses }, () => ({
+      x: jitter(Lx2, 18), y: rand(topPad, botPad)
+    }));
+    state.entities.taxes = [
+      { label: 'Federal', x: Cx, y: H * 0.35 },
+      { label: 'State', x: Cx, y: H * 0.65 }
+    ];
+    const spendLabels = ['Education','Health','Transport','Public Safety','Parks','Admin'];
+    state.entities.spends = spendLabels.map((label, i) => ({
+      label,
+      x: Rx,
+      y: topPad + (i + 0.5) * ( (botPad - topPad) / spendLabels.length )
+    }));
+
+    // flows
+    state.flows = [];
+    const chooseTax = () => Math.random() < 0.55 ? state.entities.taxes[0] : state.entities.taxes[1];
+    const chooseSpend = () => state.entities.spends[Math.floor(Math.random() * state.entities.spends.length)];
+
+    const mkCurve = (p0, p3, bend=0.2) => {
+      // cubic bezier control points
+      const dx = p3.x - p0.x; const dy = p3.y - p0.y;
+      const p1 = { x: p0.x + dx * 0.35, y: p0.y + dy * 0.15 + (dy>0?1:-1) * bend*40 };
+      const p2 = { x: p0.x + dx * 0.65, y: p0.y + dy * 0.85 - (dy>0?1:-1) * bend*40 };
+      return { p0, p1, p2, p3 };
+    };
+
+    const persons = state.entities.people.map((src) => {
+      const via = chooseTax();
+      const to = chooseSpend();
+      return {
+        from: src, via, to,
+        colorA: 'rgba(79,70,229,0.7)', // indigo-600 → tax
+        colorB: 'rgba(245,158,11,0.7)', // amber-600 → spend
+        curve1: mkCurve(src, via, 0.25),
+        curve2: mkCurve(via, to, 0.15)
+      };
+    });
+    const biz = state.entities.biz.map((src) => {
+      const via = chooseTax();
+      const to = chooseSpend();
+      return {
+        from: src, via, to,
+        colorA: 'rgba(13,148,136,0.7)', // teal-600 → tax
+        colorB: 'rgba(245,158,11,0.7)', // amber-600 → spend
+        curve1: mkCurve(src, via, 0.2),
+        curve2: mkCurve(via, to, 0.15)
+      };
+    });
+    state.flows = persons.concat(biz);
+
+    // overlay labels
+    overlay.innerHTML = '';
+    const addLabel = (x,y,txt) => {
+      const e = document.createElement('div');
+      e.className = 'absolute -translate-x-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-white/80 backdrop-blur border border-slate-200 shadow-sm';
+      e.style.left = x+'px'; e.style.top = y+'px'; e.textContent = txt; overlay.appendChild(e);
+    };
+    addLabel(state.entities.taxes[0].x, state.entities.taxes[0].y, 'Federal');
+    addLabel(state.entities.taxes[1].x, state.entities.taxes[1].y, 'State');
+    state.entities.spends.forEach(s => addLabel(s.x, s.y, s.label));
+  }
+
+  function drawCurve(curve, color, width, alpha) {
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.beginPath();
+    ctx.moveTo(curve.p0.x, curve.p0.y);
+    ctx.bezierCurveTo(curve.p1.x, curve.p1.y, curve.p2.x, curve.p2.y, curve.p3.x, curve.p3.y);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawStatic() {
+    ctx.clearRect(0,0,W,H);
+    // faint background fibers
+    const alpha = 0.05; // density
+    state.flows.forEach(f => {
+      drawCurve(f.curve1, f.colorA, 0.8, alpha);
+      drawCurve(f.curve2, f.colorB, 0.8, alpha);
+    });
+  }
+
+  // Particle animation along curves
+  function sampleCurve(curve, t) {
+    const {p0,p1,p2,p3} = curve;
+    const u = 1-t;
+    const x = u*u*u*p0.x + 3*u*u*t*p1.x + 3*u*t*t*p2.x + t*t*t*p3.x;
+    const y = u*u*u*p0.y + 3*u*u*t*p1.y + 3*u*t*t*p2.y + t*t*t*p3.y;
+    return {x,y};
+  }
+
+  function seedPackets(count=220) {
+    state.packets = Array.from({length: count}, () => {
+      const f = state.flows[Math.floor(Math.random()*state.flows.length)];
+      const phase = Math.random() < 0.6 ? 1 : 2; // start on 1st or 2nd leg
+      const t = Math.random();
+      return { f, phase, t };
+    });
+  }
+
+  let last=0;
+  function frame(ts) {
+    if (state.paused || prefersReducedMotion) { requestAnimationFrame(frame); return; }
+    const dt = Math.min(50,(ts - last) || 16) * 0.001 * state.speed; // seconds
+    last = ts;
+
+    // redraw static background with slight fade for trails
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    ctx.fillRect(0,0,W,H);
+
+    // draw packets
+    ctx.lineCap = 'round';
+    state.packets.forEach(p => {
+      const curve = p.phase === 1 ? p.f.curve1 : p.f.curve2;
+      const pos = sampleCurve(curve, p.t);
+      const color = p.phase === 1 ? p.f.colorA : p.f.colorB;
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.6;
+      ctx.globalAlpha = 0.9;
+      ctx.moveTo(pos.x, pos.y);
+      const pos2 = sampleCurve(curve, Math.min(1, p.t + 0.02));
+      ctx.lineTo(pos2.x, pos2.y);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      p.t += dt * (0.20 + Math.random()*0.15);
+      if (p.t >= 1) {
+        if (p.phase === 1) { p.phase = 2; p.t = 0; } else {
+          // recycle
+          const f = state.flows[Math.floor(Math.random()*state.flows.length)];
+          p.f = f; p.phase = 1; p.t = 0;
+        }
+      }
+    });
+
+    requestAnimationFrame(frame);
+  }
+
+  // Wire controls
+  function rebuild() {
+    layout();
+    drawStatic();
+    seedPackets();
+  }
+
+  document.getElementById('residents').addEventListener('input', e => {
+    state.residents = parseInt(e.target.value,10); rebuild();
+  });
+  document.getElementById('businesses').addEventListener('input', e => {
+    state.businesses = parseInt(e.target.value,10); rebuild();
+  });
+  document.getElementById('speed').addEventListener('input', e => {
+    state.speed = parseFloat(e.target.value);
+  });
+  document.getElementById('reset').addEventListener('click', () => rebuild());
+  const pauseBtn = document.getElementById('pause');
+  pauseBtn.addEventListener('click', () => {
+    state.paused = !state.paused;
+    pauseBtn.textContent = state.paused ? 'Resume' : 'Pause';
+  });
+
+  // Init
+  resize();
+  seedPackets();
+  drawStatic();
+  if (!prefersReducedMotion) requestAnimationFrame(frame);
+  window.addEventListener('resize', resize);
+</script>
