@@ -1,5 +1,5 @@
 {% assign fid = include.feature | default: 'Feature' | slugify %}
-{% assign addr = include.address | default: '1J12o2k964mJPTuS53Un7oJ2Hxo5ksYf4L' %}
+{% assign addr = include.address | default: site.donations.bsv_address %}
 
 <div class="mt-3">
   <button

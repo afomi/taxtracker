@@ -123,6 +123,9 @@ title: Home
       </div>
       <!-- Placeholder cards (no links yet) -->
       <div class="rounded-2xl border border-slate-200 p-6">
+        <div class="h-10 w-10 rounded-lg bg-indigo-50 grid place-content-center mb-4">
+          <span class="text-indigo-700">🔎</span>
+        </div>
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-semibold">Follow the Money</h3>
           <span class="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">
@@ -139,12 +142,37 @@ title: Home
       </div>
 
       <div class="rounded-2xl border border-dashed border-slate-200 p-6 text-slate-500">
+        <div class="h-10 w-10 rounded-lg bg-indigo-50 grid place-content-center mb-4">
+          <span class="text-indigo-700 opacity-30">🧩</span>
+        </div>
         <h3 class="text-lg font-semibold">APIs & Downloads</h3>
         <p class="mt-2">Export CSV/JSON or query our API.
           <br>
           (Fund this feature)
         </p>
         {% include fund_feature.html feature="APIs & Downloads" address="1J12o2k964mJPTuS53Un7oJ2Hxo5ksYf4L" %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-16">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div
+      class="rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 to-white p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+      <div class="md:w-2/3">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Join the effort to make public finance understandable
+        </h2>
+        <p class="mt-2 text-slate-600">Add a dataset, request a source, or partner with us to publish your jurisdiction.
+        </p>
+      </div>
+      <div class="md:w-1/3 flex gap-3 md:justify-end">
+        <a href="/contribute"
+          class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-3 text-white font-semibold hover:bg-indigo-700">Contribute
+          data</a>
+        <a href="/contact"
+          class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold hover:bg-slate-50">Contact</a>
       </div>
     </div>
   </div>

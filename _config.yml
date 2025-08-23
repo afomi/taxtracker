@@ -4,6 +4,13 @@ title: "TaxTracker – See where taxes come from and go"
 repo:
   url: https://github.com/afomi/taxtracker
 
+contact:
+  email_user: ryan          # everything before the @
+  email_domain: civic.studio
+  repo_url: https://github.com/afomi/taxtracker
+donations:
+  bsv_address: "1J12o2k964mJPTuS53Un7oJ2Hxo5ksYf4L"
+
 plugins:
   - jekyll-datapage-generator
   - jekyll-postcss
