@@ -1,0 +1,27 @@
+name: "Add a tax"
+description: "Suggest a new tax to include in the inventory"
+title: "New tax: <name> (<jurisdiction>)"
+labels: ["data:tax"]
+body:
+  - type: input
+    id: name
+    attributes: { label: "Tax name", placeholder: "Sales and Use Tax" }
+    validations: { required: true }
+  - type: dropdown
+    id: level
+    attributes: { label: "Jurisdiction level", options: ["federal","state","county","city","special"] }
+    validations: { required: true }
+  - type: input
+    id: jurisdiction
+    attributes: { label: "Jurisdiction name", placeholder: "Solano County" }
+    validations: { required: true }
+  - type: input
+    id: agency
+    attributes: { label: "Administering agency", placeholder: "Dept. of Revenue" }
+  - type: textarea
+    id: sources
+    attributes: { label: "Sources (URLs)", description: "One per line" }
+    validations: { required: true }
+  - type: textarea
+    id: details
+    attributes: { label: "Notes", placeholder: "What it applies to, rate, ballot info, etc." }

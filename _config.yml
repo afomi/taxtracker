@@ -1,9 +1,13 @@
 url: "https://taxtracker.org" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "TaxTracker – See where taxes come from and go"
+repo:
+  url: https://github.com/afomi/taxtracker
 
 plugins:
+  - jekyll-datapage-generator
   - jekyll-postcss
+  - jekyll-sitemap
 
 postcss:
   cache: false
@@ -13,8 +17,25 @@ exclude:
   - tailwind.config.js
   - package.json
   - package-lock.json
+  - node_modules/
+  - lib/
+  - schema/
+  - package*.json
+  - Gemfile*
+  - CONTRIBUTING.md
+  - README.md
+  - scripts/
+  - .github/
+  - _data/compiled/*.json # compiled data isn't a page
 
 collections:
   jurisdictions:
     output: true
     permalink: /jurisdictions/:slug/
+
+page_gen:
+  - data: "compiled.taxes"    # _data/compiled/taxes.json -> array
+    template: "tax"           # uses tax.html in the project root or _layouts/
+    name: "slug"              # output filename from each item's slug
+    dir: "taxes"
+    page_data_prefix: tax

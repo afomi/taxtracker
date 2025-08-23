@@ -1,0 +1,514 @@
+---
+layout: default
+permalink: /taxes/inventory/
+---
+
+{% assign taxes = site.data.compiled.taxes %}
+
+<meta name="description" content="Browse the inventory of taxes by type, jurisdiction, agency, rate, and more." />
+
+{% include header.html %}
+
+<!-- Content -->
+<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Heading + search -->
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight">Inventory of Taxes</h1>
+      <p class="mt-1 text-slate-600">Search and filter by jurisdiction, type, rate, and status.</p>
+    </div>
+    <form action="/taxes" method="GET" role="search" class="w-full sm:w-auto">
+      <label for="q" class="sr-only">Search taxes</label>
+      <div class="relative">
+        <input id="q" name="q" type="search" placeholder="Search taxes, e.g. Sales, Lodging, Property…" value="" class="w-full sm:w-96 rounded-2xl border border-slate-300 bg-white px-5 py-3 pr-12 shadow-sm focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30" />
+        <button type="submit" class="absolute inset-y-0 right-0 my-1 mr-1 inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 font-semibold text-white hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/50">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Filters + results -->
+  <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Filters -->
+    <aside class="lg:col-span-3">
+      <form action="/taxes" method="GET" class="space-y-6" aria-label="Filters">
+        <!-- Preserve q -->
+        <input type="hidden" name="q" value="" />
+
+        <fieldset class="rounded-2xl border border-slate-200 p-4">
+          <legend class="text-sm font-semibold">Jurisdiction</legend>
+          <div class="mt-3 space-y-2 max-h-48 overflow-auto pr-1">
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" name="jurisdiction[]" value="state" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600" />
+              State
+            </label>
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" name="jurisdiction[]" value="county" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600" />
+              County
+            </label>
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" name="jurisdiction[]" value="city" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600" />
+              City
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="rounded-2xl border border-slate-200 p-4">
+          <legend class="text-sm font-semibold">Tax type</legend>
+          <div class="mt-3 grid grid-cols-2 gap-2 text-sm">
+            <label class="flex items-center gap-2"><input type="checkbox" name="type[]" value="sales" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"/>Sales</label>
+            <label class="flex items-center gap-2"><input type="checkbox" name="type[]" value="property" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"/>Property</label>
+            <label class="flex items-center gap-2"><input type="checkbox" name="type[]" value="income" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"/>Income</label>
+            <label class="flex items-center gap-2"><input type="checkbox" name="type[]" value="lodging" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"/>Lodging</label>
+            <label class="flex items-center gap-2"><input type="checkbox" name="type[]" value="excise" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"/>Excise</label>
+            <label class="flex items-center gap-2"><input type="checkbox" name="type[]" value="use" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"/>Use</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="rounded-2xl border border-slate-200 p-4">
+          <legend class="text-sm font-semibold">Status</legend>
+          <div class="mt-3 space-y-2 text-sm">
+            <label class="flex items-center gap-2"><input type="radio" name="status" value="any" class="text-indigo-600 focus:ring-indigo-600" checked/>Any</label>
+            <label class="flex items-center gap-2"><input type="radio" name="status" value="active" class="text-indigo-600 focus:ring-indigo-600"/>Active</label>
+            <label class="flex items-center gap-2"><input type="radio" name="status" value="proposed" class="text-indigo-600 focus:ring-indigo-600"/>Proposed</label>
+            <label class="flex items-center gap-2"><input type="radio" name="status" value="repealed" class="text-indigo-600 focus:ring-indigo-600"/>Repealed</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="rounded-2xl border border-slate-200 p-4">
+          <legend class="text-sm font-semibold">Rate</legend>
+          <div class="mt-3 grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-slate-600" for="rate_min">Min %</label>
+              <input id="rate_min" name="rate_min" type="number" step="0.01" placeholder="0.00" class="mt-1 w-full rounded-lg border border-slate-300 px-2 py-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-600" for="rate_max">Max %</label>
+              <input id="rate_max" name="rate_max" type="number" step="0.01" placeholder="12.00" class="mt-1 w-full rounded-lg border border-slate-300 px-2 py-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="rounded-2xl border border-slate-200 p-4">
+          <legend class="text-sm font-semibold">Agency</legend>
+          <div class="mt-3 relative">
+            <input name="agency" type="text" placeholder="Filter by agency" class="w-full rounded-lg border border-slate-300 px-3 py-2 pr-9 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30" />
+            <svg aria-hidden="true" class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l3.387 3.386a1 1 0 01-1.414 1.415l-3.387-3.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z" clip-rule="evenodd"/></svg>
+          </div>
+        </fieldset>
+
+        <div class="flex gap-2">
+          <button type="submit" class="flex-1 inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-white font-semibold hover:bg-indigo-700">Apply</button>
+          <a href="/taxes" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold hover:bg-slate-50">Reset</a>
+        </div>
+      </form>
+    </aside>
+
+    <!-- Results -->
+    <section class="lg:col-span-9" aria-live="polite">
+      <!-- Active filters chips + sort -->
+      <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm text-slate-500">Showing</span>
+          <!-- Example chips; render from query params in your app -->
+          <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">Jurisdiction: City <a href="?" class="ml-1 hover:text-slate-900" aria-label="Remove City filter">×</a></span>
+          <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">Type: Sales <a href="?" class="ml-1 hover:text-slate-900" aria-label="Remove Sales filter">×</a></span>
+        </div>
+        <form action="/taxes" method="GET" class="flex items-center gap-2 text-sm">
+          <label for="sort" class="text-slate-600">Sort</label>
+          <select id="sort" name="sort" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30">
+            <option value="relevance">Relevance</option>
+            <option value="rate_desc">Highest rate</option>
+            <option value="rate_asc">Lowest rate</option>
+            <option value="updated_desc">Recently updated</option>
+            <option value="alpha">A–Z</option>
+          </select>
+          <input type="hidden" name="q" value="" />
+        </form>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between">
+        <p class="text-sm text-slate-600">
+          <span class="font-medium text-slate-900">{{ taxes | size }}</span> taxes found
+        </p>
+
+        <div id="view-toggle" class="flex items-center gap-1 rounded-xl border border-slate-200 p-1" role="group" aria-label="View">
+          <button type="button"
+                  data-view="cards"
+                  aria-controls="view-cards"
+                  aria-pressed="true"
+                  class="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-semibold bg-white">
+            Cards
+          </button>
+          <button type="button"
+                  data-view="table"
+                  aria-controls="view-table"
+                  aria-pressed="false"
+                  class="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900">
+            Table
+          </button>
+        </div>
+      </div>
+
+      <!-- Card grid -->
+      <div id="view-cards" class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+
+        {% if taxes.size == 0 %}
+          <div class="rounded-2xl border border-slate-200 bg-white p-6">
+            <p class="text-sm text-slate-600">No taxes yet. Add one via “Contribute data”.</p>
+          </div>
+        {% endif %}
+
+        {% for t in taxes %}
+          {% assign status = t.status | downcase %}
+          {% capture pill_classes %}
+            {% if status == 'active' %}bg-emerald-50 text-emerald-700
+            {% elsif status == 'proposed' %}bg-amber-50 text-amber-700
+            {% elsif status == 'repealed' %}bg-rose-50 text-rose-700
+            {% else %}bg-slate-100 text-slate-700{% endif %}
+          {% endcapture %}
+          {% capture rate_display %}
+            {% if t.rates and t.rates.size > 0 %}
+              {% assign r = t.rates[0] %}
+              {% if r.kind == 'percent' %}{{ r.value }}%
+              {% elsif r.kind == 'amount' %}${{ r.value }}
+              {% else %}Varies{% endif %}
+            {% else %}Varies{% endif %}
+          {% endcapture %}
+
+          <article
+            class="tax-card group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+            data-index="{{ t.name | append: ' ' | append: t.jurisdiction.name | append: ' ' | append: t.type | append: ' ' | append: t.agency.name | append: ' ' | append: t.notes | default: '' | downcase | escape }}"
+            data-level="{{ t.jurisdiction.level }}"
+            data-type="{{ t.type }}"
+            data-status="{{ t.status }}"
+            data-agency="{{ t.agency.slug | default: t.agency.name | downcase | escape }}"
+            {% if t.rates and t.rates.size > 0 %}{% assign r0 = t.rates[0] %} data-rate-kind="{{ r0.kind }}" data-rate="{{ r0.value }}"{% endif %}
+          >
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <!-- Agency logo chip -->
+                <div
+                  class="h-8 w-8 shrink-0 rounded-lg border border-slate-200 bg-slate-50 grid place-items-center overflow-hidden">
+                  {% if t.agency.slug %}
+                  <img src="/assets/logos/agencies/{{ t.agency.slug }}.svg" alt="{{ t.agency.name }}" class="h-8 w-8 object-cover"
+                    onerror="this.remove(); this.nextElementSibling.classList.remove('hidden')" />
+                  {% endif %}
+                  <span class="hidden text-[11px] font-semibold text-slate-700">
+                    {{ t.agency.name | slice: 0, 3 | upcase }}
+                  </span>
+                </div>
+
+                <h2 class="text-base font-semibold leading-tight truncate">
+                  <a href="/taxes/{{ t.slug }}" class="hover:underline">{{ t.name }}</a>
+                </h2>
+              </div>
+
+              <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium {{ pill_classes | strip }}">
+                {{ t.status | capitalize }}
+              </span>
+            </div>
+
+            <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              <div>
+                <dt class="text-slate-500">Jurisdiction</dt>
+                <dd class="font-medium">{{ t.jurisdiction.name }}</dd>
+              </div>
+              <div>
+                <dt class="text-slate-500">Type</dt>
+                <dd class="font-medium">{{ t.type | capitalize }}</dd>
+              </div>
+              <div>
+                <dt class="text-slate-500">Agency</dt>
+                <dd class="font-medium">{{ t.agency.name }}</dd>
+              </div>
+              <div>
+                <dt class="text-slate-500">Rate</dt>
+                <dd class="font-medium">
+                  <span class="rev" data-amount="{{ t.revenue }}" data-year="{{ t.revenue_year | default: '' }}"></span>
+                </dd>
+              </div>
+              <div>
+                <dt class="text-slate-500">Revenue</dt>
+                <dd class="font-medium">{{ t.revenue }}</dd>
+              </div>
+              <div>
+                <dt class="text-slate-500">Updated</dt>
+                <dd class="font-medium">{{ t.updated_at }}</dd>
+              </div>
+            </dl>
+
+            <div class="mt-4 flex items-center justify-between">
+              <a href="/taxes/{{ t.slug }}" class="inline-flex items-center text-indigo-700 font-semibold hover:underline">View
+                details</a>
+              <div class="flex items-center gap-2 text-xs text-slate-500">
+                {% for s in t.sources limit: 3 %}<span>• {{ s.name }}</span>{% endfor %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <!-- Table view (hidden by default; wire up with JS) -->
+      <div id="view-table" class="hidden overflow-x-auto mt-6 rounded-2xl border border-slate-200 bg-white">
+        <table class="min-w-full text-sm">
+          <thead class="bg-slate-50 text-slate-700">
+            <tr>
+              <th class="px-4 py-3 text-left font-semibold">Name</th>
+              <th class="px-4 py-3 text-left font-semibold">Jurisdiction</th>
+              <th class="px-4 py-3 text-left font-semibold">Type</th>
+              <th class="px-4 py-3 text-left font-semibold">Rate</th>
+              <th class="px-4 py-3 text-left font-semibold">Revenue</th>
+              <th class="px-4 py-3 text-left font-semibold">Agency</th>
+              <th class="px-4 py-3 text-left font-semibold">Status</th>
+              <th class="px-4 py-3 text-left font-semibold">Updated</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {% for t in taxes %}
+              {% capture rate_display %}
+                {% if t.rates and t.rates.size > 0 %}
+                  {% assign r = t.rates[0] %}
+                  {% if r.kind == 'percent' %}{{ r.value }}%
+                  {% elsif r.kind == 'amount' %}${{ r.value }}
+                  {% else %}Varies{% endif %}
+                {% else %}Varies{% endif %}
+              {% endcapture %}
+              <tr class="tax-row hover:bg-slate-50"
+                data-index="{{ t.name | append: ' ' | append: t.jurisdiction.name | append: ' ' | append: t.type | append: ' ' | append: t.agency.name | append: ' ' | append: t.notes | default: '' | downcase | escape }}"
+                data-level="{{ t.jurisdiction.level }}" data-type="{{ t.type }}" data-status="{{ t.status }}"
+                data-agency="{{ t.agency.slug | default: t.agency.name | downcase | escape }}" {% if t.rates and t.rates.size> 0 %}{%
+                assign r0 = t.rates[0] %} data-rate-kind="{{ r0.kind }}" data-rate="{{ r0.value }}"{% endif %}>
+                <td class="px-4 py-3"><a class="font-medium hover:underline" href="/taxes/{{ t.slug }}">{{ t.name }}</a></td>
+                <td class="px-4 py-3">{{ t.jurisdiction.name }}</td>
+                <td class="px-4 py-3">{{ t.type | capitalize }}</td>
+                <td class="px-4 py-3">
+                  <span class="rev"
+                    data-amount="{{ t.revenue }}"
+                    data-year="{{ t.revenue_year | default: '' }}"></span>
+                </td>
+                <td class="px-4 py-3">{{ t.agency.name }}</td>
+                <td class="px-4 py-3">{{ t.status | capitalize }}</td>
+                <td class="px-4 py-3">{{ t.updated_at }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <nav aria-label="Pagination" class="mt-8 flex items-center justify-between">
+        <a href="#" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">Previous</a>
+        <ul class="hidden sm:flex items-center gap-1">
+          <li><a href="#" aria-current="page" class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-semibold">1</a></li>
+          <li><a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100">2</a></li>
+          <li><a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100">3</a></li>
+          <li><span class="inline-flex h-9 w-9 items-center justify-center">…</span></li>
+          <li><a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-100">12</a></li>
+        </ul>
+        <a href="#" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50">Next</a>
+      </nav>
+    </section>
+  </div>
+</main>
+
+<script>
+  (function () {
+    const cards = document.getElementById('view-cards');
+    const table = document.getElementById('view-table');
+    const toggle = document.getElementById('view-toggle');
+    if (!cards || !table || !toggle) return;
+
+    const buttons = toggle.querySelectorAll('[data-view]');
+    const KEY = 'inventory:view';
+
+    function setView(v) {
+      const isCards = v === 'cards';
+      cards.classList.toggle('hidden', !isCards);
+      table.classList.toggle('hidden', isCards);
+
+      buttons.forEach(btn => {
+        const active = btn.dataset.view === v;
+        btn.setAttribute('aria-pressed', active);
+        btn.classList.toggle('bg-white', active);
+        btn.classList.toggle('text-slate-600', !active);
+        btn.classList.toggle('hover:text-slate-900', !active);
+      });
+
+      try { localStorage.setItem(KEY, v); } catch (_) { }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setView(btn.dataset.view));
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setView(btn.dataset.view); }
+      });
+    });
+
+    const saved = (() => { try { return localStorage.getItem(KEY); } catch (_) { return null; } })();
+    setView(saved === 'table' ? 'table' : 'cards');
+  })();
+</script>
+
+<script>
+  (function () {
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+    const sidebarForm = $('aside form[aria-label="Filters"]');
+    const searchForm = $('form[role="search"]');
+    const cardsWrap = $('#view-cards');
+    const tableWrap = $('#view-table');
+    const countEl = document.querySelector('p.text-sm span.font-medium');
+
+    if (!sidebarForm || !cardsWrap || !tableWrap) return;
+
+    const cards = $$('.tax-card', cardsWrap);
+    const rows = $$('.tax-row', tableWrap);
+
+    function readParams() {
+      const url = new URL(location.href);
+      const getAll = (k) => url.searchParams.getAll(k);
+      const params = {
+        q: url.searchParams.get('q') || '',
+        level: getAll('jurisdiction[]'),
+        type: getAll('type[]'),
+        status: url.searchParams.get('status') || 'any',
+        rate_min: parseFloat(url.searchParams.get('rate_min') || '') || null,
+        rate_max: parseFloat(url.searchParams.get('rate_max') || '') || null,
+        agency: (url.searchParams.get('agency') || '').trim().toLowerCase()
+      };
+      return params;
+    }
+
+    function writeParams(p) {
+      const url = new URL(location.href);
+      url.search = ''; // reset
+      const sp = url.searchParams;
+      if (p.q) sp.set('q', p.q);
+      p.level.forEach(v => sp.append('jurisdiction[]', v));
+      p.type.forEach(v => sp.append('type[]', v));
+      if (p.status && p.status !== 'any') sp.set('status', p.status);
+      if (p.rate_min != null) sp.set('rate_min', String(p.rate_min));
+      if (p.rate_max != null) sp.set('rate_max', String(p.rate_max));
+      if (p.agency) sp.set('agency', p.agency);
+      history.replaceState(null, '', url);
+    }
+
+    function readForm() {
+      const f = new FormData(sidebarForm);
+      const qf = new FormData(searchForm || new HTMLFormElement());
+      return {
+        q: (qf.get('q') || '').toString().trim().toLowerCase(),
+        level: f.getAll('jurisdiction[]').map(x => x.toString()),
+        type: f.getAll('type[]').map(x => x.toString()),
+        status: (f.get('status') || 'any').toString(),
+        rate_min: f.get('rate_min') ? parseFloat(f.get('rate_min')) : null,
+        rate_max: f.get('rate_max') ? parseFloat(f.get('rate_max')) : null,
+        agency: (f.get('agency') || '').toString().trim().toLowerCase()
+      };
+    }
+
+    function matchesFilters(el, p) {
+      const idx = (el.dataset.index || '').toLowerCase();
+      const lvl = el.dataset.level || '';
+      const typ = el.dataset.type || '';
+      const st = el.dataset.status || '';
+      const ag = (el.dataset.agency || '').toLowerCase();
+      const rKind = el.dataset.rateKind || '';
+      const rVal = el.dataset.rate ? parseFloat(el.dataset.rate) : NaN;
+
+      // q: simple substring
+      if (p.q && !idx.includes(p.q)) return false;
+
+      // jurisdiction(s)
+      if (p.level.length && !p.level.includes(lvl)) return false;
+
+      // type(s)
+      if (p.type.length && !p.type.includes(typ)) return false;
+
+      // status
+      if (p.status !== 'any' && st !== p.status) return false;
+
+      // agency contains
+      if (p.agency && !ag.includes(p.agency)) return false;
+
+      // rate range (only if the first rate is numeric percent/amount)
+      const numericRate = !Number.isNaN(rVal) && (rKind === 'percent' || rKind === 'amount');
+      if (p.rate_min != null && (!numericRate || rVal < p.rate_min)) return false;
+      if (p.rate_max != null && (!numericRate || rVal > p.rate_max)) return false;
+
+      return true;
+    }
+
+    function applyFilters(opts) {
+      const p = opts || readForm();
+
+      // toggle per element
+      let visible = 0;
+      cards.forEach(el => {
+        const show = matchesFilters(el, p);
+        el.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      // table rows mirror
+      rows.forEach(el => el.classList.toggle('hidden', !matchesFilters(el, p)));
+
+      // count
+      if (countEl) countEl.textContent = String(visible);
+
+      // URL
+      writeParams(p);
+    }
+
+    // hook forms
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => { e.preventDefault(); applyFilters(); });
+      // live as-you-type is nice:
+      const q = searchForm.querySelector('input[name="q"]');
+      if (q) q.addEventListener('input', () => applyFilters());
+    }
+    sidebarForm.addEventListener('submit', (e) => { e.preventDefault(); applyFilters(); });
+    sidebarForm.addEventListener('change', () => applyFilters());
+
+    // on load: set controls from URL, then filter
+    (function restoreFromURL() {
+      const p = readParams();
+      // checkboxes
+      p.level.forEach(v => { const el = sidebarForm.querySelector(`input[name="jurisdiction[]"][value="${v}"]`); if (el) el.checked = true; });
+      p.type.forEach(v => { const el = sidebarForm.querySelector(`input[name="type[]"][value="${v}"]`); if (el) el.checked = true; });
+      // radios
+      const st = sidebarForm.querySelector(`input[name="status"][value="${p.status}"]`);
+      if (st) st.checked = true;
+      // numbers
+      if (p.rate_min != null) sidebarForm.querySelector('#rate_min').value = p.rate_min;
+      if (p.rate_max != null) sidebarForm.querySelector('#rate_max').value = p.rate_max;
+      // agency
+      if (p.agency) sidebarForm.querySelector('input[name="agency"]').value = p.agency;
+      // search box
+      if (searchForm && p.q) searchForm.querySelector('input[name="q"]').value = p.q;
+
+      applyFilters(p);
+    })();
+  })();
+</script>
+
+<script>
+  (function () {
+    const els = document.querySelectorAll('.rev');
+    let fmt;
+    try {
+      fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: 1 });
+    } catch { /* older browsers */ }
+
+    els.forEach(el => {
+      const raw = el.getAttribute('data-amount');
+      const year = el.getAttribute('data-year') || '';
+      const n = raw === null ? NaN : Number(raw);
+      if (!isFinite(n)) { el.textContent = '—'; return; }
+      let s = fmt ? fmt.format(n) : ('$' + n.toLocaleString('en-US'));
+      if (year) s += ' ' + year;
+      el.textContent = s;
+    });
+  })();
+</script>

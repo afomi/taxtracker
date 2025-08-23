@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "SolTrans (Transit District)",
+    "slug": "soltrans"
+  },
+  "effective": {},
+  "id": "solano-transit-district-fare-surcharge",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano Transit District",
+    "slug": "solano-transit-district"
+  },
+  "name": "Transit Fare Surcharge",
+  "notes": "Demo record; illustrative per-ride surcharge.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "fare-surcharge",
+  "sources": [
+    {
+      "name": "Example board action"
+    }
+  ],
+  "status": "proposed",
+  "type": "excise",
+  "updated_at": "2025-08-20"
+}

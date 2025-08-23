@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Solano County Assessor/Tax Collector",
+    "slug": "assessor-tax-collector"
+  },
+  "effective": {},
+  "id": "solano-property-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County",
+    "slug": "solano"
+  },
+  "name": "Property Tax (ad valorem)",
+  "notes": "Demo record; rate varies—illustrative composite percent shown.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "property-tax",
+  "sources": [
+    {
+      "name": "Example source"
+    }
+  ],
+  "status": "active",
+  "type": "property",
+  "updated_at": "2025-08-20"
+}

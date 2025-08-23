@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Vacaville Finance Department",
+    "slug": "finance"
+  },
+  "effective": {},
+  "id": "vacaville-lodging-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville"
+  },
+  "name": "Lodging (Transient Occupancy) Tax",
+  "notes": "Demo record; applies to hotels and short-term rentals.",
+  "rates": [
+    {}
+  ],
+  "revenue": 200000,
+  "revenue_year": "2025",
+  "slug": "lodging-tax",
+  "sources": [
+    {
+      "name": "Example ordinance"
+    }
+  ],
+  "status": "active",
+  "type": "lodging",
+  "updated_at": "2025-08-20"
+}

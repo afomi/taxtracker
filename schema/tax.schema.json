@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "agency": { "type": "object", "properties": { "name": { "type":"string" }, "slug": { "type":["string","null"] } }, "required": ["name"] },
+    "effective": { "type":"object", "properties": { "start":{"type":"string"}, "end":{"type":["string","null"]} } },
+    "id": { "type":"string" },
+    "jurisdiction": { "type":"object", "properties": { "level":{"type":"string"}, "name":{"type":"string"}, "slug":{"type":"string"} }, "required":["name","slug"] },
+    "name": { "type":"string" },
+    "notes": { "type":"string" },
+    "rates": {
+      "type":"array",
+      "items": {
+        "type":"object",
+        "properties": {
+          "applies_to":{"type":"string"},
+          "cap":{"type":["number","null"]},
+          "kind":{"type":"string","enum":["percent","amount","other"]},
+          "value":{"type":["number","string","null"]}
+        }
+      }
+    },
+
+    "revenue":       { "type": ["number","null"], "minimum": 0 },
+    "revenue_year":  { "type": ["string","null"], "pattern": "^(FY)?\\d{4}([–-]\\d{2})?$" },
+
+    "slug": { "type":"string" },
+    "sources": { "type":"array", "items": { "type":"object", "properties": { "name":{"type":"string"}, "url":{"type":"string"} }, "required":["name"] } },
+    "status": { "type":"string", "enum":["active","proposed","repealed","any"] },
+    "type": { "type":"string" },
+    "updated_at": { "type":"string" }
+  },
+  "required": ["id","name","slug","jurisdiction","agency","status","type","updated_at"]
+}

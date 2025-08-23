@@ -1,0 +1,93 @@
+---
+layout: default
+title: Contribute data
+permalink: /contribute
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10">
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold tracking-tight">Contribute data</h1>
+    <p class="mt-1 text-slate-600">Small, focused data additions are perfect — one tax at a time.</p>
+  </header>
+
+  <section class="rounded-2xl border border-slate-200 bg-white p-6 space-y-6">
+    <div class="prose prose-slate max-w-none">
+      <h2>Start with your local jurisdiction</h2>
+      <p>
+        Pick your <strong>city</strong> or <strong>county</strong> first. Find   one tax with an official source
+        and add it as a small JSON file via Pull Request or Issue.
+        <a
+          href="https://github.com/afomi/taxtracker/issues/new"
+          class="underline"></a>Get in touch</a> if you'd like some help.
+      </p>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold mb-2">Copy this research prompt</label>
+      <div class="relative">
+        <textarea id="research-prompt" class="w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-xs font-mono" rows="42"
+          readonly>
+  Goal: add one or more taxes for my local jurisdiction to taxtracker.org as structured JSON.
+
+  Jurisdiction:
+  - Level: [federal, state, city, county, special district]
+  - Name: [e.g., California or Vacaville or Solano County]
+  - Slug: [lowercase-with-dashes, e.g., vacaville]
+
+  What to find (from official sources):
+  1) Tax name & purpose (e.g., Sales and Use Tax; Lodging/Transient Occupancy; Business License).
+  2) Status (active, proposed, repealed) and the most recent updated/ballot/ordinance date.
+  3) Administering agency (department name).
+  4) Rate — percent or amount (flat), note what it applies to.
+  5) At least one authoritative source URL (statute/ordinance, ballot measure, agency page, revenue office, state admin).
+  6) Optional notes (earmarks, funds, thresholds).
+
+  Where to look:
+  - City/County code (the city's website and municipal ordinance section).
+  - Finance/Revenue/Treasurer department pages.
+  - Ballot portals / clerk-recorder notices.
+  - For state-administered local taxes: state tax admin pages (e.g., CDTFA for CA).
+
+  Deliverable (JSON keys alphabetically sorted):
+  {
+    "agency": { "name": "Dept. of Revenue", "slug": "dept-revenue" },
+    "effective": { "start": "YYYY-MM-DD", "end": null },
+    "id": "<jurisdiction-slug>-<tax-slug>",
+    "jurisdiction": { "level": "city", "name": "Vacaville", "slug": "vacaville" },
+    "name": "Sales and Use Tax",
+    "notes": "",
+    "rates": [ { "applies_to": "taxable sales", "cap": null, "kind": "percent", "value": 3.00 } ],
+    "slug": "sales-and-use-tax",
+    "sources": [ { "name": "Municipal code", "url": "https://…" } ],
+    "status": "active",
+    "type": "sales",
+    "updated_at": "YYYY-MM-DD"
+  }
+        </textarea>
+        <button
+          class="absolute right-2 top-2 inline-flex items-center rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700"
+          type="button"
+          onclick="navigator.clipboard && navigator.clipboard.writeText(document.getElementById('research-prompt').value)">
+          Copy
+        </button>
+      </div>
+    </div>
+
+    <div class="grid gap-3 sm:grid-cols-2">
+      <a href="{{ site.repo.url }}/issues/new?template=new_tax.yml"
+        class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-semibold hover:bg-slate-50">
+        Suggest via GitHub Issue
+      </a>
+      <a href="{{ site.repo.url }}/new/main?filename=_data/taxes/LEVEL/JURISDICTION/slug.json&value="
+        class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-indigo-700">
+        Add JSON via Pull Request
+      </a>
+    </div>
+
+    <p class="text-xs text-slate-500">
+      We auto-sort keys and validate JSON in CI. Small, accurate contributions are best.
+    </p>
+  </section>
+</main>

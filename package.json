@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "postcss.config.js",
-  "dependencies": {},
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.0",
+    "fast-glob": "^3.3.3",
+    "globby": "^14.0.2",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17",
-    "@tailwindcss/typography": "^0.5.16"
+    "tailwindcss": "^3.4.17"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:data": "node lib/build-tax-data-file.cjs",
+    "validate:data": "node lib/build-tax-data-file.cjs --check",
+    "new:tax": "node lib/new-tax.cjs"
   },
   "repository": {
     "type": "git",

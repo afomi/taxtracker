@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Colorado Department of Revenue",
+    "slug": "dor"
+  },
+  "effective": {},
+  "id": "colorado-state-income-tax",
+  "jurisdiction": {
+    "level": "state",
+    "name": "Colorado",
+    "slug": "colorado"
+  },
+  "name": "State Income Tax (demo simplified)",
+  "notes": "Demo record; illustrative flat rate.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "state-income-tax",
+  "sources": [
+    {
+      "name": "Example source"
+    }
+  ],
+  "status": "active",
+  "type": "income",
+  "updated_at": "2025-08-20"
+}

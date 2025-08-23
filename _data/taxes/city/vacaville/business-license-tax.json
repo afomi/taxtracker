@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Vacaville Finance Department",
+    "slug": "finance"
+  },
+  "effective": {},
+  "id": "vacaville-business-license-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville"
+  },
+  "name": "Business License Tax",
+  "notes": "Demo record; gross-receipts based example.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "business-license-tax",
+  "sources": [
+    {
+      "name": "Example source"
+    }
+  ],
+  "status": "active",
+  "type": "other",
+  "updated_at": "2025-08-20"
+}

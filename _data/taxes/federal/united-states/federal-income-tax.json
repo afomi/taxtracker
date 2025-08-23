@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Internal Revenue Service",
+    "slug": "irs"
+  },
+  "effective": {},
+  "id": "united-states-federal-income-tax",
+  "jurisdiction": {
+    "level": "federal",
+    "name": "United States",
+    "slug": "united-states"
+  },
+  "name": "Federal Income Tax (demo simplified)",
+  "notes": "Demo record with a simplified single bracket for illustration only.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "federal-income-tax",
+  "sources": [
+    {
+      "name": "Example source"
+    }
+  ],
+  "status": "active",
+  "type": "income",
+  "updated_at": "2025-08-20"
+}

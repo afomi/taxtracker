@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "CA Dept. of Tax and Fee Administration",
+    "slug": "cdtfa"
+  },
+  "effective": {},
+  "id": "california-fuel-excise-tax",
+  "jurisdiction": {
+    "level": "state",
+    "name": "California",
+    "slug": "california"
+  },
+  "name": "Fuel Excise Tax (gasoline)",
+  "notes": "Demo record; amount shown per gallon.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "fuel-excise-tax",
+  "sources": [
+    {
+      "name": "Example source"
+    }
+  ],
+  "status": "active",
+  "type": "excise",
+  "updated_at": "2025-08-20"
+}

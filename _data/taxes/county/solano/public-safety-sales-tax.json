@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Solano County Tax Collector",
+    "slug": "tax-collector"
+  },
+  "effective": {},
+  "id": "solano-public-safety-sales-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County",
+    "slug": "solano"
+  },
+  "name": "Public Safety Sales Tax",
+  "notes": "Demo record; example 0.50% local add-on dedicated to safety services.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "public-safety-sales-tax",
+  "sources": [
+    {
+      "name": "Example ballot"
+    }
+  ],
+  "status": "proposed",
+  "type": "sales",
+  "updated_at": "2025-08-20"
+}

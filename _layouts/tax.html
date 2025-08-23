@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+{% assign item = page.tax %}
+{% include header.html %}
+
+<main class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
+  <h1 class="text-3xl font-bold tracking-tight">{{ item.name }}</h1>
+  <p class="mt-1 text-slate-600">
+    {{ item.jurisdiction.level | capitalize }} · {{ item.jurisdiction.name }} · {{ item.type | capitalize }}
+  </p>
+
+  <section class="mt-6 grid gap-6 md:grid-cols-3">
+    <div class="rounded-2xl border border-slate-200 bg-white p-5">
+      <div class="text-sm text-slate-500">Status</div>
+      <div class="mt-1 font-semibold">{{ item.status | capitalize }}</div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5">
+      <div class="text-sm text-slate-500">Rate</div>
+      <div class="mt-1 font-semibold">
+        {% if item.rates and item.rates.size > 0 %}
+          {% assign r = item.rates[0] %}
+          {% if r.kind == 'percent' %}{{ r.value }}%
+          {% elsif r.kind == 'amount' %}${{ r.value | plus: 0 | round: 2 }}
+          {% else %}Varies{% endif %}
+        {% else %}Varies{% endif %}
+      </div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5">
+      <div class="text-sm text-slate-500">Revenue (latest)</div>
+      <div class="mt-1 font-semibold">
+        <span class="rev money" data-amount="{{ item.revenue }}" data-year="{{ item.revenue_year | default: '' }}">{{ item.revenue }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold">Agency</h2>
+    <p class="mt-1">{{ item.agency.name }}</p>
+  </section>
+
+  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold">Sources</h2>
+    <ul class="mt-2 list-disc pl-6">
+      {% for s in item.sources %}
+        <li><a class="text-indigo-700 hover:underline" href="{{ s.url }}">{{ s.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+</main>

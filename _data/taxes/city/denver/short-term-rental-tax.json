@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Denver Department of Finance",
+    "slug": "finance"
+  },
+  "effective": {},
+  "id": "denver-short-term-rental-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Denver",
+    "slug": "denver"
+  },
+  "name": "Short-Term Rental Tax",
+  "notes": "Demo record; applied to STR bookings.",
+  "rates": [
+    {}
+  ],
+  "revenue": 100000,
+  "revenue_year": "2025",
+  "slug": "short-term-rental-tax",
+  "sources": [
+    {
+      "name": "Example source2"
+    }
+  ],
+  "status": "active",
+  "type": "lodging",
+  "updated_at": "2025-08-20"
+}

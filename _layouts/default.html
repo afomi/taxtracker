@@ -10,5 +10,17 @@
   </head>
   <body>
     {{ content }}
+    {% include footer.html %}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+        const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        document.querySelectorAll('.money').forEach(el => {
+          const n = Number(el.textContent.replace(/[^0-9.-]/g, ''));
+          if (!Number.isNaN(n)) el.textContent = fmt.format(n);
+        });
+      });
+    </script>
   </body>
 </html>

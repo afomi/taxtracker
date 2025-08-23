@@ -1,0 +1,31 @@
+<footer class="border-t border-slate-200 py-10 hidden">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker" class="h-6 w-6" />
+        <span class="text-sm text-slate-600">© <span id="year"></span> taxtracker.org</span>
+      </div>
+      <ul class="flex flex-wrap gap-6 text-sm text-slate-600">
+        <li><a class="hover:text-indigo-700" href="/privacy">Privacy</a></li>
+        <li><a class="hover:text-indigo-700" href="/terms">Terms</a></li>
+        <li><a class="hover:text-indigo-700" href="/accessibility">Accessibility</a></li>
+        <li><a class="hover:text-indigo-700" href="/status">Status</a></li>
+      </ul>
+    </div>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</footer>
+
+<!-- Footer (minimal) -->
+<footer class="border-t border-slate-200 py-10">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker logo" class="h-16 w-16" />
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</footer>

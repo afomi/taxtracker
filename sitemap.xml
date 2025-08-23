@@ -1,0 +1,21 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% assign pages = site.pages | where_exp: "p", "p.sitemap != false" %}
+  {% for p in pages %}
+    {% unless p.url contains '/assets/' or p.url contains '/downloads/' %}
+      <url>
+        <loc>{{ p.url | absolute_url }}</loc>
+        {% if p.last_modified_at or p.date %}
+          <lastmod>{{ (p.last_modified_at | default: p.date) | date_to_xmlschema }}</lastmod>
+        {% endif %}
+        <changefreq>weekly</changefreq>
+        <priority>{% if p.url == "/" %}0.9{% else %}0.6{% endif %}</priority>
+      </url>
+    {% endunless %}
+  {% endfor %}
+</urlset>

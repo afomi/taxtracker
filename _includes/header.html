@@ -6,11 +6,39 @@
       <span class="sr-only">TaxTracker</span>
       <span class="font-semibold tracking-tight hidden sm:inline">taxtracker.org</span>
     </a>
-    <nav aria-label="Primary">
+    <nav aria-label="Primary" class="hidden md:block">
       <ul class="flex items-center gap-8 text-sm">
-        <li><a class="hover:text-indigo-700" href="/taxes">Taxes</a></li>
+
+        <li><a class="hover:text-indigo-700" href="/taxes" aria-current="page">Types of taxes</a></li>
+        <li><a class="hover:text-indigo-700" href="/taxes/inventory" aria-current="page">Inventory</a></li>
         <li><a class="hover:text-indigo-700" href="/flows">Flows</a></li>
+        <li><a class="hover:text-indigo-700" href="/jurisdictions">Jurisdictions</a></li>
+        <li class="hidden"><a class="hover:text-indigo-700" href="/datasets">Datasets</a></li>
+        <li class="hidden"><a class="hover:text-indigo-700" href="/about">About</a></li>
       </ul>
     </nav>
+    <div class="flex items-center gap-3">
+      <a href="/get-started" class="hidden" old-class="sm:inline-block text-sm font-medium hover:text-indigo-700">Get started</a>
+      <a href="/contribute"
+        class="inline-flex items-center rounded-xl border border-indigo-600 px-3 py-1.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/50">Contribute
+        data</a>
+    </div>
+  </div>
+  <!-- Subnav / Breadcrumbs -->
+  <div class="border-t border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-600">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-indigo-700">Home</a></li>
+          <li aria-hidden="true" class="text-slate-400">/</li>
+          <li class="text-slate-900 font-medium">Taxes</li>
+        </ol>
+      </nav>
+      <div old-classes="md:flex items-center gap-3 text-sm" class="hidden">
+        <a href="/developers" class="hover:text-indigo-700">API</a>
+        <span aria-hidden="true" class="text-slate-300">·</span>
+        <a href="/downloads/taxes.csv" class="hover:text-indigo-700">Download CSV</a>
+      </div>
+    </div>
   </div>
 </header>

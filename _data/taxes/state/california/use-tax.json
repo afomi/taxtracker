@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "CA Dept. of Tax and Fee Administration",
+    "slug": "cdtfa"
+  },
+  "effective": {},
+  "id": "california-use-tax",
+  "jurisdiction": {
+    "level": "state",
+    "name": "California",
+    "slug": "california"
+  },
+  "name": "Use Tax",
+  "notes": "Demo record; applies to out-of-state purchases used in CA.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "use-tax",
+  "sources": [
+    {
+      "name": "Example source"
+    }
+  ],
+  "status": "active",
+  "type": "use",
+  "updated_at": "2025-08-20"
+}

@@ -1,0 +1,321 @@
+[
+  {
+    "agency": {
+      "name": "Denver Department of Finance",
+      "slug": "finance"
+    },
+    "effective": {},
+    "id": "denver-short-term-rental-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Denver",
+      "slug": "denver"
+    },
+    "name": "Short-Term Rental Tax",
+    "notes": "Demo record; applied to STR bookings.",
+    "rates": [
+      {}
+    ],
+    "revenue": 100000,
+    "revenue_year": "2025",
+    "slug": "short-term-rental-tax",
+    "sources": [
+      {
+        "name": "Example source2"
+      }
+    ],
+    "status": "active",
+    "type": "lodging",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "Vacaville Finance Department",
+      "slug": "finance"
+    },
+    "effective": {},
+    "id": "vacaville-business-license-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville"
+    },
+    "name": "Business License Tax",
+    "notes": "Demo record; gross-receipts based example.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "business-license-tax",
+    "sources": [
+      {
+        "name": "Example source"
+      }
+    ],
+    "status": "active",
+    "type": "other",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "Vacaville Finance Department",
+      "slug": "finance"
+    },
+    "effective": {},
+    "id": "vacaville-lodging-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville"
+    },
+    "name": "Lodging (Transient Occupancy) Tax",
+    "notes": "Demo record; applies to hotels and short-term rentals.",
+    "rates": [
+      {}
+    ],
+    "revenue": 200000,
+    "revenue_year": "2025",
+    "slug": "lodging-tax",
+    "sources": [
+      {
+        "name": "Example ordinance"
+      }
+    ],
+    "status": "active",
+    "type": "lodging",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "Clerk & Recorder",
+      "slug": "clerk-recorder"
+    },
+    "effective": {},
+    "id": "solano-lodging-tax",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Solano County",
+      "slug": "solano"
+    },
+    "name": "Lodging Tax",
+    "notes": "Transient occupancy (hotels/STRs). Dedicated to tourism & infrastructure.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "lodging-tax",
+    "sources": [
+      {
+        "name": "Ballot measure"
+      }
+    ],
+    "status": "proposed",
+    "type": "lodging",
+    "updated_at": "2025-08-01"
+  },
+  {
+    "agency": {
+      "name": "Solano County Assessor/Tax Collector",
+      "slug": "assessor-tax-collector"
+    },
+    "effective": {},
+    "id": "solano-property-tax",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Solano County",
+      "slug": "solano"
+    },
+    "name": "Property Tax (ad valorem)",
+    "notes": "Demo record; rate varies—illustrative composite percent shown.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "property-tax",
+    "sources": [
+      {
+        "name": "Example source"
+      }
+    ],
+    "status": "active",
+    "type": "property",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "Solano County Tax Collector",
+      "slug": "tax-collector"
+    },
+    "effective": {},
+    "id": "solano-public-safety-sales-tax",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Solano County",
+      "slug": "solano"
+    },
+    "name": "Public Safety Sales Tax",
+    "notes": "Demo record; example 0.50% local add-on dedicated to safety services.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "public-safety-sales-tax",
+    "sources": [
+      {
+        "name": "Example ballot"
+      }
+    ],
+    "status": "proposed",
+    "type": "sales",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "SolTrans (Transit District)",
+      "slug": "soltrans"
+    },
+    "effective": {},
+    "id": "solano-transit-district-fare-surcharge",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Solano Transit District",
+      "slug": "solano-transit-district"
+    },
+    "name": "Transit Fare Surcharge",
+    "notes": "Demo record; illustrative per-ride surcharge.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "fare-surcharge",
+    "sources": [
+      {
+        "name": "Example board action"
+      }
+    ],
+    "status": "proposed",
+    "type": "excise",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "Internal Revenue Service",
+      "slug": "irs"
+    },
+    "effective": {},
+    "id": "united-states-federal-income-tax",
+    "jurisdiction": {
+      "level": "federal",
+      "name": "United States",
+      "slug": "united-states"
+    },
+    "name": "Federal Income Tax (demo simplified)",
+    "notes": "Demo record with a simplified single bracket for illustration only.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "federal-income-tax",
+    "sources": [
+      {
+        "name": "Example source"
+      }
+    ],
+    "status": "active",
+    "type": "income",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "CA Dept. of Tax and Fee Administration",
+      "slug": "cdtfa"
+    },
+    "effective": {},
+    "id": "california-fuel-excise-tax",
+    "jurisdiction": {
+      "level": "state",
+      "name": "California",
+      "slug": "california"
+    },
+    "name": "Fuel Excise Tax (gasoline)",
+    "notes": "Demo record; amount shown per gallon.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "fuel-excise-tax",
+    "sources": [
+      {
+        "name": "Example source"
+      }
+    ],
+    "status": "active",
+    "type": "excise",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "CA Dept. of Tax and Fee Administration",
+      "slug": "cdtfa"
+    },
+    "effective": {},
+    "id": "california-use-tax",
+    "jurisdiction": {
+      "level": "state",
+      "name": "California",
+      "slug": "california"
+    },
+    "name": "Use Tax",
+    "notes": "Demo record; applies to out-of-state purchases used in CA.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "use-tax",
+    "sources": [
+      {
+        "name": "Example source"
+      }
+    ],
+    "status": "active",
+    "type": "use",
+    "updated_at": "2025-08-20"
+  },
+  {
+    "agency": {
+      "name": "Colorado Department of Revenue",
+      "slug": "dor"
+    },
+    "effective": {},
+    "id": "colorado-state-income-tax",
+    "jurisdiction": {
+      "level": "state",
+      "name": "Colorado",
+      "slug": "colorado"
+    },
+    "name": "State Income Tax (demo simplified)",
+    "notes": "Demo record; illustrative flat rate.",
+    "rates": [
+      {}
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "state-income-tax",
+    "sources": [
+      {
+        "name": "Example source"
+      }
+    ],
+    "status": "active",
+    "type": "income",
+    "updated_at": "2025-08-20"
+  }
+]

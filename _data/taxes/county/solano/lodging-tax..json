@@ -1,0 +1,29 @@
+{
+  "agency": {
+    "name": "Clerk & Recorder",
+    "slug": "clerk-recorder"
+  },
+  "effective": {},
+  "id": "solano-lodging-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County",
+    "slug": "solano"
+  },
+  "name": "Lodging Tax",
+  "notes": "Transient occupancy (hotels/STRs). Dedicated to tourism & infrastructure.",
+  "rates": [
+    {}
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "lodging-tax",
+  "sources": [
+    {
+      "name": "Ballot measure"
+    }
+  ],
+  "status": "proposed",
+  "type": "lodging",
+  "updated_at": "2025-08-01"
+}
