@@ -1,0 +1,169 @@
+---
+layout: default
+title: How it works
+permalink: /how-it-works/
+description: How taxtracker.org turns public records into a transparent inventory of taxes and spending flows.
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10">
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold tracking-tight">How it works</h1>
+    <p class="mt-1 text-slate-600">
+      A plain-language guide to our pipeline: <strong>origination → collection → expenditure</strong>.
+      This is about <em>methodology</em>, not how to submit data.
+    </p>
+  </header>
+
+  <!-- Data pipeline diagram (tiny inline SVG) -->
+  <section class="rounded-2xl border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold">The pipeline</h2>
+    <p class="mt-2 text-slate-600">We aggregate public records, normalize them to a common schema, compile to JSON, and
+      render pages.</p>
+    <div class="mt-4 overflow-x-auto">
+      <svg class="min-w-[760px] w-full" viewBox="0 0 760 120" aria-hidden="true">
+        <defs>
+          <style>
+            .bx {
+              fill: #fff;
+              stroke: #e2e8f0
+            }
+
+            .tx {
+              font: 600 12px ui-sans-serif, system-ui, Segoe UI, Roboto
+            }
+
+            .sm {
+              font: 500 11px ui-sans-serif, system-ui, Segoe UI, Roboto;
+              fill: #475569
+            }
+
+            .arr {
+              stroke: #94a3b8;
+              marker-end: url(#m)
+            }
+          </style>
+          <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#94a3b8" />
+          </marker>
+        </defs>
+        <!-- boxes -->
+        <rect x="10" y="18" width="150" height="60" rx="12" class="bx" /><text x="85" y="45" text-anchor="middle"
+          class="tx">Residents & Businesses</text><text x="85" y="62" text-anchor="middle" class="sm">origination</text>
+        <rect x="190" y="18" width="110" height="60" rx="12" class="bx" /><text x="245" y="45" text-anchor="middle"
+          class="tx">Taxes</text><text x="245" y="62" text-anchor="middle" class="sm">schema</text>
+        <rect x="330" y="18" width="120" height="60" rx="12" class="bx" /><text x="390" y="45" text-anchor="middle"
+          class="tx">Compiled JSON</text><text x="390" y="62" text-anchor="middle" class="sm">_data/compiled</text>
+        <rect x="480" y="18" width="120" height="60" rx="12" class="bx" /><text x="540" y="45" text-anchor="middle"
+          class="tx">Pages</text><text x="540" y="62" text-anchor="middle" class="sm">inventory & detail</text>
+        <rect x="630" y="18" width="120" height="60" rx="12" class="bx" /><text x="690" y="45" text-anchor="middle"
+          class="tx">Flows</text><text x="690" y="62" text-anchor="middle" class="sm">visual fibers</text>
+        <!-- arrows -->
+        <line x1="160" y1="48" x2="190" y2="48" class="arr" />
+        <line x1="300" y1="48" x2="330" y2="48" class="arr" />
+        <line x1="450" y1="48" x2="480" y2="48" class="arr" />
+        <line x1="600" y1="48" x2="630" y2="48" class="arr" />
+      </svg>
+    </div>
+    <ul class="mt-4 list-disc pl-6 text-slate-700">
+      <li><strong>Sources:</strong> municipal/state codes, agency sites, ballot/ordinance records.</li>
+      <li><strong>Normalization:</strong> small JSON files under <code>_data/taxes/…</code> validated & key-sorted.</li>
+      <li><strong>Compilation:</strong> a build step produces <code>_data/compiled/taxes.json</code>.</li>
+      <li><strong>Rendering:</strong> the inventory lists all taxes; per-tax pages show details & sources.</li>
+      <li><strong>Visualization:</strong> the flows prototype illustrates cyclical movement of funds.</li>
+    </ul>
+  </section>
+
+  <section class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="rounded-2xl border border-slate-200 bg-white p-6">
+      <h3 class="font-semibold">What’s in a tax record</h3>
+      <ul class="mt-2 text-slate-700 space-y-1 text-sm">
+        <li><code>name</code>, <code>slug</code>, <code>status</code>, <code>type</code></li>
+        <li><code>jurisdiction</code> (level, name, slug)</li>
+        <li><code>agency</code> (name, slug)</li>
+        <li><code>rates[]</code> (percent/amount; applies_to; cap)</li>
+        <li><code>revenue</code> & <code>revenue_year</code> (latest annual USD)</li>
+        <li><code>sources[]</code> (name + URL), <code>updated_at</code>, <code>notes</code></li>
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white p-6">
+      <h3 class="font-semibold">Provenance & verification</h3>
+      <ul class="mt-2 text-slate-700 space-y-1 text-sm">
+        <li>Every fact links to an official source.</li>
+        <li>Edits via PR/Issues leave an auditable history.</li>
+        <li>Automated validation catches schema drift.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold">How pages are generated</h2>
+    <p class="mt-2 text-slate-700 text-sm">
+      Inventory reads <code>_data/compiled/taxes.json</code>. Per-tax pages are generated from that dataset
+      (either via a build step or a Jekyll generator), ensuring the site reflects the latest data.
+    </p>
+  </section>
+
+  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold">Roadmap</h2>
+    <ul class="mt-2 list-disc pl-6 text-slate-700 text-sm">
+      <li>Richer jurisdiction coverage (city, county, special districts).</li>
+      <li>“Follow the Money” with account/vendor hops.</li>
+      <li>APIs & bulk downloads.</li>
+    </ul>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <a href="/taxes/inventory/"
+        class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold hover:bg-slate-50">Browse
+        inventory</a>
+      <a href="/get-started"
+        class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold hover:bg-slate-50">Get
+        started</a>
+      <a href="/contribute"
+        class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700">Contribute
+        data</a>
+    </div>
+    <div class="mt-6 pt-4 border-t border-slate-200">
+      {% include fund_feature.html feature="Methodology & verification" address="12345" %}
+    </div>
+  </section>
+
+  <!-- Contribute CTA -->
+  <section class="mt-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 sm:p-5">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 class="text-base font-semibold text-indigo-950">Contribute a tax from your jurisdiction</h2>
+        <p class="mt-1 text-sm text-indigo-900/80">
+          Start small—add <em>one</em> accurate record with an official source. We validate JSON and key ordering automatically.
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <a href="/contribute"
+          class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
+          Contribute data
+        </a>
+        {% if site.repo and site.repo.url %}
+        <a href="{{ site.repo.url }}"
+          class="inline-flex items-center rounded-xl border border-indigo-600 bg-white px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-50">
+          Open repo
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Optional: FAQ structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"From public sources: municipal/state codes, agency pages, and ballot or ordinance records, each cited on the tax detail pages."}},
+    {"@type":"Question","name":"How current is the data?","acceptedAnswer":{"@type":"Answer","text":"We compile changes as soon as contributors submit updates. The inventory reads a compiled JSON snapshot generated at build time."}},
+    {"@type":"Question","name":"Can I contribute?","acceptedAnswer":{"@type":"Answer","text":"Yes—start with your local jurisdiction and add one tax with an official source. See the Get started and Contribute pages for templates."}}
+  ]
+}
+</script>
