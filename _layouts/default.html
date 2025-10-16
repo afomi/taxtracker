@@ -9,6 +9,21 @@
     <link rel="icon" href="/assets/images/tax-tracker-mark.svg" />
   </head>
   <body>
+    <aside class="bg-indigo-50 border-b border-indigo-100 text-indigo-800">
+      <div class="mx-auto flex max-w-5xl flex-col items-center gap-2 px-4 py-3 text-center text-sm">
+        <span class="leading-snug">
+          TaxTracker is a proof of concept and part-time effort.
+          {% if site.contact.repo_url %}
+          <a href="{{ site.contact.repo_url }}"
+            class="font-semibold underline decoration-indigo-400 hover:decoration-indigo-600">Feedback and contributions</a>
+          {% else %}
+          <a href="{{ "/contact/" | relative_url }}"
+            class="font-semibold underline decoration-indigo-400 hover:decoration-indigo-600">Feedback and contributions</a>
+          {% endif %}
+          are welcome.
+        </span>
+      </div>
+    </aside>
     {{ content }}
     {% include footer.html %}
     <script>
