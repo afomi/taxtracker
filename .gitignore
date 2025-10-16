@@ -5,3 +5,4 @@ _site
 .jekyll-metadata
 node_modules/
 vendor
+/assets/css/styles.css

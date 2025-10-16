@@ -13,11 +13,7 @@ donations:
 
 plugins:
   - jekyll-datapage-generator
-  - jekyll-postcss
   - jekyll-sitemap
-
-postcss:
-  cache: false
 
 exclude:
   - postcss.config.js
@@ -34,6 +30,7 @@ exclude:
   - scripts/
   - .github/
   - _data/compiled/*.json # compiled data isn't a page
+  - assets/css/main.css # Tailwind source file
 
 collections:
   jurisdictions:

@@ -1,17 +1,8 @@
-module.exports = {
+export default {
   content: [
-    './_includes/**/*.html',
-    './_layouts/**/*.html',
-    './_posts/*.md',
-    './*.md',
-    './*.html',
+    './_includes/**/*.{html,md}',
+    './_layouts/**/*.{html,md}',
+    './_posts/**/*.{html,md}',
+    './*.{html,md}',
   ],
-  media: false,
-  theme: {
-    extend: {},
-  },
-  variants: {},
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
-}
+};
