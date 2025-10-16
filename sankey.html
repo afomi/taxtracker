@@ -1,0 +1,106 @@
+---
+layout: default
+title: Sankey prototype
+permalink: /sankey/
+description: Interactive Sankey diagram showing how public funds move through agencies and services.
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight">Tax flow prototype</h1>
+    <p class="mt-2 max-w-2xl text-slate-600">
+      This D3-powered Sankey diagram explores how revenue sources, statutes, and government services connect.
+      Data is illustrative, drawn from the project’s prototype dataset.
+    </p>
+  </header>
+
+  <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div id="sankey-diagram" class="overflow-x-auto">
+      <div class="flex h-72 w-full items-center justify-center text-sm text-slate-500">
+        Loading Sankey diagram…
+      </div>
+    </div>
+    <p class="mt-4 text-xs text-slate-500">
+      Built with <a class="font-semibold text-indigo-700 hover:text-indigo-800" href="https://d3js.org/">D3.js</a> and
+      <a class="font-semibold text-indigo-700 hover:text-indigo-800" href="https://github.com/d3/d3-sankey">d3-sankey</a>.
+    </p>
+  </section>
+</main>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('sankey-diagram');
+    const loadingMessage = container.firstElementChild;
+    const width = Math.max(container.clientWidth, 960);
+    const height = 640;
+
+    fetch('{{ "/sankey-data.json" | relative_url }}')
+      .then((response) => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then((data) => {
+        loadingMessage?.remove();
+
+        const svg = d3.select(container)
+          .append('svg')
+          .attr('viewBox', `0 0 ${width} ${height}`)
+          .attr('preserveAspectRatio', 'xMidYMid meet');
+
+        const sankey = d3.sankey()
+          .nodeId(d => d.id)
+          .nodeWidth(18)
+          .nodePadding(16)
+          .extent([[1, 1], [width - 1, height - 6]]);
+
+        const graph = sankey({
+          nodes: data.nodes.map(d => Object.assign({}, d)),
+          links: data.links.map(d => Object.assign({}, d))
+        });
+
+        const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        svg.append('g')
+          .attr('fill', 'none')
+          .attr('stroke-opacity', 0.4)
+          .selectAll('path')
+          .data(graph.links)
+          .join('path')
+          .attr('d', d3.sankeyLinkHorizontal())
+          .attr('stroke', d => color(d.source.id))
+          .attr('stroke-width', d => Math.max(1, d.width))
+          .append('title')
+          .text(d => `${d.source.id} → ${d.target.id}`);
+
+        const node = svg.append('g')
+          .attr('font-family', 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif')
+          .attr('font-size', 12)
+          .selectAll('g')
+          .data(graph.nodes)
+          .join('g')
+          .attr('transform', d => `translate(${d.x0},${d.y0})`);
+
+        node.append('rect')
+          .attr('height', d => Math.max(1, d.y1 - d.y0))
+          .attr('width', d => Math.max(1, d.x1 - d.x0))
+          .attr('fill', d => color(d.id))
+          .attr('rx', 4)
+          .append('title')
+          .text(d => d.id);
+
+        node.append('text')
+          .attr('x', d => d.x0 < width / 2 ? (d.x1 - d.x0) + 8 : -8)
+          .attr('y', d => (d.y1 - d.y0) / 2)
+          .attr('dy', '0.35em')
+          .attr('text-anchor', d => d.x0 < width / 2 ? 'start' : 'end')
+          .text(d => d.id);
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">Unable to load Sankey data right now.</div>';
+      });
+  });
+</script>
