@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/afomi/taxtracker/issues"
   },
-  "homepage": "https://github.com/afomi/taxtracker#readme"
+  "homepage": "https://github.com/afomi/taxtracker#readme",
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
 }
