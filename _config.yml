@@ -16,7 +16,6 @@ plugins:
   - jekyll-sitemap
 
 exclude:
-  - postcss.config.js
   - tailwind.config.js
   - package.json
   - package-lock.json

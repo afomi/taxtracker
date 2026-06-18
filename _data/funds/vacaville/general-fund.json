@@ -1,0 +1,70 @@
+{
+  "expenditures": [
+    {
+      "amount": 58947980,
+      "name": "Police",
+      "share": 0.375,
+      "slug": "police"
+    },
+    {
+      "amount": 45099727,
+      "name": "Fire",
+      "share": 0.287,
+      "slug": "fire"
+    },
+    {
+      "amount": 17839308,
+      "name": "City Administration",
+      "share": 0.113,
+      "slug": "city-administration"
+    },
+    {
+      "amount": 16393774,
+      "name": "Public Works",
+      "share": 0.104,
+      "slug": "public-works"
+    },
+    {
+      "amount": 11330706,
+      "name": "Parks & Recreation",
+      "share": 0.072,
+      "slug": "parks-recreation"
+    },
+    {
+      "amount": 8433292,
+      "name": "Community Development",
+      "share": 0.054,
+      "slug": "community-development"
+    },
+    {
+      "amount": 4760870,
+      "name": "Non-Departmental",
+      "share": 0.030,
+      "slug": "non-departmental"
+    },
+    {
+      "amount": 1078113,
+      "name": "Economic Development",
+      "share": 0.007,
+      "slug": "economic-development"
+    }
+  ],
+  "fiscal_year": "FY2025-26",
+  "id": "vacaville-general-fund",
+  "jurisdiction": {
+    "level": "city",
+    "name": "City of Vacaville",
+    "slug": "vacaville"
+  },
+  "name": "General Fund",
+  "notes": "FY2025-26 proposed budget. General Fund operating expenditures subtotal $157,225,012 (excludes transfers and internal cost allocation). Revenue: $144,963,990 (property tax $42.3M, sales tax $27.5M, Measure M $21.3M, franchise tax $5.7M, paramedic tax $7.3M, excise tax $9.4M, other taxes $8.7M, intergovernmental $2.8M, departmental fees $12.6M, other revenue $1.5M, transfers in $10.9M). Structural deficit of ~$8.9M funded from reserves.",
+  "slug": "general-fund",
+  "sources": [
+    {
+      "name": "City of Vacaville FY2025-26 Budget",
+      "url": "https://www.cityofvacaville.gov/government/finance/financial-reports"
+    }
+  ],
+  "total": 157225012,
+  "updated_at": "2026-03-12"
+}

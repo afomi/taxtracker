@@ -44,7 +44,11 @@ layout: default
     <h2 class="text-lg font-semibold">Sources</h2>
     <ul class="mt-2 list-disc pl-6">
       {% for s in item.sources %}
-        <li><a class="text-indigo-700 hover:underline" href="{{ s.url }}">{{ s.name }}</a></li>
+        <li><a
+          class="text-indigo-700 hover:underline"
+          href="{{ s.url }}"
+          onclick="window.tt && tt.track('source_click', { tax: '{{ item.slug }}', source: '{{ s.name | escape }}' })"
+        >{{ s.name }}</a></li>
       {% endfor %}
     </ul>
   </section>

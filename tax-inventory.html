@@ -322,6 +322,7 @@ permalink: /taxes/inventory/
     const KEY = 'inventory:view';
 
     function setView(v) {
+      if (window.tt) tt.track('inventory_view_toggle', { view: v });
       const isCards = v === 'cards';
       cards.classList.toggle('hidden', !isCards);
       table.classList.toggle('hidden', isCards);
@@ -456,6 +457,17 @@ permalink: /taxes/inventory/
 
       // count
       if (countEl) countEl.textContent = String(visible);
+
+      // Analytics: track filter usage
+      if (window.tt) {
+        tt.track('inventory_filter', {
+          query: p.q || undefined,
+          jurisdiction: p.level.join(',') || undefined,
+          type: p.type.join(',') || undefined,
+          status: p.status !== 'any' ? p.status : undefined,
+          results: visible
+        });
+      }
 
       // URL
       writeParams(p);

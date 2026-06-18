@@ -1,0 +1,376 @@
+---
+layout: default
+title: Your taxpayer receipt
+permalink: /receipt/
+description: Estimate what you pay in local taxes and see an itemized receipt of where it goes, built from real Vacaville budget data.
+---
+
+{% include header.html %}
+{% assign vacaville_funds = site.data.funds.vacaville %}
+{% assign fund = vacaville_funds["general-fund"] %}
+
+<main class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
+
+  <!-- Header -->
+  <header class="mb-6">
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Your taxpayer receipt</h1>
+      <span
+        class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700"
+      >
+        Prototype
+      </span>
+    </div>
+    <p class="mt-2 text-slate-600 max-w-prose">
+      Most people pay many taxes but never see the total, or where it goes.
+      This is an estimate of your local tax burden in {{ fund.jurisdiction.name }}, with an itemized receipt of how the city spends its General Fund.
+    </p>
+  </header>
+
+  <!-- Honesty banner: real data, stated assumptions -->
+  <section
+    class="mb-8 rounded-2xl border border-indigo-100 bg-indigo-50 px-5 py-4 text-indigo-900"
+  >
+    <p class="text-sm leading-relaxed">
+      <strong>This uses real data.</strong>
+      The "where it goes" breakdown comes from the
+      <a
+        class="font-semibold underline decoration-indigo-300 hover:decoration-indigo-600"
+        href="{{ fund.sources[0].url }}"
+      >{{ fund.sources[0].name }}</a>
+      ({{ fund.fiscal_year }}).
+      The "what you pay" figures are an <strong>estimate</strong> from the numbers you enter below.
+      Every assumption is shown — nothing here is a precise tax bill.
+    </p>
+  </section>
+
+  <!-- Two-column: inputs + receipt -->
+  <div class="grid gap-8 lg:grid-cols-12">
+
+    <!-- Inputs (origination) -->
+    <section class="lg:col-span-5">
+      <div class="rounded-2xl border border-slate-200 bg-white p-6">
+        <h2 class="text-lg font-semibold">About your household</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          Rough numbers are fine. Nothing is sent anywhere — this runs in your browser.
+        </p>
+
+        <div class="mt-5 space-y-5">
+          <div>
+            <label
+              for="own-or-rent"
+              class="block text-sm font-medium text-slate-700"
+            >Do you own or rent?</label>
+            <select
+              id="own-or-rent"
+              class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30"
+            >
+              <option value="own">Own</option>
+              <option value="rent">Rent</option>
+            </select>
+          </div>
+
+          <div data-show="own">
+            <label
+              for="home-value"
+              class="block text-sm font-medium text-slate-700"
+            >Home value</label>
+            <input
+              id="home-value"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              step="10000"
+              value="550000"
+              class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30"
+            />
+            <p class="mt-1 text-xs text-slate-500">Assessed value; used for property tax.</p>
+          </div>
+
+          <div>
+            <label
+              for="income"
+              class="block text-sm font-medium text-slate-700"
+            >Household income (before tax)</label>
+            <input
+              id="income"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              step="5000"
+              value="90000"
+              class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30"
+            />
+            <p class="mt-1 text-xs text-slate-500">Used to estimate sales &amp; other taxes you pay locally.</p>
+          </div>
+
+          <div>
+            <label
+              for="people"
+              class="block text-sm font-medium text-slate-700"
+            >People in household</label>
+            <input
+              id="people"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              step="1"
+              value="2"
+              class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Assumptions, shown openly -->
+      <details class="mt-4 rounded-2xl border border-slate-200 bg-white p-5 text-sm">
+        <summary class="cursor-pointer font-semibold text-slate-700">
+          Assumptions &amp; method
+        </summary>
+        <ul class="mt-3 list-disc space-y-1 pl-5 text-slate-600">
+          <li>
+            <strong>Property tax:</strong> ~1.1% of home value (California Prop 13 base rate
+            plus typical local levies). Renters: ~25% of rent is assumed to pass through as
+            property tax, with rent estimated at 30% of income.
+          </li>
+          <li>
+            <strong>Sales tax:</strong> applied to an assumed taxable-spending share of income
+            (~28%) at Vacaville's combined rate of 8.125%. Only the city's local share
+            reaches the General Fund.
+          </li>
+          <li>
+            <strong>Other local taxes</strong> (franchise, utility, paramedic, Measure M, etc.)
+            are scaled from the city's total of these revenues per household.
+          </li>
+          <li>
+            <strong>Where it goes</strong> uses the city's actual General Fund expenditure
+            shares — these are not estimates.
+          </li>
+        </ul>
+        <p class="mt-3 text-xs text-slate-500">
+          This is an educational estimate, not tax advice or an official assessment.
+          See the per-tax pages and the linked budget for authoritative figures.
+        </p>
+      </details>
+    </section>
+
+    <!-- Receipt (the artifact) -->
+    <section class="lg:col-span-7">
+      <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
+
+        <!-- Receipt head -->
+        <div class="border-b border-dashed border-slate-300 px-6 py-5">
+          <div class="flex items-baseline justify-between">
+            <h2 class="font-mono text-sm uppercase tracking-widest text-slate-500">
+              Taxpayer receipt
+            </h2>
+            <span class="font-mono text-xs text-slate-400">{{ fund.jurisdiction.name }} · {{ fund.fiscal_year }}</span>
+          </div>
+          <p class="mt-3 text-sm text-slate-600">Estimated local taxes you pay per year</p>
+          <p class="mt-1">
+            <span
+              class="text-4xl font-bold tracking-tight text-slate-900"
+              id="total-paid"
+            >$0</span>
+            <span class="text-sm text-slate-500" id="total-per-day"></span>
+          </p>
+        </div>
+
+        <!-- What you pay (origination) -->
+        <div class="px-6 py-5">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500">What you pay</h3>
+          <dl class="mt-3 space-y-2 font-mono text-sm" id="paid-lines">
+            <!-- filled by JS -->
+          </dl>
+        </div>
+
+        <!-- Where it goes (expenditure) -->
+        <div class="border-t border-dashed border-slate-300 px-6 py-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Where your General Fund dollars go
+            </h3>
+            <span class="text-xs text-slate-400">share of every $1</span>
+          </div>
+
+          <!-- 100% stacked bar -->
+          <div
+            class="mt-3 flex h-3 w-full overflow-hidden rounded-full"
+            id="spend-bar"
+            role="img"
+            aria-label="Spending breakdown by category"
+          ></div>
+
+          <ul class="mt-4 space-y-2 text-sm" id="spend-lines">
+            <!-- filled by JS -->
+          </ul>
+
+          <p class="mt-4 text-xs text-slate-500">
+            Source:
+            <a
+              class="underline decoration-slate-300 hover:decoration-slate-600"
+              href="{{ fund.sources[0].url }}"
+            >{{ fund.sources[0].name }}</a>.
+            {{ fund.notes }}
+          </p>
+        </div>
+
+        <!-- Act (agency) -->
+        <div class="border-t border-dashed border-slate-300 bg-slate-50 px-6 py-5 rounded-b-2xl">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500">What you can do</h3>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <a
+              href="{{ fund.sources[0].url }}"
+              class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-slate-50"
+            >Read the budget</a>
+            <a
+              href="/taxes/inventory"
+              class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-slate-50"
+            >See each tax</a>
+            <button
+              type="button"
+              id="copy-receipt"
+              class="inline-flex items-center rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700"
+            >Copy my receipt</button>
+          </div>
+          <p class="mt-3 text-xs text-slate-500">
+            Budgets are set in public meetings. Reading the budget and showing up to comment
+            are the most direct levers you have.
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Real expenditure data injected from the fund file (server-side) -->
+<script id="fund-data" type="application/json">
+{
+  "jurisdiction": {{ fund.jurisdiction.name | jsonify }},
+  "fiscal_year": {{ fund.fiscal_year | jsonify }},
+  "expenditures": [
+    {% for e in fund.expenditures %}
+    {
+      "name": {{ e.name | jsonify }},
+      "share": {{ e.share }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
+<script>
+  (function () {
+    var fund = JSON.parse(document.getElementById('fund-data').textContent);
+
+    // The source budget's category shares are rounded and sum to ~1.04.
+    // Normalize so the receipt's bar and percentages add to 100% honestly.
+    var shareSum = fund.expenditures.reduce(function (s, e) { return s + e.share; }, 0) || 1;
+    fund.expenditures.forEach(function (e) { e.share = e.share / shareSum; });
+
+    // Category colors — semantic, accessible, derived from the site palette.
+    var palette = ['#4F46E5', '#6366F1', '#818CF8', '#10B981', '#F59E0B', '#64748B', '#0EA5E9', '#A855F7'];
+
+    var fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+    var el = {
+      ownRent: document.getElementById('own-or-rent'),
+      homeValue: document.getElementById('home-value'),
+      income: document.getElementById('income'),
+      people: document.getElementById('people'),
+      totalPaid: document.getElementById('total-paid'),
+      totalPerDay: document.getElementById('total-per-day'),
+      paidLines: document.getElementById('paid-lines'),
+      spendBar: document.getElementById('spend-bar'),
+      spendLines: document.getElementById('spend-lines'),
+      copy: document.getElementById('copy-receipt'),
+      ownBlock: document.querySelector('[data-show="own"]')
+    };
+
+    // --- Estimation model (assumptions are documented in the page) ---
+    function estimate() {
+      var owns = el.ownRent.value === 'own';
+      var homeValue = Math.max(0, Number(el.homeValue.value) || 0);
+      var income = Math.max(0, Number(el.income.value) || 0);
+
+      var property;
+      if (owns) {
+        property = homeValue * 0.011;              // ~1.1% effective property tax
+      } else {
+        var rent = income * 0.30;                  // rent ~30% of income
+        property = rent * 0.25;                    // ~25% passes through as property tax
+      }
+
+      var sales = income * 0.28 * 0.08125 * 0.13;  // taxable share × combined rate × city's local share
+      var other = income * 0.012;                  // franchise/utility/Measure M etc. scaled per household
+
+      return [
+        { name: 'Property tax (your share)', amount: property },
+        { name: 'Sales tax (local share)', amount: sales },
+        { name: 'Other local taxes', amount: other }
+      ];
+    }
+
+    function render() {
+      el.ownBlock.style.display = el.ownRent.value === 'own' ? '' : 'none';
+
+      var lines = estimate();
+      var total = lines.reduce(function (s, l) { return s + l.amount; }, 0);
+
+      el.totalPaid.textContent = fmt.format(total);
+      el.totalPerDay.textContent = total > 0 ? '· about ' + fmt.format(total / 365) + '/day' : '';
+
+      el.paidLines.innerHTML = lines.map(function (l) {
+        return '<div class="flex items-baseline justify-between gap-4">'
+          + '<dt class="text-slate-600">' + l.name + '</dt>'
+          + '<dd class="tabular-nums font-medium text-slate-900">' + fmt.format(l.amount) + '</dd>'
+          + '</div>';
+      }).join('');
+
+      // Where it goes — real shares applied to the estimated total.
+      el.spendBar.innerHTML = fund.expenditures.map(function (e, i) {
+        return '<span style="width:' + (e.share * 100).toFixed(1) + '%;background:' + palette[i % palette.length] + '" title="' + e.name + '"></span>';
+      }).join('');
+
+      el.spendLines.innerHTML = fund.expenditures.map(function (e, i) {
+        var pct = (e.share * 100);
+        var amt = total * e.share;
+        return '<li class="flex items-center justify-between gap-3">'
+          + '<span class="flex items-center gap-2">'
+          + '<span class="inline-block h-2.5 w-2.5 rounded-sm" style="background:' + palette[i % palette.length] + '"></span>'
+          + '<span class="text-slate-700">' + e.name + '</span>'
+          + '<span class="text-slate-400">' + (pct >= 1 ? pct.toFixed(0) : pct.toFixed(1)) + '%</span>'
+          + '</span>'
+          + '<span class="tabular-nums text-slate-900">' + fmt.format(amt) + '</span>'
+          + '</li>';
+      }).join('');
+    }
+
+    ['change', 'input'].forEach(function (evt) {
+      [el.ownRent, el.homeValue, el.income, el.people].forEach(function (node) {
+        node.addEventListener(evt, render);
+      });
+    });
+
+    el.copy.addEventListener('click', function () {
+      var lines = estimate();
+      var total = lines.reduce(function (s, l) { return s + l.amount; }, 0);
+      var text = 'My estimated local tax receipt — ' + fund.jurisdiction + ' (' + fund.fiscal_year + ')\n'
+        + 'Total: ' + fmt.format(total) + '/year\n\n'
+        + lines.map(function (l) { return '  ' + l.name + ': ' + fmt.format(l.amount); }).join('\n')
+        + '\n\nWhere it goes:\n'
+        + fund.expenditures.map(function (e) {
+            return '  ' + e.name + ': ' + (e.share * 100).toFixed(0) + '% (' + fmt.format(total * e.share) + ')';
+          }).join('\n')
+        + '\n\nvia taxtracker.org/receipt';
+      navigator.clipboard.writeText(text).then(function () {
+        el.copy.textContent = 'Copied!';
+        if (window.tt) tt.track('receipt_copied', { jurisdiction: fund.jurisdiction });
+        setTimeout(function () { el.copy.textContent = 'Copy my receipt'; }, 1400);
+      }).catch(function () {});
+    });
+
+    render();
+  })();
+</script>

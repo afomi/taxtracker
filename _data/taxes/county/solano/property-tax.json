@@ -4,6 +4,13 @@
     "slug": "assessor-tax-collector"
   },
   "effective": {},
+  "funds": [
+    {
+      "name": "General Fund",
+      "share": 0.6,
+      "slug": "general-fund"
+    }
+  ],
   "id": "solano-property-tax",
   "jurisdiction": {
     "level": "county",

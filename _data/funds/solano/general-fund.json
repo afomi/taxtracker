@@ -1,0 +1,52 @@
+{
+  "expenditures": [
+    {
+      "amount": 92339560,
+      "name": "General Government",
+      "share": 0.70,
+      "slug": "general-government"
+    },
+    {
+      "amount": 35022091,
+      "name": "Public Protection",
+      "share": 0.27,
+      "slug": "public-protection"
+    },
+    {
+      "amount": 1123344,
+      "name": "Public Assistance",
+      "share": 0.01,
+      "slug": "public-assistance"
+    },
+    {
+      "amount": 404323,
+      "name": "Education & Recreation",
+      "share": 0.003,
+      "slug": "education-recreation"
+    },
+    {
+      "amount": 3070874,
+      "name": "Debt Service & Capital",
+      "share": 0.023,
+      "slug": "debt-service-capital"
+    }
+  ],
+  "fiscal_year": "FY2024-25",
+  "id": "solano-general-fund",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County",
+    "slug": "solano"
+  },
+  "name": "General Fund",
+  "notes": "Actual expenditures from Solano County ACFR, FY ended June 30, 2025. Shares computed against total current expenditures of $131,960,192. Revenue total: $371,281,269 (taxes $260.5M, charges for services $68.1M, intergovernmental $13.3M, use of money/property $12.2M, licenses/permits/franchises $10.6M, miscellaneous $4.0M, fines $2.6M).",
+  "slug": "general-fund",
+  "sources": [
+    {
+      "name": "Solano County ACFR FY2024-25",
+      "url": "https://www.solanocounty.gov/government/auditor-controller/finance-reports"
+    }
+  ],
+  "total": 131960192,
+  "updated_at": "2026-03-12"
+}

@@ -22,7 +22,6 @@ gem "minima", "~> 2.5"
 group :jekyll_plugins do
   gem 'jekyll-datapage-generator'
   gem "jekyll-feed", "~> 0.12"
-  gem 'jekyll-postcss'
   gem 'jekyll-sitemap'
 end
 

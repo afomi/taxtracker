@@ -1,0 +1,13 @@
+<!--
+  Custom GA4 event helper.
+  Depends on gtag() from ga.html. Fires nothing if gtag is absent (dev mode).
+  Usage: tt.track('event_name', { key: 'value' })
+-->
+<script>
+  window.tt = window.tt || {};
+  tt.track = function(event, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', event, params || {});
+    }
+  };
+</script>
