@@ -1,0 +1,68 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
+    "slug": "cdtfa"
+  },
+  "effective": {
+    "end": null,
+    "start": "2025-04-01"
+  },
+  "funds": [
+    {
+      "name": "Comprehensive homeless services",
+      "share": 0.6,
+      "slug": "comprehensive-homeless-services"
+    },
+    {
+      "name": "L.A. County Affordable Housing Solutions Agency (LACAHSA) — affordable housing and prevention",
+      "share": 0.3575,
+      "slug": "lacahsa-affordable-housing-prevention"
+    },
+    {
+      "name": "Local housing production",
+      "share": 0.03,
+      "slug": "local-housing-production"
+    },
+    {
+      "name": "Accountability, data, and research",
+      "share": 0.0125,
+      "slug": "accountability-data-research"
+    }
+  ],
+  "id": "los-angeles-county-measure-a-homelessness-sales-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Los Angeles County",
+    "slug": "los-angeles"
+  },
+  "name": "Measure A — Affordable Housing, Homelessness Solutions and Prevention Ordinance (Sales Tax)",
+  "notes": "IN EFFECT. A 0.50% (half-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters in November 2024 and effective April 1, 2025. It repealed and replaced the 0.25% Measure H homeless-services tax (which was scheduled to expire in 2027 — see [[los-angeles-county-measure-h-homeless-services-sales-tax]]). State enabling authority is AB 1679 (Chapter 731, Statutes of 2023; signed Oct 10, 2023), which added Chapter 2.4 (Sections 7286.01–7286.02) to Part 1.7, Division 2 of the Revenue & Taxation Code and authorized L.A. County to levy up to 0.50% dedicated to homelessness services/prevention or affordable housing, exempt from the RTC Section 7251.1 2% combined-rate cap. The ~$1B/yr figure is the County's estimate; the fund shares recorded here are the measure's statutory allocation, not collected revenue. Proceeds are distributed among the County, cities and Councils of Government, the L.A. County Development Authority (LACDA), and LACAHSA. No sunset date.",
+  "rates": [
+    {
+      "applies_to": "retail transactions countywide (transactions and use tax)",
+      "cap": null,
+      "kind": "percent",
+      "value": 0.5
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "measure-a-homelessness-sales-tax",
+  "sources": [
+    {
+      "name": "L.A. County Homeless Initiative — Measure A",
+      "url": "https://homeless.lacounty.gov/measure-a/"
+    },
+    {
+      "name": "AB 1679 (2023–2024) — Transactions and use taxes: County of Los Angeles: homelessness (Chapter 731, Statutes of 2023)",
+      "url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB1679"
+    },
+    {
+      "name": "RTC Section 7286.01 — additional local tax authorization, County of Los Angeles (CDTFA law guide)",
+      "url": "https://cdtfa.ca.gov/lawguides/vol1/alt/additional-local-taxes-sec7286-01.html"
+    }
+  ],
+  "status": "active",
+  "type": "sales",
+  "updated_at": "2026-06-29"
+}

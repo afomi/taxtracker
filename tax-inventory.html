@@ -224,12 +224,19 @@ permalink: /taxes/inventory/
               <div>
                 <dt class="text-slate-500">Rate</dt>
                 <dd class="font-medium">
-                  <span class="rev" data-amount="{{ t.revenue }}" data-year="{{ t.revenue_year | default: '' }}"></span>
+                  {% if t.rates and t.rates.size > 0 %}
+                    {% assign r = t.rates[0] %}
+                    {% if r.kind == 'percent' %}{{ r.value }}%
+                    {% elsif r.kind == 'amount' %}${{ r.value }}
+                    {% else %}Varies{% endif %}
+                  {% else %}Varies{% endif %}
                 </dd>
               </div>
               <div>
                 <dt class="text-slate-500">Revenue</dt>
-                <dd class="font-medium">{{ t.revenue }}</dd>
+                <dd class="font-medium">
+                  <span class="rev" data-amount="{{ t.revenue }}" data-year="{{ t.revenue_year | default: '' }}"></span>
+                </dd>
               </div>
               <div>
                 <dt class="text-slate-500">Updated</dt>
@@ -516,7 +523,7 @@ permalink: /taxes/inventory/
     els.forEach(el => {
       const raw = el.getAttribute('data-amount');
       const year = el.getAttribute('data-year') || '';
-      const n = raw === null ? NaN : Number(raw);
+      const n = (raw === null || raw.trim() === '') ? NaN : Number(raw);
       if (!isFinite(n)) { el.textContent = '—'; return; }
       let s = fmt ? fmt.format(n) : ('$' + n.toLocaleString('en-US'));
       if (year) s += ' ' + year;

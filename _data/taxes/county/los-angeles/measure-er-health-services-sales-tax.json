@@ -1,0 +1,102 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
+    "slug": "cdtfa"
+  },
+  "effective": {
+    "end": "2031-10-01",
+    "start": "2026-10-01"
+  },
+  "funds": [
+    {
+      "name": "Department of Health Services — no/reduced-cost care for low-income uninsured (Section 1204(a) network)",
+      "share": 0.45,
+      "slug": "dhs-low-income-uninsured-care"
+    },
+    {
+      "name": "Department of Health Services — safeguard public hospital and clinic services",
+      "share": 0.22,
+      "slug": "dhs-public-hospital-clinic-support"
+    },
+    {
+      "name": "Department of Public Health — core public health functions and health-equity grants",
+      "share": 0.1,
+      "slug": "dph-core-public-health"
+    },
+    {
+      "name": "Non-profit safety-net hospitals",
+      "share": 0.05,
+      "slug": "safety-net-hospitals"
+    },
+    {
+      "name": "Non-profit family-planning / reproductive-health agencies",
+      "share": 0.05,
+      "slug": "reproductive-health-agencies"
+    },
+    {
+      "name": "Department of Public Social Services — Medicaid outreach, enrollment, work/volunteer programs",
+      "share": 0.03,
+      "slug": "dpss-medicaid-outreach"
+    },
+    {
+      "name": "Correctional Health Services",
+      "share": 0.025,
+      "slug": "correctional-health-services"
+    },
+    {
+      "name": "In-Home Supportive Services (IHSS)",
+      "share": 0.025,
+      "slug": "ihss"
+    },
+    {
+      "name": "School-based health (L.A. Care Health Plan governing board)",
+      "share": 0.04,
+      "slug": "school-based-health"
+    },
+    {
+      "name": "City of Pasadena and City of Long Beach public-health departments",
+      "share": 0.01,
+      "slug": "pasadena-long-beach-public-health"
+    }
+  ],
+  "id": "los-angeles-county-measure-er-health-services-sales-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Los Angeles County",
+    "slug": "los-angeles"
+  },
+  "name": "Measure ER — Essential Services Restoration Act (General Sales Tax for Health Services)",
+  "notes": "PROPOSED, not yet in effect. A 0.50% general transactions-and-use (sales) tax placed on the June 2, 2026 primary ballot by the L.A. County Board of Supervisors (motion, amendment, and resolution adopted Feb 10, 2026). Passage requires a simple majority. Because it would push the combined transactions-and-use-tax rate in some L.A. County cities above the 2% cap in Revenue & Taxation Code Section 7251.1, it also requires California State legislature approval to take effect; as of this record the specific enabling statute for Measure ER had not been confirmed (this is distinct from AB 1679 / RTC Sec. 7286.01, which enables the homelessness Measure A — see [[los-angeles-county-measure-a-homelessness-sales-tax]]). Revenue is a general-fund levy; the Board adopted a spending plan (the fund shares recorded here) allocating proceeds to county health, public health, and human services to backfill federal Medi-Cal/SNAP cuts from H.R.1 (One Big Beautiful Bill Act, July 4, 2025). The ~$1B/yr figure is the County's own estimate, not collected revenue. A nine-member citizens' oversight committee and an annual independent Auditor-Controller report (due March 31 each year) are part of the measure.",
+  "rates": [
+    {
+      "applies_to": "retail transactions countywide (general sales tax)",
+      "cap": null,
+      "kind": "percent",
+      "value": 0.5
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "measure-er-health-services-sales-tax",
+  "sources": [
+    {
+      "name": "L.A. County CEO Fact Sheet — Essential Services Restoration Act General Sales Tax Measure (FAQ, March 2026)",
+      "url": "https://file.lacounty.gov/SDSInter/lac/1202661_EssentialServicesRestorationActforLosAngelesCountyGeneralSalesTaxMeasureFAQ_FINAL.pdf"
+    },
+    {
+      "name": "Resolution of the Board of Supervisors of the County of Los Angeles (sales tax, adopted Feb 10, 2026)",
+      "url": "https://file.lacounty.gov/SDSInter/lac/1201778_SalesTax_BoardResolution021026.pdf"
+    },
+    {
+      "name": "Ballotpedia — Los Angeles County Measure ER, Sales Tax Increase for Health Services (June 2026)",
+      "url": "https://ballotpedia.org/Los_Angeles_County,_California,_Measure_ER,_Sales_Tax_Increase_for_Health_Services_Measure_(June_2026)"
+    },
+    {
+      "name": "RTC Section 7251.1 — combined transactions-and-use-tax 2% cap (CDTFA law guide)",
+      "url": "https://cdtfa.ca.gov/lawguides/vol1/tutl/transactions-and-use-tax-law-ch1-all.html"
+    }
+  ],
+  "status": "proposed",
+  "type": "sales",
+  "updated_at": "2026-06-29"
+}

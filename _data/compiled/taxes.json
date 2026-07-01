@@ -88,6 +88,225 @@
   },
   {
     "agency": {
+      "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
+      "slug": "cdtfa"
+    },
+    "effective": {
+      "end": null,
+      "start": "2025-04-01"
+    },
+    "funds": [
+      {
+        "name": "Comprehensive homeless services",
+        "share": 0.6,
+        "slug": "comprehensive-homeless-services"
+      },
+      {
+        "name": "L.A. County Affordable Housing Solutions Agency (LACAHSA) — affordable housing and prevention",
+        "share": 0.3575,
+        "slug": "lacahsa-affordable-housing-prevention"
+      },
+      {
+        "name": "Local housing production",
+        "share": 0.03,
+        "slug": "local-housing-production"
+      },
+      {
+        "name": "Accountability, data, and research",
+        "share": 0.0125,
+        "slug": "accountability-data-research"
+      }
+    ],
+    "id": "los-angeles-county-measure-a-homelessness-sales-tax",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Los Angeles County",
+      "slug": "los-angeles"
+    },
+    "name": "Measure A — Affordable Housing, Homelessness Solutions and Prevention Ordinance (Sales Tax)",
+    "notes": "IN EFFECT. A 0.50% (half-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters in November 2024 and effective April 1, 2025. It repealed and replaced the 0.25% Measure H homeless-services tax (which was scheduled to expire in 2027 — see [[los-angeles-county-measure-h-homeless-services-sales-tax]]). State enabling authority is AB 1679 (Chapter 731, Statutes of 2023; signed Oct 10, 2023), which added Chapter 2.4 (Sections 7286.01–7286.02) to Part 1.7, Division 2 of the Revenue & Taxation Code and authorized L.A. County to levy up to 0.50% dedicated to homelessness services/prevention or affordable housing, exempt from the RTC Section 7251.1 2% combined-rate cap. The ~$1B/yr figure is the County's estimate; the fund shares recorded here are the measure's statutory allocation, not collected revenue. Proceeds are distributed among the County, cities and Councils of Government, the L.A. County Development Authority (LACDA), and LACAHSA. No sunset date.",
+    "rates": [
+      {
+        "applies_to": "retail transactions countywide (transactions and use tax)",
+        "cap": null,
+        "kind": "percent",
+        "value": 0.5
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "measure-a-homelessness-sales-tax",
+    "sources": [
+      {
+        "name": "L.A. County Homeless Initiative — Measure A",
+        "url": "https://homeless.lacounty.gov/measure-a/"
+      },
+      {
+        "name": "AB 1679 (2023–2024) — Transactions and use taxes: County of Los Angeles: homelessness (Chapter 731, Statutes of 2023)",
+        "url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB1679"
+      },
+      {
+        "name": "RTC Section 7286.01 — additional local tax authorization, County of Los Angeles (CDTFA law guide)",
+        "url": "https://cdtfa.ca.gov/lawguides/vol1/alt/additional-local-taxes-sec7286-01.html"
+      }
+    ],
+    "status": "active",
+    "type": "sales",
+    "updated_at": "2026-06-29"
+  },
+  {
+    "agency": {
+      "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
+      "slug": "cdtfa"
+    },
+    "effective": {
+      "end": "2031-10-01",
+      "start": "2026-10-01"
+    },
+    "funds": [
+      {
+        "name": "Department of Health Services — no/reduced-cost care for low-income uninsured (Section 1204(a) network)",
+        "share": 0.45,
+        "slug": "dhs-low-income-uninsured-care"
+      },
+      {
+        "name": "Department of Health Services — safeguard public hospital and clinic services",
+        "share": 0.22,
+        "slug": "dhs-public-hospital-clinic-support"
+      },
+      {
+        "name": "Department of Public Health — core public health functions and health-equity grants",
+        "share": 0.1,
+        "slug": "dph-core-public-health"
+      },
+      {
+        "name": "Non-profit safety-net hospitals",
+        "share": 0.05,
+        "slug": "safety-net-hospitals"
+      },
+      {
+        "name": "Non-profit family-planning / reproductive-health agencies",
+        "share": 0.05,
+        "slug": "reproductive-health-agencies"
+      },
+      {
+        "name": "Department of Public Social Services — Medicaid outreach, enrollment, work/volunteer programs",
+        "share": 0.03,
+        "slug": "dpss-medicaid-outreach"
+      },
+      {
+        "name": "Correctional Health Services",
+        "share": 0.025,
+        "slug": "correctional-health-services"
+      },
+      {
+        "name": "In-Home Supportive Services (IHSS)",
+        "share": 0.025,
+        "slug": "ihss"
+      },
+      {
+        "name": "School-based health (L.A. Care Health Plan governing board)",
+        "share": 0.04,
+        "slug": "school-based-health"
+      },
+      {
+        "name": "City of Pasadena and City of Long Beach public-health departments",
+        "share": 0.01,
+        "slug": "pasadena-long-beach-public-health"
+      }
+    ],
+    "id": "los-angeles-county-measure-er-health-services-sales-tax",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Los Angeles County",
+      "slug": "los-angeles"
+    },
+    "name": "Measure ER — Essential Services Restoration Act (General Sales Tax for Health Services)",
+    "notes": "PROPOSED, not yet in effect. A 0.50% general transactions-and-use (sales) tax placed on the June 2, 2026 primary ballot by the L.A. County Board of Supervisors (motion, amendment, and resolution adopted Feb 10, 2026). Passage requires a simple majority. Because it would push the combined transactions-and-use-tax rate in some L.A. County cities above the 2% cap in Revenue & Taxation Code Section 7251.1, it also requires California State legislature approval to take effect; as of this record the specific enabling statute for Measure ER had not been confirmed (this is distinct from AB 1679 / RTC Sec. 7286.01, which enables the homelessness Measure A — see [[los-angeles-county-measure-a-homelessness-sales-tax]]). Revenue is a general-fund levy; the Board adopted a spending plan (the fund shares recorded here) allocating proceeds to county health, public health, and human services to backfill federal Medi-Cal/SNAP cuts from H.R.1 (One Big Beautiful Bill Act, July 4, 2025). The ~$1B/yr figure is the County's own estimate, not collected revenue. A nine-member citizens' oversight committee and an annual independent Auditor-Controller report (due March 31 each year) are part of the measure.",
+    "rates": [
+      {
+        "applies_to": "retail transactions countywide (general sales tax)",
+        "cap": null,
+        "kind": "percent",
+        "value": 0.5
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "measure-er-health-services-sales-tax",
+    "sources": [
+      {
+        "name": "L.A. County CEO Fact Sheet — Essential Services Restoration Act General Sales Tax Measure (FAQ, March 2026)",
+        "url": "https://file.lacounty.gov/SDSInter/lac/1202661_EssentialServicesRestorationActforLosAngelesCountyGeneralSalesTaxMeasureFAQ_FINAL.pdf"
+      },
+      {
+        "name": "Resolution of the Board of Supervisors of the County of Los Angeles (sales tax, adopted Feb 10, 2026)",
+        "url": "https://file.lacounty.gov/SDSInter/lac/1201778_SalesTax_BoardResolution021026.pdf"
+      },
+      {
+        "name": "Ballotpedia — Los Angeles County Measure ER, Sales Tax Increase for Health Services (June 2026)",
+        "url": "https://ballotpedia.org/Los_Angeles_County,_California,_Measure_ER,_Sales_Tax_Increase_for_Health_Services_Measure_(June_2026)"
+      },
+      {
+        "name": "RTC Section 7251.1 — combined transactions-and-use-tax 2% cap (CDTFA law guide)",
+        "url": "https://cdtfa.ca.gov/lawguides/vol1/tutl/transactions-and-use-tax-law-ch1-all.html"
+      }
+    ],
+    "status": "proposed",
+    "type": "sales",
+    "updated_at": "2026-06-29"
+  },
+  {
+    "agency": {
+      "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
+      "slug": "cdtfa"
+    },
+    "effective": {
+      "end": "2025-03-31",
+      "start": "2017-10-01"
+    },
+    "funds": [
+      {
+        "name": "Homeless and Housing Measure H Special Revenue Fund (homeless services and prevention)",
+        "share": 1,
+        "slug": "measure-h-special-revenue-fund"
+      }
+    ],
+    "id": "los-angeles-county-measure-h-homeless-services-sales-tax",
+    "jurisdiction": {
+      "level": "county",
+      "name": "Los Angeles County",
+      "slug": "los-angeles"
+    },
+    "name": "Measure H — Sales Tax for Homeless Services and Prevention",
+    "notes": "REPEALED / REPLACED. A 0.25% (quarter-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters on March 7, 2017 (two-thirds vote, special-purpose tax). Revenue was legally restricted to homeless services and prevention and held in the Measure H Special Revenue Fund. It was originally scheduled to expire in 2027 but was repealed and replaced early by the 0.50% Measure A effective April 1, 2025 — see [[los-angeles-county-measure-a-homelessness-sales-tax]]. Recorded here for historical/provenance continuity. Revenue figures not yet attached.",
+    "rates": [
+      {
+        "applies_to": "retail transactions countywide (transactions and use tax)",
+        "cap": null,
+        "kind": "percent",
+        "value": 0.25
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "measure-h-homeless-services-sales-tax",
+    "sources": [
+      {
+        "name": "L.A. County Auditor-Controller — Homeless and Housing Measure H Special Revenue Fund",
+        "url": "https://auditor.lacounty.gov/homeless-and-housing-measure-h-special-revenue-fund/"
+      },
+      {
+        "name": "Ballotpedia — L.A. County Sales Tax for Homeless Services and Prevention, Measure H (March 2017)",
+        "url": "https://ballotpedia.org/Los_Angeles_County,_California,_Sales_Tax_for_Homeless_Services_and_Prevention,_Measure_H_(March_2017)"
+      }
+    ],
+    "status": "repealed",
+    "type": "sales",
+    "updated_at": "2026-06-29"
+  },
+  {
+    "agency": {
       "name": "Clerk & Recorder",
       "slug": "clerk-recorder"
     },

@@ -1,0 +1,46 @@
+{
+  "agency": {
+    "name": "Assessor/Recorder – Recorder Division",
+    "slug": "assessor-recorder-recorder-division"
+  },
+  "effective": {
+    "end": null,
+    "start": "1968-11-08"
+  },
+  "id": "solano-county-ca-documentary-transfer-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County, CA",
+    "slug": "solano-county-ca"
+  },
+  "name": "Documentary Transfer Tax",
+  "notes": "Tax on transfers of real property; standard county rate under California Revenue & Taxation Code §11911 et seq. Collected at recording.",
+  "rates": [
+    {
+      "applies_to": "real property consideration (recorded transfers)",
+      "cap": null,
+      "kind": "amount",
+      "value": 1.1
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "documentary-transfer-tax",
+  "sources": [
+    {
+      "name": "Solano County Recorder – Special Recording Fees (lists Documentary Transfer Tax)",
+      "url": "https://www.solanocounty.gov/government/assessorrecorder/recorder-division/record-official-records/special-recording-fees-requirements"
+    },
+    {
+      "name": "California City Finance – County & City DTT Rates (shows Solano County $1.10 per $1,000)",
+      "url": "https://californiacityfinance.com/PropTransfTaxRates.pdf"
+    },
+    {
+      "name": "Solano Tax Sale Terms (states $0.55 per $500 collected)",
+      "url": "https://www.solanocounty.gov/government/treasurer-tax-collector-county-clerk/tax-collector/tax-sale-general-information/terms-sale"
+    }
+  ],
+  "status": "active",
+  "type": "transfer",
+  "updated_at": "2020-01-01"
+}

@@ -1,0 +1,38 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration (CDTFA)",
+    "slug": "cdtfa"
+  },
+  "effective": {
+    "end": null,
+    "start": "1998-10-01"
+  },
+  "id": "solano-county-ca-library-transactions-and-use-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County, CA",
+    "slug": "solano-county-ca"
+  },
+  "name": "Public Library Transactions and Use Tax",
+  "notes": "Countywide district transactions and use tax for the Solano County Library system; collected by CDTFA and allocated to the Library.",
+  "rates": [
+    {
+      "applies_to": "taxable sales and use in the county district",
+      "cap": null,
+      "kind": "percent",
+      "value": 0.125
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "library-transactions-and-use-tax",
+  "sources": [
+    {
+      "name": "CDTFA District Tax List (CDTFA-105)",
+      "url": "https://cdtfa.ca.gov/formspubs/cdtfa105.pdf"
+    }
+  ],
+  "status": "active",
+  "type": "sales",
+  "updated_at": "1998-10-01"
+}

@@ -1,0 +1,49 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
+    "slug": "cdtfa"
+  },
+  "effective": {
+    "end": "2025-03-31",
+    "start": "2017-10-01"
+  },
+  "funds": [
+    {
+      "name": "Homeless and Housing Measure H Special Revenue Fund (homeless services and prevention)",
+      "share": 1,
+      "slug": "measure-h-special-revenue-fund"
+    }
+  ],
+  "id": "los-angeles-county-measure-h-homeless-services-sales-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Los Angeles County",
+    "slug": "los-angeles"
+  },
+  "name": "Measure H — Sales Tax for Homeless Services and Prevention",
+  "notes": "REPEALED / REPLACED. A 0.25% (quarter-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters on March 7, 2017 (two-thirds vote, special-purpose tax). Revenue was legally restricted to homeless services and prevention and held in the Measure H Special Revenue Fund. It was originally scheduled to expire in 2027 but was repealed and replaced early by the 0.50% Measure A effective April 1, 2025 — see [[los-angeles-county-measure-a-homelessness-sales-tax]]. Recorded here for historical/provenance continuity. Revenue figures not yet attached.",
+  "rates": [
+    {
+      "applies_to": "retail transactions countywide (transactions and use tax)",
+      "cap": null,
+      "kind": "percent",
+      "value": 0.25
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "measure-h-homeless-services-sales-tax",
+  "sources": [
+    {
+      "name": "L.A. County Auditor-Controller — Homeless and Housing Measure H Special Revenue Fund",
+      "url": "https://auditor.lacounty.gov/homeless-and-housing-measure-h-special-revenue-fund/"
+    },
+    {
+      "name": "Ballotpedia — L.A. County Sales Tax for Homeless Services and Prevention, Measure H (March 2017)",
+      "url": "https://ballotpedia.org/Los_Angeles_County,_California,_Sales_Tax_for_Homeless_Services_and_Prevention,_Measure_H_(March_2017)"
+    }
+  ],
+  "status": "repealed",
+  "type": "sales",
+  "updated_at": "2026-06-29"
+}

@@ -1,0 +1,46 @@
+{
+  "agency": {
+    "name": "Auditor-Controller",
+    "slug": "auditor-controller"
+  },
+  "effective": {
+    "end": null,
+    "start": "2018-01-01"
+  },
+  "id": "solano-county-ca-cannabis-business-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County, CA",
+    "slug": "solano-county-ca"
+  },
+  "name": "Cannabis Business License Tax",
+  "notes": "General business license tax on cannabis businesses in the unincorporated area. Board may set specific rates by resolution up to the voter-approved cap.",
+  "rates": [
+    {
+      "applies_to": "gross receipts of cannabis businesses",
+      "cap": null,
+      "kind": "percent",
+      "value": 15
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "cannabis-business-tax",
+  "sources": [
+    {
+      "name": "Measure C (2016) — BOS action & ballot submission",
+      "url": "https://solano.granicus.com/MinutesViewer.php?clip_id=1134&view_id=8"
+    },
+    {
+      "name": "Code Ch. 11 (Art. XII references; billing by Auditor-Controller)",
+      "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
+    },
+    {
+      "name": "County impartial analysis / voter information",
+      "url": "https://www.solanocounty.com/civicax/filebank/blobdload.aspx?BlobID=32900"
+    }
+  ],
+  "status": "active",
+  "type": "business",
+  "updated_at": "2016-11-08"
+}
