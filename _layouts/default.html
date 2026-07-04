@@ -3,12 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <title>{{ page.title }} - {{ site.title }}</title>
+    {% seo %}
     <link
       rel="stylesheet"
       href="{{ site.baseurl }}/assets/css/styles.css"
     >
-    <meta name="description" content="Making taxation visible—from origination through collection to expenditure." />
     <link rel="icon" href="/assets/images/tax-tracker-mark.svg" />
     {% include ga.html %}
     {% include analytics.html %}

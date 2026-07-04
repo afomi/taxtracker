@@ -1,6 +1,19 @@
 url: "https://taxtracker.org" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "TaxTracker – See where taxes come from and go"
+description: >-
+  A transparent, sourced inventory of U.S. taxes that traces money from
+  origination through collection to expenditure.
+lang: en-US
+logo: /assets/images/tax-tracker-mark.svg
+twitter:
+  username: randw
+  card: summary
+social:
+  name: TaxTracker
+  links:
+    - https://github.com/afomi/taxtracker
+    - https://x.com/randw
 repo:
   url: https://github.com/afomi/taxtracker
 
@@ -14,6 +27,7 @@ donations:
 plugins:
   - jekyll-datapage-generator
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 exclude:
   - tailwind.config.js
@@ -39,6 +53,9 @@ collections:
 page_gen:
   - data: "compiled.taxes"    # _data/compiled/taxes.json -> array
     template: "tax"           # uses tax.html in the project root or _layouts/
-    name: "slug"              # output filename from each item's slug
+    # Output dir per record is "<jurisdiction-slug>-<tax-slug>" so URLs are unique
+    # (some tax slugs collide across jurisdictions, e.g. Vacaville & Solano "lodging-tax").
+    name_expr: "record['jurisdiction']['slug'] + '-' + record['slug']"
+    index_files: true         # emit <name>/index.html -> clean URLs with no .html
     dir: "taxes"
     page_data_prefix: tax

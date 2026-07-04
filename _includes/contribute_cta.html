@@ -1,0 +1,61 @@
+{%- comment -%}
+  Reusable bottom call-to-action panel.
+  Params (all optional, with sensible defaults):
+    heading         – h2 text
+    body            – paragraph text
+    primary_label   – primary button text
+    primary_href    – primary button link
+    secondary_label – secondary button text (omit to hide)
+    secondary_href  – secondary button link
+    fineprint       – small print under the divider (omit to hide)
+{%- endcomment -%}
+<section class="mt-14">
+  <div
+    class="rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 to-white p-8 md:p-12"
+  >
+    <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <div class="md:max-w-xl">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">
+          {{ include.heading | default: "Help make public finance transparent" }}
+        </h2>
+        <p class="mt-3 text-slate-600">
+          {{ include.body | default: "This project is open source. Every accurate contribution makes the public record more complete for everyone." }}
+        </p>
+      </div>
+      <div class="flex flex-col items-start gap-3 sm:flex-row md:flex-col md:items-end">
+        <a
+          href="{{ include.primary_href | default: '/contribute' }}"
+          class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/50"
+        >
+          {{ include.primary_label | default: "Contribute" }}
+          <svg
+            class="ml-2 h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+        {% if include.secondary_label %}
+          <a
+            href="{{ include.secondary_href | default: 'https://github.com/afomi/taxtracker' }}"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            {{ include.secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if include.fineprint %}
+      <p class="mt-8 border-t border-slate-200/70 pt-4 text-xs text-slate-500">
+        {{ include.fineprint }}
+      </p>
+    {% endif %}
+  </div>
+</section>

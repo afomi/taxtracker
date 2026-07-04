@@ -11,29 +11,29 @@ layout: default
     {{ item.jurisdiction.level | capitalize }} · {{ item.jurisdiction.name }} · {{ item.type | capitalize }}
   </p>
 
-  <section class="mt-6 grid gap-6 md:grid-cols-3">
+  <dl class="mt-6 grid gap-6 md:grid-cols-3">
     <div class="rounded-2xl border border-slate-200 bg-white p-5">
-      <div class="text-sm text-slate-500">Status</div>
-      <div class="mt-1 font-semibold">{{ item.status | capitalize }}</div>
+      <dt class="text-sm text-slate-500">Status</dt>
+      <dd class="mt-1 font-semibold">{{ item.status | capitalize }}</dd>
     </div>
     <div class="rounded-2xl border border-slate-200 bg-white p-5">
-      <div class="text-sm text-slate-500">Rate</div>
-      <div class="mt-1 font-semibold">
+      <dt class="text-sm text-slate-500">Rate</dt>
+      <dd class="mt-1 font-semibold">
         {% if item.rates and item.rates.size > 0 %}
           {% assign r = item.rates[0] %}
           {% if r.kind == 'percent' %}{{ r.value }}%
           {% elsif r.kind == 'amount' %}${{ r.value | plus: 0 | round: 2 }}
           {% else %}Varies{% endif %}
         {% else %}Varies{% endif %}
-      </div>
+      </dd>
     </div>
     <div class="rounded-2xl border border-slate-200 bg-white p-5">
-      <div class="text-sm text-slate-500">Revenue (latest)</div>
-      <div class="mt-1 font-semibold">
+      <dt class="text-sm text-slate-500">Revenue (latest)</dt>
+      <dd class="mt-1 font-semibold">
         <span class="rev money" data-amount="{{ item.revenue }}" data-year="{{ item.revenue_year | default: '' }}">{{ item.revenue }}</span>
-      </div>
+      </dd>
     </div>
-  </section>
+  </dl>
 
   <section class="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
     <h2 class="text-lg font-semibold">Agency</h2>
@@ -53,3 +53,37 @@ layout: default
     </ul>
   </section>
 </main>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GovernmentService",
+  "name": {{ item.name | jsonify }},
+  "serviceType": "Tax",
+  "url": "{{ page.url | absolute_url }}",
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": {{ item.jurisdiction.name | jsonify }}
+  },
+  "provider": {
+    "@type": "GovernmentOrganization",
+    "name": {{ item.agency.name | jsonify }}
+  }
+  {%- if item.updated_at %},
+  "dateModified": {{ item.updated_at | jsonify }}
+  {%- endif %}
+  {%- if item.sources and item.sources.size > 0 %},
+  "subjectOf": [
+    {%- for s in item.sources -%}
+    {%- if s.url %}
+    {
+      "@type": "CreativeWork",
+      "name": {{ s.name | jsonify }},
+      "url": {{ s.url | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+    {%- endfor %}
+  ]
+  {%- endif %}
+}
+</script>

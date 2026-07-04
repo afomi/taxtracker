@@ -170,6 +170,7 @@ DEPENDENCIES
   jekyll (~> 4.3.2)
   jekyll-datapage-generator
   jekyll-feed (~> 0.12)
+  jekyll-seo-tag
   jekyll-sitemap
   minima (~> 2.5)
   tzinfo (>= 1, < 3)
