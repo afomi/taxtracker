@@ -1,0 +1,560 @@
+# Directory of taxpayer associations — civic organizations that advocate on tax
+# and public-spending issues. These are potential collaborators and data sources,
+# NOT neutral publishers: most advocate for lower taxes / spending restraint.
+# The page frames them as advocacy organizations, per TaxTracker's even-handed stance.
+#
+# Seeded from two corroborating rosters (HJTA "Important Links" and the Solano
+# County Taxpayers' Association links page), verified 2026-07-02. URLs as listed
+# by those sources; individual sites not each re-verified live.
+#
+# Fields:
+#   name    – organization name
+#   url     – website (or best available link, e.g. Facebook page)
+#   state   – two-letter state, or "National" for nationwide orgs (used to group the page)
+#   scope   – geographic coverage
+#   level   – state | region | county | city
+#   note    – optional qualifier
+
+directories:
+  - name: Howard Jarvis Taxpayers Association — Important Links
+    url: https://www.hjta.org/resources/important-links/
+    note: Maintained roster of allied California local taxpayer associations.
+  - name: CalTax (California Taxpayers Association)
+    url: https://caltax.org/
+    note: Statewide association; convenes a monthly collaborative of local groups.
+
+associations:
+  - name: California Taxpayers Association (CalTax)
+    url: https://caltax.org/
+    state: CA
+    scope: California (statewide)
+    level: state
+    note: Founded 1926; research and advocacy on state tax and spending.
+
+  - name: Alameda County Taxpayers Association
+    url: https://actaxpayers.org/
+    state: CA
+    scope: Alameda County
+    level: county
+
+  - name: Central Valley Taxpayers Association
+    url: https://centralvalleytaxpayers.com/
+    state: CA
+    scope: Central Valley
+    level: region
+
+  - name: Contra Costa Taxpayers Association
+    url: https://cocotax.org/
+    state: CA
+    scope: Contra Costa County
+    level: county
+
+  - name: Gold Country Taxpayers Association
+    url: http://goldcountrytax.org/
+    state: CA
+    scope: Gold Country
+    level: region
+
+  - name: Kern County Taxpayers Association
+    url: https://kerntaxpayers.org/
+    state: CA
+    scope: Kern County
+    level: county
+
+  - name: Napa County Taxpayers Association
+    url: https://www.facebook.com/people/Napa-County-Taxpayers-Association/100071373382607/
+    state: CA
+    scope: Napa County
+    level: county
+    note: Facebook page (no standalone site listed).
+
+  - name: Orange County Taxpayers Association
+    url: https://www.octax.org/
+    state: CA
+    scope: Orange County
+    level: county
+
+  - name: Silicon Valley Taxpayers' Association
+    url: https://svtaxpayers.org/
+    state: CA
+    scope: Santa Clara County / Silicon Valley
+    level: region
+
+  - name: Solano County Taxpayers' Association
+    url: https://solanocountytaxpayers.com/
+    state: CA
+    scope: Solano County
+    level: county
+
+  - name: Ventura County Taxpayers Association
+    url: https://vcta.org/
+    state: CA
+    scope: Ventura County
+    level: county
+
+  - name: Yolo County Taxpayers Association
+    url: https://www.yolocountytaxpayers.com/
+    state: CA
+    scope: Yolo County
+    level: county
+
+  # --- Batch 1: national organizations + additional CA associations (added 2026-07-02) ---
+
+  - name: National Taxpayers Union
+    url: https://www.ntu.org/
+    state: National
+    scope: United States
+    level: national
+    note: National taxpayer advocacy organization.
+
+  - name: National Taxpayers Union Foundation
+    url: https://www.ntu.org/foundation
+    state: National
+    scope: United States
+    level: national
+
+  - name: OpenTheBooks
+    url: https://www.openthebooks.com/
+    state: National
+    scope: United States
+    level: national
+    note: Nonprofit database of government spending; captures federal, state, and local expenditures.
+
+  - name: Americans for Tax Reform
+    url: https://atr.org/
+    state: National
+    scope: United States
+    level: national
+
+  - name: Tax Foundation
+    url: https://taxfoundation.org/
+    state: National
+    scope: United States
+    level: national
+    note: Washington, D.C. tax-policy research organization.
+
+  - name: Citizens Against Government Waste
+    url: https://www.cagw.org/
+    state: National
+    scope: United States
+    level: national
+
+  - name: Taxpayers Protection Alliance
+    url: https://www.protectingtaxpayers.org/
+    state: National
+    scope: United States
+    level: national
+
+  - name: Taxpayers United of America
+    url: https://www.taxpayersunitedofamerica.org/
+    state: National
+    scope: United States (Chicago-based)
+    level: national
+
+  - name: Howard Jarvis Taxpayers Association
+    url: https://www.hjta.org/
+    state: CA
+    scope: California (statewide)
+    level: state
+    note: Sponsors of Proposition 13; maintains a roster of local associations.
+
+  - name: Los Angeles County Taxpayers Association
+    url: https://la-tax.org/
+    state: CA
+    scope: Los Angeles County
+    level: county
+
+  - name: Taxpayers Association of El Dorado County
+    url: https://taxpayersedc.org/
+    state: CA
+    scope: El Dorado County
+    level: county
+
+  - name: Chico Taxpayers Association
+    url: https://chicotaxpayers.com/
+    state: CA
+    scope: Chico (Butte County)
+    level: city
+
+  - name: Humboldt Taxpayers' League
+    url: https://humboldttaxpayers.org/
+    state: CA
+    scope: Humboldt County
+    level: county
+
+  - name: Stanislaus County Taxpayers Association
+    url: https://forcalifornians.com/taxpayer-associations
+    state: CA
+    scope: Stanislaus County (Modesto)
+    level: county
+    note: No standalone site found; listed in the ForCalifornians directory.
+
+  - name: Taxpayers' Federation of Illinois
+    url: https://illinoistax.org/
+    state: IL
+    scope: Illinois
+    level: state
+
+  - name: Nevada Taxpayers Association
+    url: https://nevadataxpayers.org/
+    state: NV
+    scope: Nevada
+    level: state
+    note: Serving Nevada since 1922.
+
+  - name: Iowa Taxpayers Association
+    url: https://www.iowataxpayers.org/
+    state: IA
+    scope: Iowa
+    level: state
+
+  - name: Texas Taxpayers and Research Association
+    url: https://ttara.org/
+    state: TX
+    scope: Texas
+    level: state
+
+  - name: Massachusetts Taxpayers Foundation
+    url: https://masstaxpayers.org/
+    state: MA
+    scope: Massachusetts
+    level: state
+    note: Founded 1932.
+
+  # --- Batch 2: national expansion across ~35 states (added 2026-07-02) ---
+  # Includes both taxpayer associations and state fiscal/tax research institutes.
+
+  - name: The Civic Federation
+    url: https://www.civicfed.org/
+    state: IL
+    scope: Illinois / Chicago / Cook County
+    level: region
+    note: Government-finance research (est. 1894).
+
+  - name: Texans for Fiscal Responsibility
+    url: https://texastaxpayers.com/
+    state: TX
+    scope: Texas
+    level: state
+
+  - name: Bexar County Taxpayers Association
+    url: https://www.bexartax.org/
+    state: TX
+    scope: Bexar County (San Antonio)
+    level: county
+
+  - name: Empire Center for Public Policy
+    url: https://www.empirecenter.org/
+    state: NY
+    scope: New York
+    level: state
+    note: Runs the SeeThroughNY transparency database.
+
+  - name: Upstate United
+    url: https://upstateunited.com/
+    state: NY
+    scope: Upstate New York
+    level: region
+
+  - name: The Buckeye Institute
+    url: https://www.buckeyeinstitute.org/
+    state: OH
+    scope: Ohio
+    level: state
+
+  - name: Policy Matters Ohio
+    url: https://policymattersohio.org/
+    state: OH
+    scope: Ohio
+    level: state
+
+  - name: Citizens Research Council of Michigan
+    url: https://crcmich.org/
+    state: MI
+    scope: Michigan
+    level: state
+
+  - name: Mackinac Center for Public Policy
+    url: https://www.mackinac.org/
+    state: MI
+    scope: Michigan
+    level: state
+
+  - name: Washington Research Council
+    url: https://researchcouncil.org/
+    state: WA
+    scope: Washington
+    level: state
+
+  - name: Washington Policy Center
+    url: https://www.washingtonpolicy.org/
+    state: WA
+    scope: Washington
+    level: state
+
+  - name: Wisconsin Policy Forum
+    url: https://wispolicyforum.org/
+    state: WI
+    scope: Wisconsin
+    level: state
+    note: Successor to the Wisconsin Taxpayers Alliance.
+
+  - name: Boston Municipal Research Bureau
+    url: https://www.bmrb.org/
+    state: MA
+    scope: Boston
+    level: city
+    note: Founded 1932.
+
+  - name: New Jersey Policy Perspective
+    url: https://www.njpp.org/
+    state: NJ
+    scope: New Jersey
+    level: state
+
+  - name: Taxpayers' Association of Seaside Park
+    url: https://tasspk.org/
+    state: NJ
+    scope: Seaside Park Borough, NJ
+    level: city
+
+  - name: Florida TaxWatch
+    url: https://floridataxwatch.org/
+    state: FL
+    scope: Florida
+    level: state
+    note: Statewide taxpayer research (est. 1979).
+
+  - name: Pennsylvania Economy League
+    url: https://pelcentral.org/
+    state: PA
+    scope: Pennsylvania
+    level: region
+    note: State/local fiscal research (est. 1936).
+
+  - name: Indiana Fiscal Policy Institute
+    url: https://indianafiscalpolicyinstitute.wildapricot.org/
+    state: IN
+    scope: Indiana
+    level: state
+
+  - name: Taxpayers Association of Central Iowa
+    url: https://www.tacitownhall.org/
+    state: IA
+    scope: Greater Des Moines
+    level: region
+    note: Property-tax and local-government watchdog (founded 1921).
+
+  - name: Kansas Policy Institute
+    url: https://kansaspolicy.org/
+    state: KS
+    scope: Kansas
+    level: state
+    note: Runs the KansasOpenGov transparency site.
+
+  - name: Oklahoma Council of Public Affairs
+    url: https://ocpathink.org/
+    state: OK
+    scope: Oklahoma
+    level: state
+
+  - name: Arizona Tax Research Association
+    url: https://www.arizonatax.org/
+    state: AZ
+    scope: Arizona
+    level: state
+    note: Since 1940.
+
+  - name: Beacon Center of Tennessee
+    url: https://www.beacontn.org/
+    state: TN
+    scope: Tennessee
+    level: state
+
+  - name: Colorado Union of Taxpayers
+    url: https://coloradotaxpayer.org/
+    state: CO
+    scope: Colorado
+    level: state
+    note: Since 1976.
+
+  - name: Taxpayers Association of Oregon
+    url: https://oregonwatchdog.com/
+    state: OR
+    scope: Oregon
+    level: state
+    note: Publishes as OregonWatchdog.com.
+
+  - name: Georgia Public Policy Foundation
+    url: https://www.georgiapolicy.org/
+    state: GA
+    scope: Georgia
+    level: state
+
+  - name: Cobb Taxpayers Association
+    url: https://cobbtaxpayer.com/
+    state: GA
+    scope: Cobb County, GA
+    level: county
+
+  - name: John Locke Foundation
+    url: https://www.johnlocke.org/
+    state: NC
+    scope: North Carolina
+    level: state
+
+  - name: Wake County Taxpayers Association
+    url: https://www.wcta.org/
+    state: NC
+    scope: Wake County, NC
+    level: county
+
+  - name: Fairfax County Taxpayers Alliance
+    url: https://www.fcta.org/
+    state: VA
+    scope: Fairfax County, VA
+    level: county
+    note: Founded 1956.
+
+  - name: Maryland Public Policy Institute
+    url: https://www.mdpolicy.org/
+    state: MD
+    scope: Maryland
+    level: state
+
+  - name: Montgomery County Taxpayers League
+    url: https://www.mctaxpayersleague.org/
+    state: MD
+    scope: Montgomery County, MD
+    level: county
+
+  - name: Show-Me Institute
+    url: https://showmeinstitute.org/
+    state: MO
+    scope: Missouri
+    level: state
+
+  - name: Nebraska Taxpayers for Freedom
+    url: https://www.netaxpayers.org/
+    state: NE
+    scope: Nebraska
+    level: state
+    note: Founded 1978.
+
+  - name: Utah Taxpayers Association
+    url: https://utahtaxpayers.org/
+    state: UT
+    scope: Utah
+    level: state
+
+  - name: Yankee Institute for Public Policy
+    url: https://www.yankeeinstitute.org/
+    state: CT
+    scope: Connecticut
+    level: state
+
+  - name: Rhode Island Public Expenditure Council
+    url: https://ripec.org
+    state: RI
+    scope: Rhode Island
+    level: state
+    note: Public-finance research (founded 1932).
+
+  - name: Maine Policy Institute
+    url: https://mainepolicy.org
+    state: ME
+    scope: Maine
+    level: state
+
+  - name: Josiah Bartlett Center for Public Policy
+    url: https://jbartlett.org
+    state: NH
+    scope: New Hampshire
+    level: state
+
+  - name: Ethan Allen Institute
+    url: https://www.ethanallen.org
+    state: VT
+    scope: Vermont
+    level: state
+
+  - name: Mississippi Center for Public Policy
+    url: https://mspolicy.org
+    state: MS
+    scope: Mississippi
+    level: state
+
+  - name: South Carolina Association of Taxpayers
+    url: https://scat1982.org
+    state: SC
+    scope: South Carolina
+    level: state
+    note: Since 1982.
+
+  - name: Cardinal Institute for West Virginia Policy
+    url: https://cardinalinstitute.com
+    state: WV
+    scope: West Virginia
+    level: state
+
+  - name: Public Affairs Research Council of Louisiana
+    url: https://parlouisiana.org
+    state: LA
+    scope: Louisiana
+    level: state
+
+  - name: Bureau of Governmental Research
+    url: https://www.bgr.org
+    state: LA
+    scope: New Orleans metro
+    level: region
+
+  - name: Arkansas Policy Foundation
+    url: https://arkansaspolicyfoundation.org
+    state: AR
+    scope: Arkansas
+    level: state
+
+  - name: Associated Taxpayers of Idaho
+    url: https://ati-taxinfo.com
+    state: ID
+    scope: Idaho
+    level: state
+    note: Tax research and education (since 1946).
+
+  - name: Montana Taxpayers Association
+    url: https://montax.org
+    state: MT
+    scope: Montana
+    level: state
+
+  - name: Wyoming Taxpayers Association
+    url: https://wyotax.org
+    state: WY
+    scope: Wyoming
+    level: state
+    note: Since 1937.
+
+  - name: Tax Foundation of Hawaii
+    url: https://www.tfhawaii.org
+    state: HI
+    scope: Hawaii
+    level: state
+
+  - name: Grassroot Institute of Hawaii
+    url: https://www.grassrootinstitute.org
+    state: HI
+    scope: Hawaii
+    level: state
+
+  - name: Alaska Policy Forum
+    url: https://alaskapolicyforum.org
+    state: AK
+    scope: Alaska
+    level: state
+
+  - name: Caesar Rodney Institute
+    url: https://www.caesarrodney.org
+    state: DE
+    scope: Delaware
+    level: state

@@ -1,0 +1,87 @@
+{%- comment -%}
+  Ecosystem list: other projects that track public money.
+  Driven by _data/related_sources.yml. Each source shows a stance tag so the
+  list stays even-handed — advocacy sources are labeled, never endorsed.
+  Add a source by editing the YAML, not this file.
+{%- endcomment -%}
+
+<section class="py-16 border-t border-slate-200">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight">
+        Other places tracking the money
+      </h2>
+      <p class="mt-2 text-slate-600">
+        TaxTracker links to peer projects and publishers across the spectrum.
+        We label each source's stance so you can weigh it yourself — including
+        advocacy campaigns that publish sourced data with a stated position.
+      </p>
+    </div>
+
+    <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {% for s in site.data.related_sources %}
+        <li class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-start justify-between gap-3">
+            <h3 class="text-lg font-semibold leading-tight">
+              <a
+                href="{{ s.url }}"
+                rel="noopener nofollow"
+                class="hover:text-indigo-700 hover:underline">{{ s.name }}</a>
+            </h3>
+            {% case s.stance %}
+              {% when 'advocacy' %}
+                <span class="shrink-0 inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700 ring-1 ring-amber-600/20">
+                  Advocacy
+                </span>
+              {% when 'government' %}
+                <span class="shrink-0 inline-flex items-center rounded-full bg-sky-50 px-2 py-0.5 text-xs font-medium text-sky-700 ring-1 ring-sky-600/20">
+                  Government
+                </span>
+              {% when 'research' %}
+                <span class="shrink-0 inline-flex items-center rounded-full bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-700 ring-1 ring-violet-600/20">
+                  Research
+                </span>
+              {% else %}
+                <span class="shrink-0 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-slate-500/20">
+                  Neutral data
+                </span>
+            {% endcase %}
+          </div>
+
+          <p class="mt-3 text-sm text-slate-600">
+            {{ s.publishes | strip }}
+          </p>
+
+          {% if s.note %}
+            <p class="mt-3 text-xs text-slate-500">
+              {% if s.stance == 'advocacy' %}<span class="font-semibold text-amber-700">Stated position:</span> {% endif %}{{ s.note | strip }}
+            </p>
+          {% endif %}
+
+          <div class="mt-4 pt-4 border-t border-slate-100">
+            <a
+              href="{{ s.url }}"
+              rel="noopener nofollow"
+              class="inline-flex items-center text-sm font-semibold text-indigo-700 hover:underline">
+              Visit site
+              <svg
+                class="ml-1 h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true">
+                <path d="M12.5 3a.75.75 0 000 1.5h1.69l-6.22 6.22a.75.75 0 101.06 1.06L15.25 5.56V7.25a.75.75 0 001.5 0V3h-4.25z" />
+                <path d="M4.5 5.75A1.75 1.75 0 016.25 4H9a.75.75 0 010 1.5H6.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25V11a.75.75 0 011.5 0v2.25A1.75 1.75 0 0113.75 15h-7.5A1.75 1.75 0 014.5 13.25v-7.5z" />
+              </svg>
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <p class="mt-6 text-xs text-slate-500">
+      Listing here is not an endorsement. Sources are included for transparency
+      and labeled by stance.
+      <a href="/contribute" class="underline hover:text-indigo-700">Suggest a source</a>.
+    </p>
+  </div>
+</section>

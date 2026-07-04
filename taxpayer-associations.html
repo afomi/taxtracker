@@ -1,0 +1,222 @@
+---
+layout: default
+title: Taxpayer associations
+permalink: /taxpayer-associations/
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+  <header class="max-w-2xl">
+    <h1 class="text-3xl font-bold tracking-tight">Taxpayer associations</h1>
+    <p class="mt-2 text-slate-600">
+      A directory of taxpayer associations — civic organizations that research and
+      advocate on tax and public-spending issues.
+      These are potential collaborators and data sources, not neutral publishers:
+      most advocate for lower taxes or spending restraint.
+      We list them for transparency and label them as advocacy organizations.
+    </p>
+  </header>
+
+  <!-- Existing directories to acknowledge, not duplicate -->
+  <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+    <h2 class="text-sm font-semibold text-slate-700">Existing rosters we build on</h2>
+    <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+      {% for d in site.data.taxpayer_associations.directories %}
+        <li>
+          <a
+            href="{{ d.url }}"
+            rel="noopener nofollow"
+            class="font-medium text-indigo-700 hover:underline">{{ d.name }}</a>
+          {% if d.note %}<span class="text-slate-500">— {{ d.note }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {% assign assns = site.data.taxpayer_associations.associations %}
+
+  {%- comment -%}
+    State code -> full name lookup, built from two parallel, index-aligned lists.
+    Used to render human-readable section headings from the two-letter `state` field.
+  {%- endcomment -%}
+  {% assign st_codes = "AK,AL,AR,AZ,CA,CO,CT,DE,FL,GA,HI,IA,ID,IL,IN,KS,LA,MA,MD,ME,MI,MN,MO,MS,MT,NC,ND,NE,NH,NJ,NM,NV,NY,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VA,VT,WA,WI,WV,WY" | split: "," %}
+  {% assign st_names = "Alaska,Alabama,Arkansas,Arizona,California,Colorado,Connecticut,Delaware,Florida,Georgia,Hawaii,Iowa,Idaho,Illinois,Indiana,Kansas,Louisiana,Massachusetts,Maryland,Maine,Michigan,Minnesota,Missouri,Mississippi,Montana,North Carolina,North Dakota,Nebraska,New Hampshire,New Jersey,New Mexico,Nevada,New York,Ohio,Oklahoma,Oregon,Pennsylvania,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Virginia,Vermont,Washington,Wisconsin,West Virginia,Wyoming" | split: "," %}
+
+  {% assign nationals = assns | where: "state", "National" | sort: "name" %}
+  {% assign locals = assns | sort: "name" %}
+
+  <div class="mt-8 flex items-center justify-between gap-4">
+    <p class="text-sm text-slate-500">
+      {{ assns | size }} associations listed.
+      Find yours by state below, or filter by name or place.
+    </p>
+    <span class="shrink-0 inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700 ring-1 ring-amber-600/20">
+      Advocacy organizations
+    </span>
+  </div>
+
+  <!-- Filter box -->
+  <div class="mt-4">
+    <label for="assn-filter" class="sr-only">Filter associations</label>
+    <input
+      id="assn-filter"
+      type="search"
+      placeholder="Filter by name or place, e.g. Solano, Texas, county…"
+      class="w-full sm:w-96 rounded-2xl border border-slate-300 bg-white px-5 py-3 shadow-sm focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/30" />
+    <p id="assn-empty" class="mt-3 hidden text-sm text-slate-500">
+      No associations match. <a href="/contribute" class="underline hover:text-indigo-700">Suggest one</a>.
+    </p>
+  </div>
+
+  <!-- State jump nav -->
+  <nav aria-label="Jump to state" class="mt-6 flex flex-wrap gap-2" data-jumpnav>
+    {% if nationals.size > 0 %}
+      <a href="#national" class="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:border-indigo-300 hover:text-indigo-700">National</a>
+    {% endif %}
+    {% for code in st_codes %}
+      {% assign group = locals | where: "state", code %}
+      {% if group.size > 0 %}
+        {% assign ci = 0 %}
+        {% for c in st_codes %}{% if c == code %}{% assign idx = ci %}{% endif %}{% assign ci = ci | plus: 1 %}{% endfor %}
+        <a
+          href="#state-{{ code | downcase }}"
+          data-jump="{{ code }}"
+          class="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:border-indigo-300 hover:text-indigo-700">{{ code }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+
+  {%- comment -%} Reusable card markup is inlined per group. data-* attrs drive the JS filter. {%- endcomment -%}
+
+  <!-- National organizations first -->
+  {% if nationals.size > 0 %}
+    <section id="national" class="mt-10 scroll-mt-24" data-group>
+      <h2 class="text-xl font-bold tracking-tight">National</h2>
+      <p class="mt-1 text-sm text-slate-500">Nationwide organizations serving taxpayers in every state.</p>
+      <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {% for a in nationals %}
+          <li
+            class="flex flex-col rounded-2xl border border-slate-200 bg-white p-5"
+            data-assn
+            data-search="{{ a.name | append: ' ' | append: a.scope | downcase | escape }}">
+            <h3 class="text-base font-semibold leading-tight">
+              <a href="{{ a.url }}" rel="noopener nofollow" class="hover:text-indigo-700 hover:underline">{{ a.name }}</a>
+            </h3>
+            <p class="mt-1 text-sm text-slate-600">{{ a.scope }}</p>
+            {% if a.note %}<p class="mt-2 text-xs text-slate-500">{{ a.note }}</p>{% endif %}
+            <div class="mt-auto pt-3">
+              <span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 capitalize">{{ a.level }}</span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  <!-- Per-state sections, alphabetical by state code -->
+  {% assign ci = 0 %}
+  {% for code in st_codes %}
+    {% assign group = locals | where: "state", code %}
+    {% if group.size > 0 %}
+      {% assign name = st_names[ci] %}
+      <section id="state-{{ code | downcase }}" class="mt-10 scroll-mt-24" data-group data-state="{{ code }}">
+        <div class="flex items-baseline justify-between border-b border-slate-200 pb-2">
+          <h2 class="text-xl font-bold tracking-tight">{{ name }}</h2>
+          <span class="text-xs text-slate-400">{{ code }} · {{ group.size }}</span>
+        </div>
+        <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {% for a in group %}
+            <li
+              class="flex flex-col rounded-2xl border border-slate-200 bg-white p-5"
+              data-assn
+              data-search="{{ a.name | append: ' ' | append: a.scope | append: ' ' | append: name | downcase | escape }}">
+              <h3 class="text-base font-semibold leading-tight">
+                <a href="{{ a.url }}" rel="noopener nofollow" class="hover:text-indigo-700 hover:underline">{{ a.name }}</a>
+              </h3>
+              <p class="mt-1 text-sm text-slate-600">{{ a.scope }}</p>
+              {% if a.note %}<p class="mt-2 text-xs text-slate-500">{{ a.note }}</p>{% endif %}
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 capitalize">{{ a.level }}</span>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+    {% assign ci = ci | plus: 1 %}
+  {% endfor %}
+
+  <!-- Contribute CTA -->
+  <section class="mt-14">
+    <div class="rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 to-white p-8 md:p-12">
+      <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <div class="md:max-w-xl">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">
+            Missing a taxpayer association?
+          </h2>
+          <p class="mt-3 text-slate-600">
+            Run or know a group that supports transparency and fiscal analysis?
+            Add it — this project is open source, so each contribution makes the
+            listing more complete for everyone.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-3 sm:flex-row md:flex-col md:items-end">
+          <a
+            href="/contribute"
+            class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/50">
+            Add a specific tax
+            <svg
+              class="ml-2 h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a
+            href="https://github.com/afomi/taxtracker/issues/new"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50">
+            Add an organization
+          </a>
+        </div>
+      </div>
+
+      <p class="mt-8 border-t border-slate-200/70 pt-4 text-xs text-slate-500">
+        Listing here is not an endorsement.
+        Associations are included for transparency and labeled by stance.
+      </p>
+    </div>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var input = document.getElementById('assn-filter');
+    if (!input) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-assn]'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-group]'));
+    var empty = document.getElementById('assn-empty');
+
+    function apply() {
+      var q = input.value.trim().toLowerCase();
+      var anyVisible = false;
+      cards.forEach(function (c) {
+        var hit = q === '' || c.getAttribute('data-search').indexOf(q) !== -1;
+        c.hidden = !hit;
+        if (hit) anyVisible = true;
+      });
+      // hide a group heading if all its cards are filtered out
+      groups.forEach(function (g) {
+        var visible = g.querySelectorAll('[data-assn]:not([hidden])').length;
+        g.hidden = visible === 0;
+      });
+      if (empty) empty.hidden = anyVisible;
+    }
+
+    input.addEventListener('input', apply);
+  })();
+</script>

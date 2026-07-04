@@ -1,0 +1,41 @@
+# Other projects and publishers that track public money.
+# TaxTracker links across the spectrum and labels each source's stance so the
+# list stays even-handed. Do NOT present advocacy sources as endorsements.
+#
+# Fields:
+#   name      – display name
+#   url       – canonical URL
+#   publishes – what data they make public (verified, factual)
+#   stance    – one of: neutral-data | government | research | advocacy
+#   note      – short qualifier shown after the stance tag (esp. for advocacy)
+#   verified  – true once we've confirmed scope from the source itself
+
+- name: Transit Accountability
+  url: https://transitaccountability.com/
+  publishes: >-
+    Bay Area transit agency finances, ridership, employee compensation, and
+    cross-county sales-tax comparisons, sourced from audited reports and budgets.
+  stance: advocacy
+  note: >-
+    A campaign (Committee for Affordable Bay Area Transit, sponsored by the
+    Contra Costa Taxpayers Association) opposing a November 2026 Bay Area transit
+    sales-tax measure.
+  verified: true
+
+- name: California City Finance
+  url: https://californiacityfinance.com/
+  publishes: >-
+    California local-government revenue data, including county and city
+    documentary transfer tax and district transactions-and-use-tax rates.
+  stance: research
+  note: Independent municipal-finance research; already cited in TaxTracker records.
+  verified: true
+
+- name: Ballotpedia
+  url: https://ballotpedia.org/
+  publishes: >-
+    Nonpartisan encyclopedia of U.S. ballot measures, including local tax
+    measures with rates, purposes, and vote results.
+  stance: neutral-data
+  note: Nonpartisan reference; already cited in TaxTracker records.
+  verified: true
