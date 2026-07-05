@@ -9,11 +9,11 @@
     <nav aria-label="Primary" class="hidden md:block">
       <ul class="flex items-center gap-8 text-sm">
 
-        <li><a class="hover:text-indigo-700" href="/taxes" aria-current="page">Types of taxes</a></li>
-        <li><a class="hover:text-indigo-700" href="/taxes/inventory" aria-current="page">Inventory</a></li>
-        <li><a class="hover:text-indigo-700" href="/flows">Flows</a></li>
-        <li><a class="hover:text-indigo-700" href="/how-it-works">How it works</a></li>
-        <li><a class="hover:text-indigo-700" href="/taxpayer-associations">Associations</a></li>
+        <li><a class="hover:text-indigo-700" href="/taxes"{% if page.url == '/taxes/' %} aria-current="page"{% endif %}>Types of taxes</a></li>
+        <li><a class="hover:text-indigo-700" href="/taxes/inventory"{% if page.url contains '/taxes/inventory' %} aria-current="page"{% endif %}>Inventory</a></li>
+        <li><a class="hover:text-indigo-700" href="/flows"{% if page.url contains '/flows' %} aria-current="page"{% endif %}>Flows</a></li>
+        <li><a class="hover:text-indigo-700" href="/how-it-works"{% if page.url contains '/how-it-works' %} aria-current="page"{% endif %}>How it works</a></li>
+        <li><a class="hover:text-indigo-700" href="/associations"{% if page.url contains '/associations' %} aria-current="page"{% endif %}>Associations</a></li>
         <li class="hidden"><a class="hover:text-indigo-700" href="/datasets">Datasets</a></li>
         <li class="hidden"><a class="hover:text-indigo-700" href="/about">About</a></li>
       </ul>
@@ -35,7 +35,7 @@
           <li><a href="/taxes" class="hover:text-indigo-700">Taxes</a></li>
         </ol>
       </nav>
-      <div old-classes="md:flex items-center gap-3 text-sm" class="hidden">
+      <div class="hidden">
         <a href="/developers" class="hover:text-indigo-700">API</a>
         <span aria-hidden="true" class="text-slate-300">·</span>
         <a href="/downloads/taxes.csv" class="hover:text-indigo-700">Download CSV</a>

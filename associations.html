@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Taxpayer associations
-permalink: /taxpayer-associations/
+permalink: /associations/
 ---
 
 {% include header.html %}
@@ -147,50 +147,15 @@ permalink: /taxpayer-associations/
     {% assign ci = ci | plus: 1 %}
   {% endfor %}
 
-  <!-- Contribute CTA -->
-  <section class="mt-14">
-    <div class="rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 to-white p-8 md:p-12">
-      <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-        <div class="md:max-w-xl">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">
-            Missing a taxpayer association?
-          </h2>
-          <p class="mt-3 text-slate-600">
-            Run or know a group that supports transparency and fiscal analysis?
-            Add it — this project is open source, so each contribution makes the
-            listing more complete for everyone.
-          </p>
-        </div>
-        <div class="flex flex-col items-start gap-3 sm:flex-row md:flex-col md:items-end">
-          <a
-            href="/contribute"
-            class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/50">
-            Add a specific tax
-            <svg
-              class="ml-2 h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true">
-              <path
-                fill-rule="evenodd"
-                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                clip-rule="evenodd" />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/afomi/taxtracker/issues/new"
-            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50">
-            Add an organization
-          </a>
-        </div>
-      </div>
-
-      <p class="mt-8 border-t border-slate-200/70 pt-4 text-xs text-slate-500">
-        Listing here is not an endorsement.
-        Associations are included for transparency and labeled by stance.
-      </p>
-    </div>
-  </section>
+  {% include contribute_cta.html
+    heading="Missing a taxpayer association?"
+    body="Run or know a group that supports transparency and fiscal analysis? Add it — this project is open source, so each contribution makes the listing more complete for everyone."
+    primary_label="Add a specific tax"
+    primary_href="/contribute"
+    secondary_label="Add an organization"
+    secondary_href="https://github.com/afomi/taxtracker/issues/new"
+    fineprint="Listing here is not an endorsement. Associations are included for transparency and labeled by stance."
+  %}
 </main>
 
 <script>
