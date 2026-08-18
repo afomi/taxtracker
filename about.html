@@ -1,18 +1,64 @@
 ---
 layout: default
-title: About
+title: About TaxTracker
 permalink: /about/
+description: Learn how TaxTracker makes U.S. tax rates, responsible agencies, revenue, sources, and public-money flows easier to find and understand.
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+{% include header.html %}
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+<main class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+  <header class="max-w-3xl">
+    <p class="text-sm font-semibold uppercase tracking-wide text-indigo-700">About TaxTracker</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Making public finance easier to follow</h1>
+    <p class="mt-4 text-lg leading-8 text-slate-600">
+      TaxTracker is an open, public-alpha project that organizes scattered government records into a sourced inventory
+      of taxes and visual tools for following money from collection to public spending.
+    </p>
+  </header>
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+  <section class="mt-10 grid gap-6 md:grid-cols-3" aria-labelledby="what-you-can-find">
+    <h2 id="what-you-can-find" class="sr-only">What you can find</h2>
+    <article class="rounded-2xl border border-slate-200 bg-white p-6">
+      <h3 class="font-semibold">Tax records</h3>
+      <p class="mt-2 text-sm leading-6 text-slate-600">Rates, status, responsible agencies, effective dates, revenue, and official references.</p>
+    </article>
+    <article class="rounded-2xl border border-slate-200 bg-white p-6">
+      <h3 class="font-semibold">Public sources</h3>
+      <p class="mt-2 text-sm leading-6 text-slate-600">Links back to statutes, ordinances, ballot measures, budgets, and agency publications whenever available.</p>
+    </article>
+    <article class="rounded-2xl border border-slate-200 bg-white p-6">
+      <h3 class="font-semibold">Money flows</h3>
+      <p class="mt-2 text-sm leading-6 text-slate-600">Prototypes that connect taxpayers, collecting agencies, public funds, services, and spending.</p>
+    </article>
+  </section>
 
+  <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+    <h2 class="text-2xl font-bold tracking-tight">How the data is prepared</h2>
+    <p class="mt-3 leading-7 text-slate-600">
+      Records are collected from public documents, normalized to a shared schema, and published with their sources.
+      The project favors primary government material and keeps unknown values visibly incomplete instead of presenting
+      estimates as settled facts.
+    </p>
+    <p class="mt-3 leading-7 text-slate-600">
+      TaxTracker is not a government agency and does not provide tax, legal, or financial advice. The inventory is still
+      growing, and records may lag a newly enacted law or corrected publication. Check the linked primary source before
+      relying on a figure for a filing or decision.
+    </p>
+    <a href="{{ '/how-it-works/' | relative_url }}" class="mt-5 inline-flex font-semibold text-indigo-700 hover:underline">
+      Read the methodology
+    </a>
+  </section>
 
-[jekyll-organization]: https://github.com/jekyll
+  <section class="mt-10 rounded-2xl bg-indigo-50 p-6 sm:p-8">
+    <h2 class="text-2xl font-bold tracking-tight text-indigo-950">An open civic project</h2>
+    <p class="mt-3 leading-7 text-indigo-900">
+      The source code and structured records are public. Corrections are welcome—especially when they include a current,
+      authoritative source and explain what changed.
+    </p>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <a href="{{ '/contribute/' | relative_url }}" class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700">Contribute data</a>
+      <a href="{{ site.repo.url }}" class="rounded-xl border border-indigo-200 bg-white px-4 py-2 font-semibold text-indigo-800 hover:bg-indigo-100">View the repository</a>
+    </div>
+  </section>
+</main>

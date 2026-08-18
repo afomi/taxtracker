@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Inventory of taxes
+title: Types of Taxes in the United States
 permalink: /taxes/
+description: Learn about federal, state, county, and city tax types, then browse sourced U.S. tax records with rates, agencies, revenue, and official references.
 ---
 
 {% include header.html %}
@@ -38,13 +39,13 @@ permalink: /taxes/
   <div class="relative px-6 lg:px-8">
     <div class="mx-auto max-w-prose text-lg">
       <h1>
-        <span class="block text-center text-lg font-semibold text-indigo-600">An inventory of</span>
+        <span class="block text-center text-lg font-semibold text-indigo-600">A sourced guide to</span>
         <span class="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-          Taxes
+          Types of taxes in the United States
         </span>
       </h1>
       <p class="mt-8 text-xl leading-8 text-gray-500">
-        More than 80 types of taxes exist.
+        Explore {{ site.data.compiled.taxes | size }} growing tax records across federal, state, county, city, and special-district jurisdictions.
       </p>
     </div>
     <div class="prose prose-lg prose-indigo mx-auto mt-6 max-w-prose text-gray-500">
@@ -95,8 +96,13 @@ permalink: /taxes/
 
     <div class="mx-auto max-w-prose">
       <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">
-        Examples of different types of taxes levied
+        Browse sourced tax records
       </h2>
+
+      <p class="mt-2 text-gray-600">
+        Each record links to its rate, administering agency, available revenue data, and primary sources.
+        <a class="font-semibold text-indigo-700 hover:underline" href="{{ '/taxes/inventory/' | relative_url }}">Search and filter the full inventory</a>.
+      </p>
 
       <div class="mx-auto mt-6 text-gray-500">
         {% include tax-list.html %}

@@ -1,11 +1,11 @@
 ---
 layout: default
 permalink: /taxes/inventory/
+title: U.S. Tax Inventory
+description: Search and filter sourced U.S. tax records by jurisdiction, tax type, status, agency, rate, and revenue.
 ---
 
 {% assign taxes = site.data.compiled.taxes %}
-
-<meta name="description" content="Browse the inventory of taxes by type, jurisdiction, agency, rate, and more." />
 
 {% include header.html %}
 
@@ -188,12 +188,9 @@ permalink: /taxes/inventory/
               <div class="flex items-center gap-3 min-w-0">
                 <!-- Agency logo chip -->
                 <div
-                  class="h-8 w-8 shrink-0 rounded-lg border border-slate-200 bg-slate-50 grid place-items-center overflow-hidden">
-                  {% if t.agency.slug %}
-                  <img src="/assets/logos/agencies/{{ t.agency.slug }}.svg" alt="{{ t.agency.name }}" class="h-8 w-8 object-cover"
-                    onerror="this.remove(); this.nextElementSibling.classList.remove('hidden')" />
-                  {% endif %}
-                  <span class="hidden text-[11px] font-semibold text-slate-700">
+                  class="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50"
+                  aria-hidden="true">
+                  <span class="text-[11px] font-semibold text-slate-700">
                     {{ t.agency.name | slice: 0, 3 | upcase }}
                   </span>
                 </div>
@@ -332,6 +329,27 @@ permalink: /taxes/inventory/
     </section>
   </div>
 </main>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DataCatalog",
+  "name": "TaxTracker U.S. Tax Inventory",
+  "description": {{ page.description | jsonify }},
+  "url": {{ page.url | absolute_url | jsonify }},
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "dataset": [
+    {%- for tax in taxes %}
+    {
+      "@type": "Dataset",
+      "name": {{ tax.name | jsonify }},
+      "url": {{ '/taxes/' | append: tax.jurisdiction.slug | append: '-' | append: tax.slug | append: '/' | absolute_url | jsonify }},
+      "spatialCoverage": {{ tax.jurisdiction.name | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
 
 <script>
   (function () {

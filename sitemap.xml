@@ -1,6 +1,7 @@
 ---
 layout: null
 permalink: /sitemap.xml
+sitemap: false
 ---
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -11,10 +12,9 @@ permalink: /sitemap.xml
       <url>
         <loc>{{ p.url | absolute_url }}</loc>
         {% if p.last_modified_at or p.date %}
-          <lastmod>{{ (p.last_modified_at | default: p.date) | date_to_xmlschema }}</lastmod>
+          {% assign modified = p.last_modified_at | default: p.date %}
+          <lastmod>{{ modified | date_to_xmlschema }}</lastmod>
         {% endif %}
-        <changefreq>weekly</changefreq>
-        <priority>{% if p.url == "/" %}0.9{% else %}0.6{% endif %}</priority>
       </url>
     {% endunless %}
   {% endfor %}

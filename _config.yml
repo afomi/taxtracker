@@ -1,9 +1,10 @@
 url: "https://taxtracker.org" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
-title: "TaxTracker – See where taxes come from and go"
+title: "TaxTracker"
+tagline: "See where taxes come from and where they go"
 description: >-
-  A transparent, sourced inventory of U.S. taxes that traces money from
-  origination through collection to expenditure.
+  Explore a transparent, sourced inventory of U.S. taxes, including rates,
+  responsible agencies, revenue, and how public money moves.
 lang: en-US
 logo: /assets/images/tax-tracker-mark.svg
 twitter:
@@ -16,6 +17,16 @@ social:
     - https://x.com/randw
 repo:
   url: https://github.com/afomi/taxtracker
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image:
+        path: /assets/images/tbg.jpg
+        width: 1800
+        height: 1303
+        alt: Diagram showing how tax money flows from taxpayers to public services
 
 contact:
   email_user: ryan          # everything before the @

@@ -3,26 +3,24 @@
   <li class="relative bg-white px-4 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 hover:bg-gray-50" id="{{ tax.name | slugify }}">
     <div class="flex justify-between space-x-3">
       <div class="min-w-0 flex-1">
-        <div class="block focus:outline-none">
-          <p class="truncate text-sm font-medium text-gray-900">
-            <a href="#{{ tax.name | slugify }}">
+        <div>
+          <h3 class="text-base font-semibold text-gray-900">
+            <a class="hover:text-indigo-700 hover:underline" href="{{ '/taxes/' | append: tax.jurisdiction.slug | append: '-' | append: tax.slug | append: '/' | relative_url }}">
               {{ tax.name }}
             </a>
-          </p>
-          <p class="truncate text-sm text-blue-500">
-            <a href="{{ tax.url }}"
-              target="_blank"
-              rel="noopener">{{ tax.source }}</a>
+          </h3>
+          <p class="mt-1 text-sm text-gray-500">
+            {{ tax.jurisdiction.name }} · {{ tax.jurisdiction.level | capitalize }} · {{ tax.type | capitalize }}
           </p>
         </div>
       </div>
-      <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500 hidden">1d ago</time>
+      {% if tax.updated_at %}
+        <time datetime="{{ tax.updated_at }}" class="flex-shrink-0 whitespace-nowrap text-xs text-gray-500">Updated {{ tax.updated_at | date: "%b %-d, %Y" }}</time>
+      {% endif %}
     </div>
-    <div class="mt-1">
-      <p class="line-clamp-2 text-sm text-gray-600">
-        {{ tax.description }}
-      </p>
-    </div>
+    {% if tax.notes %}
+      <p class="mt-2 line-clamp-2 text-sm leading-6 text-gray-600">{{ tax.notes | truncate: 220 }}</p>
+    {% endif %}
   </li>
   {% endfor %}
 </ul>

@@ -1,41 +1,24 @@
-<footer class="border-t border-slate-200 py-10 hidden">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker" class="h-6 w-6" />
-        <span class="text-sm text-slate-600">© <span id="year"></span> taxtracker.org</span>
+<footer class="border-t border-slate-200 bg-slate-50 py-10">
+  <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8">
+    <div class="flex items-center gap-3">
+      <img src="{{ '/assets/images/tax-tracker-mark.svg' | relative_url }}" alt="" width="48" height="48" class="h-12 w-12">
+      <div>
+        <p class="font-semibold text-slate-900">TaxTracker</p>
+        <p class="mt-1 text-sm text-slate-600">Open, sourced tax and public-finance data.</p>
       </div>
-      <ul class="flex flex-wrap gap-6 text-sm text-slate-600">
-        <li><a class="hover:text-indigo-700" href="/privacy">Privacy</a></li>
-        <li><a class="hover:text-indigo-700" href="/terms">Terms</a></li>
-        <li><a class="hover:text-indigo-700" href="/accessibility">Accessibility</a></li>
-        <li><a class="hover:text-indigo-700" href="/status">Status</a></li>
+    </div>
+    <nav aria-label="Footer" class="self-center">
+      <ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-600">
+        <li><a class="hover:text-indigo-700" href="{{ '/about/' | relative_url }}">About</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/how-it-works/' | relative_url }}">Methodology</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/taxes/inventory/' | relative_url }}">Tax inventory</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/contact/' | relative_url }}">Contact</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ site.repo.url }}" rel="noopener">GitHub</a></li>
       </ul>
-    </div>
+    </nav>
   </div>
+  <p class="mx-auto mt-8 max-w-7xl px-4 text-xs text-slate-500 sm:px-6 lg:px-8">
+    © <span id="year"></span> TaxTracker. Not tax, legal, or financial advice.
+  </p>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-</footer>
-
-<!-- Footer (minimal) -->
-<footer class="border-t border-slate-200 py-10">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between gap-4 text-sm text-slate-600">
-      <div class="flex items-center gap-3">
-        <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker logo" class="h-16 w-16" />
-      </div>
-      <div class="flex items-center gap-6">
-        <a href="https://github.com/afomi/taxtracker"
-          class="font-medium text-slate-700 hover:text-indigo-800">Contribute via GitHub</a>
-        <span class="text-slate-500">
-          Curated by
-          <a href="https://x.com/randw"
-            rel="noopener"
-            class="font-medium text-slate-700 hover:text-indigo-800">@randw</a>
-        </span>
-      </div>
-    </div>
-  </div>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </footer>

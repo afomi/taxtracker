@@ -5,84 +5,184 @@ layout: default
 {% assign item = page.tax %}
 {% include header.html %}
 
-<main class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
-  <h1 class="text-3xl font-bold tracking-tight">{{ item.name }}</h1>
-  <p class="mt-1 text-slate-600">
-    {{ item.jurisdiction.level | capitalize }} · {{ item.jurisdiction.name }} · {{ item.type | capitalize }}
-  </p>
+<main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+  <header>
+    <p class="text-sm font-semibold uppercase tracking-wide text-indigo-700">
+      {{ item.jurisdiction.level | capitalize }} tax · {{ item.type | capitalize }}
+    </p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{{ item.name }}</h1>
+    <p class="mt-2 text-lg text-slate-600">{{ item.jurisdiction.name }}</p>
+    {% if item.updated_at %}
+      <p class="mt-2 text-sm text-slate-500">
+        Record last reviewed <time datetime="{{ item.updated_at }}">{{ item.updated_at | date: "%B %-d, %Y" }}</time>
+      </p>
+    {% endif %}
+  </header>
 
-  <dl class="mt-6 grid gap-6 md:grid-cols-3">
+  <dl class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     <div class="rounded-2xl border border-slate-200 bg-white p-5">
       <dt class="text-sm text-slate-500">Status</dt>
       <dd class="mt-1 font-semibold">{{ item.status | capitalize }}</dd>
     </div>
     <div class="rounded-2xl border border-slate-200 bg-white p-5">
-      <dt class="text-sm text-slate-500">Rate</dt>
+      <dt class="text-sm text-slate-500">Primary rate</dt>
       <dd class="mt-1 font-semibold">
         {% if item.rates and item.rates.size > 0 %}
           {% assign r = item.rates[0] %}
           {% if r.kind == 'percent' %}{{ r.value }}%
           {% elsif r.kind == 'amount' %}${{ r.value | plus: 0 | round: 2 }}
-          {% else %}Varies{% endif %}
-        {% else %}Varies{% endif %}
+          {% else %}Varies or unavailable{% endif %}
+        {% else %}Varies or unavailable{% endif %}
       </dd>
     </div>
     <div class="rounded-2xl border border-slate-200 bg-white p-5">
-      <dt class="text-sm text-slate-500">Revenue (latest)</dt>
+      <dt class="text-sm text-slate-500">Latest revenue</dt>
       <dd class="mt-1 font-semibold">
-        <span class="rev money" data-amount="{{ item.revenue }}" data-year="{{ item.revenue_year | default: '' }}">{{ item.revenue }}</span>
+        {% if item.revenue %}
+          <span class="money" data-year="{{ item.revenue_year | default: '' }}">{{ item.revenue }}</span>
+          {% if item.revenue_year %}<span class="text-sm font-normal text-slate-500">({{ item.revenue_year }})</span>{% endif %}
+        {% else %}
+          Not available
+        {% endif %}
+      </dd>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5">
+      <dt class="text-sm text-slate-500">Effective period</dt>
+      <dd class="mt-1 font-semibold">
+        {% if item.effective.start or item.effective.end %}
+          {% if item.effective.start %}<time datetime="{{ item.effective.start }}">{{ item.effective.start | date: "%b %-d, %Y" }}</time>{% else %}Start unknown{% endif %}
+          <span aria-hidden="true">–</span>
+          {% if item.effective.end %}<time datetime="{{ item.effective.end }}">{{ item.effective.end | date: "%b %-d, %Y" }}</time>{% else %}Present{% endif %}
+        {% else %}
+          Not available
+        {% endif %}
       </dd>
     </div>
   </dl>
 
-  <section class="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
-    <h2 class="text-lg font-semibold">Agency</h2>
-    <p class="mt-1">{{ item.agency.name }}</p>
+  {% if item.notes %}
+    <section class="mt-8 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8" aria-labelledby="overview-heading">
+      <h2 id="overview-heading" class="text-xl font-semibold">About this tax</h2>
+      <p class="mt-3 whitespace-pre-line leading-7 text-slate-700">{{ item.notes }}</p>
+    </section>
+  {% endif %}
+
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <section class="rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="rates-heading">
+      <h2 id="rates-heading" class="text-xl font-semibold">Rates</h2>
+      {% if item.rates and item.rates.size > 0 %}
+        <ul class="mt-3 space-y-4">
+          {% for rate in item.rates %}
+            <li>
+              <p class="font-semibold">
+                {% if rate.kind == 'percent' %}{{ rate.value }}%
+                {% elsif rate.kind == 'amount' %}${{ rate.value | plus: 0 | round: 2 }}
+                {% else %}Variable or not yet recorded{% endif %}
+              </p>
+              {% if rate.applies_to %}<p class="mt-1 text-sm leading-6 text-slate-600">Applies to {{ rate.applies_to }}.</p>{% endif %}
+              {% if rate.cap %}<p class="mt-1 text-sm text-slate-600">Cap: {{ rate.cap }}</p>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="mt-3 text-slate-600">No rate has been recorded yet.</p>
+      {% endif %}
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="agency-heading">
+      <h2 id="agency-heading" class="text-xl font-semibold">Administering agency</h2>
+      <p class="mt-3 leading-7 text-slate-700">{{ item.agency.name }}</p>
+      <p class="mt-2 text-sm text-slate-500">Agency responsibility may cover collection, administration, or distribution of proceeds.</p>
+    </section>
+  </div>
+
+  {% if item.funds and item.funds.size > 0 %}
+    <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="funds-heading">
+      <h2 id="funds-heading" class="text-xl font-semibold">Where the revenue goes</h2>
+      <ul class="mt-3 divide-y divide-slate-100">
+        {% for fund in item.funds %}
+          <li class="flex items-start justify-between gap-4 py-3 first:pt-0 last:pb-0">
+            <span class="text-slate-700">{{ fund.name }}</span>
+            {% if fund.share %}
+              <span class="shrink-0 font-semibold">{{ fund.share | times: 100 | round: 2 }}%</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="sources-heading">
+    <h2 id="sources-heading" class="text-xl font-semibold">Primary and official sources</h2>
+    {% if item.sources and item.sources.size > 0 %}
+      <ul class="mt-3 space-y-2">
+        {% for source in item.sources %}
+          <li class="flex items-start gap-2">
+            <span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400"></span>
+            {% if source.url %}
+              <a class="text-indigo-700 hover:underline"
+                href="{{ source.url }}" rel="noopener"
+                onclick="window.tt && tt.track('source_click', { tax: '{{ item.slug }}', source: '{{ source.name | escape }}' })">{{ source.name }}</a>
+            {% else %}
+              <span class="text-slate-700">{{ source.name }} <span class="text-sm text-slate-500">(link not yet recorded)</span></span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="mt-3 text-slate-600">No source has been recorded yet.</p>
+    {% endif %}
   </section>
 
-  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
-    <h2 class="text-lg font-semibold">Sources</h2>
-    <ul class="mt-2 list-disc pl-6">
-      {% for s in item.sources %}
-        <li><a
-          class="text-indigo-700 hover:underline"
-          href="{{ s.url }}"
-          onclick="window.tt && tt.track('source_click', { tax: '{{ item.slug }}', source: '{{ s.name | escape }}' })"
-        >{{ s.name }}</a></li>
-      {% endfor %}
-    </ul>
-  </section>
+  <aside class="mt-8 rounded-2xl bg-indigo-50 p-6 text-indigo-950">
+    <h2 class="font-semibold">See an error or a newer source?</h2>
+    <p class="mt-2 text-sm leading-6">Tax rules change. Help keep this public record current by sharing the authoritative source.</p>
+    <div class="mt-3 flex flex-wrap gap-4 text-sm font-semibold">
+      <a class="text-indigo-700 hover:underline" href="{{ '/contribute/' | relative_url }}">Contribute a correction</a>
+      <a class="text-indigo-700 hover:underline" href="{{ '/taxes/inventory/' | relative_url }}">Browse all taxes</a>
+    </div>
+  </aside>
 </main>
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "GovernmentService",
+  "@type": "Dataset",
   "name": {{ item.name | jsonify }},
-  "serviceType": "Tax",
-  "url": "{{ page.url | absolute_url }}",
-  "areaServed": {
+  "description": {{ page.description | jsonify }},
+  "url": {{ page.url | absolute_url | jsonify }},
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "spatialCoverage": {
     "@type": "AdministrativeArea",
     "name": {{ item.jurisdiction.name | jsonify }}
   },
-  "provider": {
+  "creator": {
     "@type": "GovernmentOrganization",
     "name": {{ item.agency.name | jsonify }}
+  },
+  "isPartOf": {
+    "@type": "DataCatalog",
+    "name": "TaxTracker U.S. Tax Inventory",
+    "url": {{ '/taxes/inventory/' | absolute_url | jsonify }}
   }
   {%- if item.updated_at %},
   "dateModified": {{ item.updated_at | jsonify }}
   {%- endif %}
   {%- if item.sources and item.sources.size > 0 %},
-  "subjectOf": [
-    {%- for s in item.sources -%}
-    {%- if s.url %}
-    {
-      "@type": "CreativeWork",
-      "name": {{ s.name | jsonify }},
-      "url": {{ s.url | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
-    {%- endif -%}
-    {%- endfor %}
+  "citation": [
+    {%- assign first_source = true -%}
+    {%- for source in item.sources -%}
+      {%- if source.url -%}
+        {%- unless first_source -%},{%- endunless -%}
+        {
+          "@type": "CreativeWork",
+          "name": {{ source.name | jsonify }},
+          "url": {{ source.url | jsonify }}
+        }
+        {%- assign first_source = false -%}
+      {%- endif -%}
+    {%- endfor -%}
   ]
   {%- endif %}
 }

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% seo %}
+    {% if page.robots %}<meta name="robots" content="{{ page.robots }}">{% endif %}
+    <meta name="theme-color" content="#4f46e5">
     <link
       rel="stylesheet"
-      href="{{ site.baseurl }}/assets/css/styles.css"
+      href="{{ '/assets/css/styles.css' | relative_url }}"
     >
-    <link rel="icon" href="/assets/images/tax-tracker-mark.svg" />
+    <link rel="icon" href="{{ '/assets/images/tax-tracker-mark.svg' | relative_url }}" type="image/svg+xml">
     {% include ga.html %}
     {% include analytics.html %}
   </head>

@@ -1,45 +1,50 @@
 <header
   class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/90 border-b border-slate-200 text-slate-800">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/assets/images/tax-tracker-mark.svg" alt="TaxTracker" class="h-8 w-8" />
+    <a href="{{ '/' | relative_url }}" class="flex items-center gap-3" aria-label="TaxTracker home">
+      <img src="{{ '/assets/images/tax-tracker-mark.svg' | relative_url }}" alt="" width="32" height="32" class="h-8 w-8" />
       <span class="sr-only">TaxTracker</span>
       <span class="font-semibold tracking-tight hidden sm:inline">TaxTracker</span>
     </a>
     <nav aria-label="Primary" class="hidden md:block">
       <ul class="flex items-center gap-8 text-sm">
 
-        <li><a class="hover:text-indigo-700" href="/taxes"{% if page.url == '/taxes/' %} aria-current="page"{% endif %}>Types of taxes</a></li>
-        <li><a class="hover:text-indigo-700" href="/taxes/inventory"{% if page.url contains '/taxes/inventory' %} aria-current="page"{% endif %}>Inventory</a></li>
-        <li><a class="hover:text-indigo-700" href="/flows"{% if page.url contains '/flows' %} aria-current="page"{% endif %}>Flows</a></li>
-        <li><a class="hover:text-indigo-700" href="/how-it-works"{% if page.url contains '/how-it-works' %} aria-current="page"{% endif %}>How it works</a></li>
-        <li><a class="hover:text-indigo-700" href="/associations"{% if page.url contains '/associations' %} aria-current="page"{% endif %}>Associations</a></li>
-        <li class="hidden"><a class="hover:text-indigo-700" href="/datasets">Datasets</a></li>
-        <li class="hidden"><a class="hover:text-indigo-700" href="/about">About</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/taxes/' | relative_url }}"{% if page.url == '/taxes/' %} aria-current="page"{% endif %}>Tax types</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/taxes/inventory/' | relative_url }}"{% if page.url contains '/taxes/inventory' %} aria-current="page"{% endif %}>Inventory</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/flows/' | relative_url }}"{% if page.url contains '/flows' %} aria-current="page"{% endif %}>Flows</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/how-it-works/' | relative_url }}"{% if page.url contains '/how-it-works' %} aria-current="page"{% endif %}>Methodology</a></li>
+        <li><a class="hover:text-indigo-700" href="{{ '/about/' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a></li>
       </ul>
     </nav>
     <div class="flex items-center gap-3">
-      <a href="/contact" class="sm:inline-block text-sm font-medium hover:text-indigo-700">Contact</a>
-      <a href="/contribute"
+      <a href="{{ '/contact/' | relative_url }}" class="sm:inline-block text-sm font-medium hover:text-indigo-700">Contact</a>
+      <a href="{{ '/contribute/' | relative_url }}"
         class="inline-flex items-center rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600/40 ring-1 ring-indigo-500/60">Contribute
         data</a>
     </div>
   </div>
-  <!-- Subnav / Breadcrumbs -->
+  {% unless page.url == '/' %}
+  <!-- Breadcrumbs -->
   <div class="border-t border-slate-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-600">
         <ol class="flex items-center gap-2">
-          <li><a href="/" class="hover:text-indigo-700">Home</a></li>
+          <li><a href="{{ '/' | relative_url }}" class="hover:text-indigo-700">Home</a></li>
           <li aria-hidden="true" class="text-slate-400">/</li>
-          <li><a href="/taxes" class="hover:text-indigo-700">Taxes</a></li>
+          {% if page.tax %}
+            <li><a href="{{ '/taxes/' | relative_url }}" class="hover:text-indigo-700">Taxes</a></li>
+            <li aria-hidden="true" class="text-slate-400">/</li>
+            <li aria-current="page" class="max-w-64 truncate text-slate-900">{{ page.tax.name }}</li>
+          {% elsif page.url == '/taxes/inventory/' %}
+            <li><a href="{{ '/taxes/' | relative_url }}" class="hover:text-indigo-700">Taxes</a></li>
+            <li aria-hidden="true" class="text-slate-400">/</li>
+            <li aria-current="page" class="text-slate-900">Inventory</li>
+          {% else %}
+            <li aria-current="page" class="max-w-64 truncate text-slate-900">{{ page.title | default: site.title }}</li>
+          {% endif %}
         </ol>
       </nav>
-      <div class="hidden">
-        <a href="/developers" class="hover:text-indigo-700">API</a>
-        <span aria-hidden="true" class="text-slate-300">·</span>
-        <a href="/downloads/taxes.csv" class="hover:text-indigo-700">Download CSV</a>
-      </div>
     </div>
   </div>
+  {% endunless %}
 </header>
