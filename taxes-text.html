@@ -1,0 +1,140 @@
+---
+layout: null
+title: Types
+permalink: /taxes/text/
+sitemap: false
+robots: noindex
+---
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    >
+    <title>Types</title>
+    <meta
+      name="robots"
+      content="noindex"
+    >
+    <meta
+      name="description"
+      content="Every tax type, set as a wall of type."
+    >
+    <link
+      rel="icon"
+      href="{{ '/assets/images/tax-tracker-mark.svg' | relative_url }}"
+      type="image/svg+xml"
+    >
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: #fff;
+        color: #0a0a0a;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wall {
+        padding: 2.5rem 4vw 6rem;
+      }
+
+      .label {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin: 0 0 3.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #0a0a0a;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .label h1 {
+        margin: 0;
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+      }
+
+      .types {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.75rem 2rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .name {
+        display: block;
+        color: inherit;
+        font-size: clamp(2rem, 2.7vw, 2.85rem);
+        font-weight: 500;
+        letter-spacing: -0.035em;
+        line-height: 0.98;
+        text-decoration: none;
+      }
+
+      .name:hover,
+      .name:focus-visible {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.14em;
+      }
+
+      .name:focus-visible {
+        outline: 2px solid #0a0a0a;
+        outline-offset: 0.35rem;
+      }
+
+      @media (min-width: 720px) {
+        .types {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (min-width: 1180px) {
+        .types {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          gap: 3.25rem 2.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wall">
+      <div class="label">
+        <h1>Types</h1>
+        <p>{{ site.data.tax_types | size }}</p>
+      </div>
+      <ol class="types">
+        {% for tax in site.data.tax_types %}
+          <li>
+            <a
+              class="name"
+              href="{{ tax.url }}"
+            >{{ tax.name }}</a>
+          </li>
+        {% endfor %}
+      </ol>
+    </main>
+  </body>
+</html>

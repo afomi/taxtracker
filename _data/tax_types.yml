@@ -150,14 +150,14 @@
   description: A tax levied on the wages and salaries of employees.
   source: Federal Insurance Contributions Act
   url: https://www.irs.gov/businesses/small-businesses-self-employed/employment-taxes
-- name: Professional Privilege Tax
-  description: A tax levied on certainprofessional services, such as attorneys, accountants, and physicians.
-  source: State laws
-  url: https://taxfoundation.org/professional-privilege-taxes/
 - name: Private Railroad Car Tax Rate & Roll
   description: The Private Railroad Car tax is an in-lieu property tax on railroad cars owned by non-railroad companies and operated upon California railroads.
   source: California State Board of Equalization
   url: https://www.boe.ca.gov/proptaxes/private_rr_car_tax.htm
+- name: Professional Privilege Tax
+  description: A tax levied on certainprofessional services, such as attorneys, accountants, and physicians.
+  source: State laws
+  url: https://taxfoundation.org/professional-privilege-taxes/
 - name: Property tax
   description: A tax levied on the value of real estate and other property.
   source: Thomson-Reuters - Property Tax 101
