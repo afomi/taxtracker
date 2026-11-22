@@ -1,0 +1,555 @@
+---
+layout: default
+title: Sprinkler — Local economic irrigation
+permalink: /sprinkler1/
+description: Explore a visual prototype comparing how locally owned and chain-business revenue may recirculate through a local economy.
+---
+
+<style>
+  canvas { image-rendering: -webkit-optimize-contrast; }
+  .control-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .control-row label { font-size: 0.8rem; color: #475569; display: flex; align-items: center; gap: 0.5rem; }
+  .control-row input[type=range] { width: 8rem; }
+</style>
+
+{% include header.html %}
+
+<main class="mx-auto max-w-7xl p-4 sm:p-8">
+
+  <header class="mb-6">
+    <h1 class="text-3xl tracking-tight mb-2">Economic sprinklers
+      <span
+        class="text-slate-400 italic font-light"
+      >prototype</span>
+    </h1>
+    <p class="mt-1 text-slate-600 max-w-prose">
+      A local business is a garden sprinkler — revenue lands nearby, watering the surrounding economy.
+      A large corporation is a siphon — revenue gets pumped out of the area, with only tax residue left behind.
+    </p>
+  </header>
+
+  <section class="mb-4 control-row">
+    <label>
+      Local retention
+      <input
+        id="local-pct"
+        type="range"
+        min="10"
+        max="95"
+        step="5"
+        value="75"
+      />
+      <span id="local-pct-val" class="tabular-nums w-10 text-right">75%</span>
+    </label>
+    <label>
+      Droplets
+      <input
+        id="droplet-count"
+        type="range"
+        min="40"
+        max="400"
+        step="20"
+        value="160"
+      />
+    </label>
+    <label>
+      Speed
+      <input
+        id="speed"
+        type="range"
+        min="0.25"
+        max="3"
+        step="0.25"
+        value="1"
+      />
+    </label>
+    <button
+      id="toggle-mode"
+      class="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700"
+    >Show Siphon</button>
+    <button
+      id="pause"
+      class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold hover:bg-slate-50"
+    >Pause</button>
+  </section>
+
+  <!-- Annotations -->
+  <section
+    id="annotation"
+    class="mb-4 rounded-xl border px-4 py-2 text-sm transition-colors duration-300"
+  >
+  </section>
+
+  <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+    <canvas
+      id="scene"
+      class="block w-full rounded-xl"
+      style="height: 520px;"
+    ></canvas>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+
+  // --- State -----------------------------------------------------------------
+  const S = {
+    mode: 'sprinkler',      // 'sprinkler' | 'siphon'
+    localPct: 0.75,          // fraction retained locally
+    dropletCount: 160,
+    speed: 1,
+    paused: false,
+    droplets: [],
+    taxDroplets: [],         // tax residue particles
+  };
+
+  // --- Palette ---------------------------------------------------------------
+  const PAL = {
+    local:    { h: 142, s: 60, l: 45 },  // green — local spend
+    remote:   { h: 260, s: 50, l: 50 },  // purple — remote siphon
+    tax:      { h: 45,  s: 90, l: 50 },  // amber — tax residue
+    business: { h: 210, s: 15, l: 30 },  // dark slate — the source
+  };
+
+  function hsl(c, a) { return `hsla(${c.h},${c.s}%,${c.l}%,${a})`; }
+
+  // --- Geometry helpers ------------------------------------------------------
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  // --- Resize ----------------------------------------------------------------
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    W = Math.floor(rect.width);
+    H = Math.max(400, 520);
+    canvas.width = Math.floor(W * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    resetDroplets();
+  }
+
+  // --- Business position (center-bottom of canvas) ---------------------------
+  function bizPos() {
+    return { x: W * 0.5, y: H * 0.55 };
+  }
+
+  // --- Ground plane ----------------------------------------------------------
+  const GROUND_RINGS = 6;
+  function groundY() { return H * 0.65; }
+
+  function drawGround() {
+    const gy = groundY();
+    const biz = bizPos();
+    // Concentric ellipses representing "local area"
+    for (let i = GROUND_RINGS; i >= 1; i--) {
+      const frac = i / GROUND_RINGS;
+      const rx = (W * 0.42) * frac;
+      const ry = (H * 0.22) * frac;
+      const alpha = 0.04 + 0.03 * (1 - frac);
+      ctx.beginPath();
+      ctx.ellipse(biz.x, gy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = hsl(PAL.local, alpha);
+      ctx.fill();
+    }
+    // horizon line
+    ctx.beginPath();
+    ctx.moveTo(0, gy);
+    ctx.lineTo(W, gy);
+    ctx.strokeStyle = 'rgba(148,163,184,0.25)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // --- Business sprite -------------------------------------------------------
+  function drawBusiness() {
+    const biz = bizPos();
+    const isSiphon = S.mode === 'siphon';
+    const size = isSiphon ? 28 : 20;
+
+    // shadow
+    ctx.beginPath();
+    ctx.ellipse(biz.x, groundY() + 4, size * 1.2, 6, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    ctx.fill();
+
+    // body
+    ctx.beginPath();
+    if (isSiphon) {
+      // Taller corporate building
+      ctx.rect(biz.x - size * 0.6, biz.y - size * 1.8, size * 1.2, size * 2.4);
+      ctx.fillStyle = hsl(PAL.remote, 0.85);
+    } else {
+      // Smaller local shop
+      ctx.rect(biz.x - size * 0.7, biz.y - size * 0.9, size * 1.4, size * 1.5);
+      ctx.fillStyle = hsl(PAL.local, 0.85);
+    }
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // roof / top
+    if (isSiphon) {
+      // flat corporate roof with antenna
+      ctx.beginPath();
+      ctx.moveTo(biz.x, biz.y - size * 1.8 - 12);
+      ctx.lineTo(biz.x, biz.y - size * 1.8);
+      ctx.strokeStyle = hsl(PAL.remote, 0.6);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    } else {
+      // pitched roof
+      ctx.beginPath();
+      ctx.moveTo(biz.x - size * 0.85, biz.y - size * 0.9);
+      ctx.lineTo(biz.x, biz.y - size * 1.5);
+      ctx.lineTo(biz.x + size * 0.85, biz.y - size * 0.9);
+      ctx.closePath();
+      ctx.fillStyle = hsl(PAL.local, 0.7);
+      ctx.fill();
+    }
+
+    // label
+    ctx.font = '600 11px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.fillText(isSiphon ? 'CORP' : 'LOCAL', biz.x, biz.y + 4);
+  }
+
+  // --- Droplet physics -------------------------------------------------------
+  //
+  // Sprinkler: droplets arc outward from the business and land on the ground
+  //            in a radius proportional to localPct — high retention = tight radius.
+  //
+  // Siphon:    most droplets arc upward and fly off-screen (extracted),
+  //            a few (tax residue) drip down locally.
+
+  function createDroplet(index, total) {
+    const biz = bizPos();
+    const isLocal = Math.random() < S.localPct;
+    const isSiphon = S.mode === 'siphon';
+
+    // Angle of ejection — sprinkler fans out, siphon aims up
+    let angle, v, kind;
+
+    if (isSiphon) {
+      if (isLocal) {
+        // Tax residue — drips down gently
+        angle = rand(Math.PI * 0.3, Math.PI * 0.7); // downward arc
+        v = rand(40, 80);
+        kind = 'tax';
+      } else {
+        // Siphoned out — arcs upward and off-screen
+        angle = rand(-Math.PI * 0.85, -Math.PI * 0.15); // upward
+        v = rand(120, 240);
+        kind = 'remote';
+      }
+    } else {
+      // Sprinkler — all directions, mostly landing nearby
+      angle = rand(-Math.PI * 0.92, Math.PI * 0.92);
+      const spread = isLocal ? rand(0.3, 1.0) : rand(1.2, 2.0);
+      v = rand(60, 140) * spread;
+      kind = isLocal ? 'local' : 'remote';
+    }
+
+    return {
+      x: biz.x,
+      y: biz.y - (isSiphon ? 30 : 12),
+      vx: Math.cos(angle) * v,
+      vy: Math.sin(angle) * v,
+      gravity: kind === 'remote' && isSiphon ? -20 : 180, // negative = floats away
+      life: 0,
+      maxLife: kind === 'remote' && isSiphon ? rand(2.5, 5) : rand(1.5, 3.5),
+      kind,
+      radius: kind === 'tax' ? rand(2, 3.5) : rand(2.5, 5),
+      landed: false,
+      landX: 0,
+      landY: 0,
+      landAlpha: 0,
+      phase: rand(0, Math.PI * 2),  // for shimmer
+    };
+  }
+
+  function resetDroplets() {
+    S.droplets = [];
+    for (let i = 0; i < S.dropletCount; i++) {
+      const d = createDroplet(i, S.dropletCount);
+      d.life = rand(0, d.maxLife); // stagger start
+      S.droplets.push(d);
+    }
+  }
+
+  function updateDroplet(d, dt) {
+    if (d.landed) {
+      d.landAlpha -= dt * 0.25; // fade the splash
+      if (d.landAlpha <= 0) {
+        // recycle
+        Object.assign(d, createDroplet(0, S.dropletCount));
+      }
+      return;
+    }
+
+    d.life += dt;
+    d.vy += d.gravity * dt;
+    d.x += d.vx * dt;
+    d.y += d.vy * dt;
+
+    const gy = groundY();
+
+    // Landing condition
+    if (d.kind !== 'remote' || S.mode !== 'siphon') {
+      if (d.y >= gy) {
+        d.landed = true;
+        d.landX = d.x;
+        d.landY = gy;
+        d.landAlpha = 0.7;
+        return;
+      }
+    }
+
+    // Off-screen removal (siphoned away)
+    if (d.y < -40 || d.x < -40 || d.x > W + 40 || d.life > d.maxLife) {
+      Object.assign(d, createDroplet(0, S.dropletCount));
+    }
+  }
+
+  function drawDroplet(d) {
+    if (d.landed) {
+      // Splash / wet spot
+      const col = d.kind === 'tax' ? PAL.tax : d.kind === 'local' ? PAL.local : PAL.remote;
+      ctx.beginPath();
+      ctx.ellipse(d.landX, d.landY, d.radius * 2, d.radius * 0.7, 0, 0, Math.PI * 2);
+      ctx.fillStyle = hsl(col, d.landAlpha * 0.5);
+      ctx.fill();
+      return;
+    }
+
+    const col = d.kind === 'tax' ? PAL.tax : d.kind === 'local' ? PAL.local : PAL.remote;
+    const progress = d.life / d.maxLife;
+    const alpha = clamp(1 - progress * 0.3, 0.3, 0.95);
+
+    // Drop
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+    ctx.fillStyle = hsl(col, alpha);
+    ctx.fill();
+
+    // Tiny trail
+    const trailLen = Math.min(8, Math.sqrt(d.vx * d.vx + d.vy * d.vy) * 0.03);
+    if (trailLen > 1) {
+      const angle = Math.atan2(d.vy, d.vx);
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - Math.cos(angle) * trailLen, d.y - Math.sin(angle) * trailLen);
+      ctx.strokeStyle = hsl(col, alpha * 0.4);
+      ctx.lineWidth = d.radius * 0.6;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+  }
+
+  // --- Sprinkler nozzle effect -----------------------------------------------
+  function drawNozzle(time) {
+    const biz = bizPos();
+    const isSiphon = S.mode === 'siphon';
+    const nx = biz.x;
+    const ny = biz.y - (isSiphon ? 30 : 12);
+
+    // Pulsing glow at the emission point
+    const pulse = 0.5 + 0.5 * Math.sin(time * 4);
+    const col = isSiphon ? PAL.remote : PAL.local;
+    const r = (isSiphon ? 8 : 12) + pulse * 4;
+
+    ctx.beginPath();
+    ctx.arc(nx, ny, r, 0, Math.PI * 2);
+    const grad = ctx.createRadialGradient(nx, ny, 0, nx, ny, r);
+    grad.addColorStop(0, hsl(col, 0.4));
+    grad.addColorStop(1, hsl(col, 0));
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    if (!isSiphon) {
+      // Small fan lines to suggest spray direction
+      for (let a = -Math.PI * 0.85; a <= Math.PI * 0.85; a += Math.PI * 0.17) {
+        const len = 10 + pulse * 4;
+        ctx.beginPath();
+        ctx.moveTo(nx, ny);
+        ctx.lineTo(nx + Math.cos(a) * len, ny + Math.sin(a) * len);
+        ctx.strokeStyle = hsl(PAL.local, 0.12);
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    } else {
+      // Upward suction lines
+      for (let i = 0; i < 5; i++) {
+        const ox = rand(-12, 12);
+        const baseY = ny - 10 - i * 8;
+        ctx.beginPath();
+        ctx.moveTo(nx + ox, baseY);
+        ctx.lineTo(nx + ox * 0.3, baseY - 14 - pulse * 6);
+        ctx.strokeStyle = hsl(PAL.remote, 0.15 + pulse * 0.08);
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // --- Moisture map (accumulated local spending) -----------------------------
+  function drawMoistureMap() {
+    // Count landed local/tax droplets to build a heat-like overlay
+    const biz = bizPos();
+    const gy = groundY();
+    const landed = S.droplets.filter(d => d.landed && d.landAlpha > 0.1);
+
+    for (const d of landed) {
+      const dist = Math.abs(d.landX - biz.x);
+      const maxR = W * 0.42;
+      const nearness = 1 - clamp(dist / maxR, 0, 1);
+      const col = d.kind === 'tax' ? PAL.tax : PAL.local;
+      const r = d.radius * 3 + nearness * 6;
+
+      ctx.beginPath();
+      ctx.ellipse(d.landX, d.landY + 2, r, r * 0.35, 0, 0, Math.PI * 2);
+      ctx.fillStyle = hsl(col, d.landAlpha * 0.15 * nearness);
+      ctx.fill();
+    }
+  }
+
+  // --- Stats display ---------------------------------------------------------
+  function drawStats() {
+    const total = S.droplets.length;
+    const landed = S.droplets.filter(d => d.landed).length;
+    const localLanded = S.droplets.filter(d => d.landed && d.kind === 'local').length;
+    const taxLanded = S.droplets.filter(d => d.landed && d.kind === 'tax').length;
+    const remoteLanded = S.droplets.filter(d => d.landed && d.kind === 'remote').length;
+
+    const isSiphon = S.mode === 'siphon';
+    const x = 16, y = 24;
+    ctx.font = '600 12px system-ui, sans-serif';
+    ctx.textAlign = 'left';
+
+    const items = isSiphon
+      ? [
+          { label: 'Extracted', val: total - landed - taxLanded, col: PAL.remote },
+          { label: 'Tax residue (local)', val: taxLanded, col: PAL.tax },
+        ]
+      : [
+          { label: 'Local spend', val: localLanded, col: PAL.local },
+          { label: 'Leakage', val: remoteLanded, col: PAL.remote },
+        ];
+
+    items.forEach((item, i) => {
+      ctx.fillStyle = hsl(item.col, 0.8);
+      ctx.beginPath();
+      ctx.arc(x + 4, y + i * 18, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#475569';
+      ctx.fillText(`${item.label}: ${item.val}`, x + 14, y + i * 18 + 4);
+    });
+  }
+
+  // --- Main loop -------------------------------------------------------------
+  let lastTime = 0;
+
+  function frame(ts) {
+    if (!S.paused) {
+      const dt = Math.min(50, (ts - lastTime) || 16) * 0.001 * S.speed;
+      lastTime = ts;
+
+      ctx.clearRect(0, 0, W, H);
+
+      drawGround();
+      drawMoistureMap();
+      drawBusiness();
+      drawNozzle(ts * 0.001);
+
+      for (const d of S.droplets) {
+        updateDroplet(d, dt);
+        drawDroplet(d);
+      }
+
+      drawStats();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // --- Annotations -----------------------------------------------------------
+  function updateAnnotation() {
+    const el = document.getElementById('annotation');
+    if (S.mode === 'sprinkler') {
+      el.className = 'mb-4 rounded-xl border border-emerald-200 bg-emerald-50/60 px-4 py-2 text-sm text-emerald-900 transition-colors duration-300';
+      const pct = Math.round(S.localPct * 100);
+      el.innerHTML = `<strong>Sprinkler mode</strong> — ${pct}% of revenue stays local. `
+        + `Money arcs outward and lands nearby: rent to a local landlord, wages to residents, `
+        + `supplies from the shop next door. The ground gets watered.`;
+    } else {
+      el.className = 'mb-4 rounded-xl border border-purple-200 bg-purple-50/60 px-4 py-2 text-sm text-purple-900 transition-colors duration-300';
+      const pct = Math.round(S.localPct * 100);
+      el.innerHTML = `<strong>Siphon mode</strong> — Only ${pct}% remains as tax residue. `
+        + `Revenue is extracted upward to distant headquarters, shareholders, and supply chains. `
+        + `The local ground gets a trickle, not a soak.`;
+    }
+  }
+
+  // --- Controls --------------------------------------------------------------
+  const toggleBtn = document.getElementById('toggle-mode');
+  const pauseBtn = document.getElementById('pause');
+  const localSlider = document.getElementById('local-pct');
+  const localVal = document.getElementById('local-pct-val');
+  const dropletSlider = document.getElementById('droplet-count');
+  const speedSlider = document.getElementById('speed');
+
+  toggleBtn.addEventListener('click', () => {
+    if (S.mode === 'sprinkler') {
+      S.mode = 'siphon';
+      S.localPct = 0.15; // tax residue only
+      localSlider.value = 15;
+      localVal.textContent = '15%';
+      toggleBtn.textContent = 'Show Sprinkler';
+      toggleBtn.classList.replace('bg-indigo-600', 'bg-purple-600');
+      toggleBtn.classList.replace('hover:bg-indigo-700', 'hover:bg-purple-700');
+    } else {
+      S.mode = 'sprinkler';
+      S.localPct = 0.75;
+      localSlider.value = 75;
+      localVal.textContent = '75%';
+      toggleBtn.textContent = 'Show Siphon';
+      toggleBtn.classList.replace('bg-purple-600', 'bg-indigo-600');
+      toggleBtn.classList.replace('hover:bg-purple-700', 'hover:bg-indigo-700');
+    }
+    resetDroplets();
+    updateAnnotation();
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    S.paused = !S.paused;
+    pauseBtn.textContent = S.paused ? 'Resume' : 'Pause';
+  });
+
+  localSlider.addEventListener('input', e => {
+    S.localPct = parseInt(e.target.value, 10) / 100;
+    localVal.textContent = e.target.value + '%';
+    resetDroplets();
+    updateAnnotation();
+  });
+
+  dropletSlider.addEventListener('input', e => {
+    S.dropletCount = parseInt(e.target.value, 10);
+    resetDroplets();
+  });
+
+  speedSlider.addEventListener('input', e => {
+    S.speed = parseFloat(e.target.value);
+  });
+
+  // --- Init ------------------------------------------------------------------
+  resize();
+  updateAnnotation();
+  requestAnimationFrame(frame);
+  window.addEventListener('resize', resize);
+})();
+</script>

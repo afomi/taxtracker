@@ -1,0 +1,368 @@
+---
+layout: default
+title: Sprinkler Map — Local economic irrigation
+permalink: /sprinkler/
+description: Explore an interactive map prototype showing how spending at local and chain businesses may circulate through or leave a local economy.
+---
+
+<link
+  rel="stylesheet"
+  href="/assets/vendor/leaflet/leaflet.css"
+/>
+
+<style>
+  #map { height: 600px; width: 100%; border-radius: 0.75rem; }
+  .biz-popup .name { font-weight: 600; margin-bottom: 2px; }
+  .biz-popup .stat { font-size: 0.8rem; color: #475569; }
+  .biz-popup .bar-wrap { height: 6px; border-radius: 3px; background: #e2e8f0; margin-top: 4px; overflow: hidden; }
+  .biz-popup .bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  canvas.sprinkler-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 450; /* above tiles, below popups/controls */
+  }
+  .leaflet-control-container { z-index: 500; }
+</style>
+
+{% include header.html %}
+
+<main class="mx-auto max-w-7xl p-4 sm:p-8">
+
+  <header class="mb-4">
+    <h1 class="text-3xl tracking-tight mb-2">Economic sprinklers
+      <span
+        class="text-slate-400 italic font-light"
+      >map prototype</span>
+    </h1>
+    <p class="mt-1 text-slate-600 max-w-prose">
+      Each business sprays revenue into its surroundings. Local shops irrigate nearby;
+      chain outlets siphon most revenue away, leaving only tax residue behind.
+      Click a marker to see details.
+    </p>
+  </header>
+
+  <section class="mb-4 flex flex-wrap items-center gap-3 text-sm">
+    <label class="flex items-center gap-2">
+      Droplets per business
+      <input
+        id="density"
+        type="range"
+        min="4"
+        max="40"
+        step="2"
+        value="14"
+        class="w-32"
+      />
+    </label>
+    <label class="flex items-center gap-2">
+      Speed
+      <input
+        id="speed"
+        type="range"
+        min="0.25"
+        max="3"
+        step="0.25"
+        value="1"
+        class="w-24"
+      />
+    </label>
+    <button
+      id="pause"
+      class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-semibold hover:bg-slate-50"
+    >Pause</button>
+    <span class="ml-auto flex items-center gap-4 text-xs text-slate-500">
+      <span class="inline-flex items-center gap-1"><span class="inline-block h-2 w-4 rounded" style="background:hsla(142,60%,45%,0.7)"></span>Local</span>
+      <span class="inline-flex items-center gap-1"><span class="inline-block h-2 w-4 rounded" style="background:hsla(45,90%,50%,0.7)"></span>Tax residue</span>
+      <span class="inline-flex items-center gap-1"><span class="inline-block h-2 w-4 rounded" style="background:hsla(260,50%,50%,0.7)"></span>Extracted</span>
+    </span>
+  </section>
+
+  <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+    <div
+      id="map"
+    ></div>
+  </section>
+
+  <p class="mt-3 text-xs text-slate-500">
+    Businesses are illustrative. Revenue figures and local-retention percentages are estimates for demonstration.
+  </p>
+</main>
+
+<script src="/assets/vendor/leaflet/leaflet.js"></script>
+
+<script>
+(function () {
+
+  // ── Sample businesses (Vacaville area) ──────────────────────────────────────
+  // localPct: fraction of revenue that stays local (wages, rent, local suppliers)
+  // revenue: annual, in thousands — drives droplet count scaling
+  const businesses = [
+    { name: "Corner Bakery",       lat: 38.3566, lng: -121.9877, localPct: 0.82, revenue: 420,   type: "local" },
+    { name: "Main St Hardware",    lat: 38.3545, lng: -121.9830, localPct: 0.78, revenue: 680,   type: "local" },
+    { name: "Vacaville Auto Body", lat: 38.3510, lng: -121.9750, localPct: 0.72, revenue: 520,   type: "local" },
+    { name: "La Taqueria",         lat: 38.3580, lng: -121.9910, localPct: 0.85, revenue: 350,   type: "local" },
+    { name: "Green Valley Vet",    lat: 38.3620, lng: -121.9800, localPct: 0.70, revenue: 900,   type: "local" },
+    { name: "Walmart",             lat: 38.3490, lng: -121.9690, localPct: 0.22, revenue: 32000, type: "chain" },
+    { name: "Target",              lat: 38.3525, lng: -121.9640, localPct: 0.25, revenue: 28000, type: "chain" },
+    { name: "Starbucks",           lat: 38.3555, lng: -121.9865, localPct: 0.18, revenue: 1800,  type: "chain" },
+    { name: "Home Depot",          lat: 38.3470, lng: -121.9580, localPct: 0.20, revenue: 24000, type: "chain" },
+    { name: "McDonald's",          lat: 38.3540, lng: -121.9780, localPct: 0.15, revenue: 2200,  type: "chain" },
+    { name: "Costco",              lat: 38.3435, lng: -121.9520, localPct: 0.19, revenue: 55000, type: "chain" },
+    { name: "Davis St Bookshop",   lat: 38.3575, lng: -121.9855, localPct: 0.88, revenue: 280,   type: "local" },
+    { name: "Solano Brewing Co",   lat: 38.3560, lng: -121.9840, localPct: 0.80, revenue: 750,   type: "local" },
+  ];
+
+  // ── Palette ─────────────────────────────────────────────────────────────────
+  const PAL = {
+    local:  { h: 142, s: 60, l: 45 },
+    remote: { h: 260, s: 50, l: 50 },
+    tax:    { h: 45,  s: 90, l: 50 },
+  };
+  function hsl(c, a) { return `hsla(${c.h},${c.s}%,${c.l}%,${a})`; }
+
+  // ── Map setup ───────────────────────────────────────────────────────────────
+  const map = L.map('map', {
+    center: [38.3540, -121.973],
+    zoom: 15,
+    zoomControl: true,
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  // ── Markers ─────────────────────────────────────────────────────────────────
+  businesses.forEach(biz => {
+    const isLocal = biz.type === 'local';
+    const color = isLocal ? hsl(PAL.local, 0.9) : hsl(PAL.remote, 0.9);
+    const radius = Math.max(5, Math.min(14, Math.sqrt(biz.revenue / 200)));
+
+    const marker = L.circleMarker([biz.lat, biz.lng], {
+      radius,
+      fillColor: color,
+      color: isLocal ? '#166534' : '#4c1d95',
+      weight: 1.5,
+      fillOpacity: 0.8,
+    }).addTo(map);
+
+    const localK = Math.round(biz.revenue * biz.localPct);
+    const extractedK = Math.round(biz.revenue * (1 - biz.localPct));
+    const barColor = isLocal ? hsl(PAL.local, 0.8) : hsl(PAL.remote, 0.8);
+
+    marker.bindPopup(`
+      <div class="biz-popup">
+        <div class="name">${biz.name}</div>
+        <div class="stat">Revenue: $${biz.revenue.toLocaleString()}k/yr</div>
+        <div class="stat">Local retention: ${Math.round(biz.localPct * 100)}%</div>
+        <div class="stat" style="color:${hsl(PAL.local, 1)}">Stays local: ~$${localK.toLocaleString()}k</div>
+        <div class="stat" style="color:${hsl(PAL.remote, 1)}">Extracted: ~$${extractedK.toLocaleString()}k</div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:${biz.localPct * 100}%;background:${barColor}"></div>
+        </div>
+      </div>
+    `, { maxWidth: 220 });
+
+    biz._marker = marker;
+  });
+
+  // ── Canvas overlay for droplet animation ────────────────────────────────────
+  const mapEl = document.getElementById('map');
+  const canvas = document.createElement('canvas');
+  canvas.className = 'sprinkler-canvas';
+  mapEl.querySelector('.leaflet-map-pane').parentNode.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  function resizeCanvas() {
+    const rect = mapEl.getBoundingClientRect();
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  // ── Droplet system ──────────────────────────────────────────────────────────
+  let droplets = [];
+  let densityPerBiz = 14;
+  let speed = 1;
+  let paused = false;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function createDroplet(biz) {
+    const isLocal = Math.random() < biz.localPct;
+    const isTax = !isLocal && Math.random() < 0.3; // 30% of extracted = visible tax residue
+
+    let kind, angle, v;
+
+    if (isLocal) {
+      // Sprinkler: arcs outward, lands nearby
+      angle = rand(0, Math.PI * 2);
+      v = rand(20, 80);
+      kind = 'local';
+    } else if (isTax) {
+      // Tax residue: small drip, stays close
+      angle = rand(0, Math.PI * 2);
+      v = rand(8, 25);
+      kind = 'tax';
+    } else {
+      // Extracted: flies outward far and fades
+      angle = rand(0, Math.PI * 2);
+      v = rand(80, 200);
+      kind = 'remote';
+    }
+
+    // Scale spread by revenue (bigger business = wider visible spray)
+    const revenueScale = Math.max(0.4, Math.min(2.5, Math.sqrt(biz.revenue / 2000)));
+
+    return {
+      bizIdx: businesses.indexOf(biz),
+      // offsets from the business center in pixels
+      ox: 0,
+      oy: 0,
+      vx: Math.cos(angle) * v * revenueScale,
+      vy: Math.sin(angle) * v * revenueScale,
+      life: rand(0, 2.5),  // stagger start
+      maxLife: kind === 'remote' ? rand(1.5, 3.0) : rand(2.0, 4.0),
+      kind,
+      radius: kind === 'tax' ? rand(1.5, 2.5) : rand(2, 4),
+      decay: kind === 'remote' ? 0.92 : 0.98, // remote fades faster on approach
+    };
+  }
+
+  function seedDroplets() {
+    droplets = [];
+    for (const biz of businesses) {
+      // Scale droplet count by revenue
+      const scale = Math.max(0.5, Math.min(3, Math.log10(biz.revenue / 100)));
+      const count = Math.round(densityPerBiz * scale);
+      for (let i = 0; i < count; i++) {
+        droplets.push(createDroplet(biz));
+      }
+    }
+  }
+
+  function updateDroplet(d, dt) {
+    d.life += dt;
+
+    // Damping — local drops slow down (they land); remote keep going
+    const damp = d.kind === 'local' ? 0.97 : d.kind === 'tax' ? 0.95 : 1.0;
+    d.vx *= Math.pow(damp, dt * 60);
+    d.vy *= Math.pow(damp, dt * 60);
+
+    d.ox += d.vx * dt;
+    d.oy += d.vy * dt;
+
+    if (d.life >= d.maxLife) {
+      // Recycle
+      const biz = businesses[d.bizIdx];
+      Object.assign(d, createDroplet(biz));
+      d.life = 0;
+    }
+  }
+
+  function drawDroplets() {
+    const rect = mapEl.getBoundingClientRect();
+    const cw = rect.width;
+    const ch = rect.height;
+    ctx.clearRect(0, 0, cw, ch);
+
+    if (paused) return;
+
+    // Get current map pixel positions for each business
+    const positions = businesses.map(biz => {
+      const pt = map.latLngToContainerPoint([biz.lat, biz.lng]);
+      return { x: pt.x, y: pt.y };
+    });
+
+    for (const d of droplets) {
+      const pos = positions[d.bizIdx];
+      if (!pos) continue;
+
+      const x = pos.x + d.ox;
+      const y = pos.y + d.oy;
+
+      // Cull off-screen
+      if (x < -20 || x > cw + 20 || y < -20 || y > ch + 20) continue;
+
+      const progress = d.life / d.maxLife;
+      let alpha;
+
+      if (d.kind === 'remote') {
+        // Fade out as it flies away
+        alpha = Math.max(0, 0.7 * (1 - progress));
+      } else {
+        // Fade in, hold, fade out
+        alpha = progress < 0.1 ? progress * 10 : progress > 0.7 ? (1 - progress) / 0.3 : 1;
+        alpha *= 0.65;
+      }
+
+      if (alpha <= 0.02) continue;
+
+      const col = d.kind === 'tax' ? PAL.tax : d.kind === 'local' ? PAL.local : PAL.remote;
+
+      // Glow for local drops that have "landed" (slowed down)
+      const speed2 = d.vx * d.vx + d.vy * d.vy;
+      if (d.kind === 'local' && speed2 < 100 && progress > 0.3) {
+        ctx.beginPath();
+        ctx.arc(x, y, d.radius * 3, 0, Math.PI * 2);
+        ctx.fillStyle = hsl(col, alpha * 0.12);
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.arc(x, y, d.radius, 0, Math.PI * 2);
+      ctx.fillStyle = hsl(col, alpha);
+      ctx.fill();
+    }
+  }
+
+  // ── Animation loop ──────────────────────────────────────────────────────────
+  let lastTime = 0;
+
+  function frame(ts) {
+    const dt = Math.min(50, (ts - lastTime) || 16) * 0.001 * speed;
+    lastTime = ts;
+
+    if (!paused) {
+      for (const d of droplets) {
+        updateDroplet(d, dt);
+      }
+    }
+
+    drawDroplets();
+    requestAnimationFrame(frame);
+  }
+
+  // ── Redraw on map move/zoom ─────────────────────────────────────────────────
+  map.on('move zoom viewreset resize', () => {
+    resizeCanvas();
+  });
+
+  // ── Controls ────────────────────────────────────────────────────────────────
+  document.getElementById('density').addEventListener('input', e => {
+    densityPerBiz = parseInt(e.target.value, 10);
+    seedDroplets();
+  });
+
+  document.getElementById('speed').addEventListener('input', e => {
+    speed = parseFloat(e.target.value);
+  });
+
+  document.getElementById('pause').addEventListener('click', () => {
+    paused = !paused;
+    document.getElementById('pause').textContent = paused ? 'Resume' : 'Pause';
+  });
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  resizeCanvas();
+  seedDroplets();
+  requestAnimationFrame(frame);
+
+})();
+</script>
