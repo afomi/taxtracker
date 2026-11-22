@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "slug": { "type": "string" },
+    "jurisdiction": {
+      "type": "object",
+      "properties": {
+        "level": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" }
+      },
+      "required": ["name", "slug"]
+    },
+    "expenditures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "slug": { "type": "string" },
+          "amount": { "type": ["number", "null"], "minimum": 0 },
+          "share": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+        },
+        "required": ["name", "slug"]
+      }
+    },
+    "total": { "type": ["number", "null"], "minimum": 0 },
+    "fiscal_year": { "type": ["string", "null"], "pattern": "^(FY)?\\d{4}([–-]\\d{2})?$" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "url": { "type": "string" }
+        },
+        "required": ["name"]
+      }
+    },
+    "notes": { "type": "string" },
+    "updated_at": { "type": "string" }
+  },
+  "required": ["id", "name", "slug", "jurisdiction", "updated_at"]
+}
