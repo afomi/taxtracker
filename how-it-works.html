@@ -14,6 +14,11 @@ description: How taxtracker.org turns public records into a transparent inventor
       A plain-language guide to our pipeline: <strong>origination → collection → expenditure</strong>.
       This is about <em>methodology</em>, not how to submit data.
     </p>
+    <p class="mt-2 text-slate-600">
+      <a href="{{ '/how-it-works/source-documents/' | relative_url }}" class="font-semibold text-indigo-700 underline decoration-indigo-300 hover:decoration-indigo-600">Finding the documents for a tax</a>
+      is the repeatable pass for the defining document, the collections document, and the expenditures document.
+      The first picture is <a href="{{ '/places/vacaville/' | relative_url }}" class="font-semibold text-indigo-700 underline decoration-indigo-300 hover:decoration-indigo-600">Vacaville</a>.
+    </p>
   </header>
 
   <section class="mb-6 rounded-2xl border border-indigo-100 bg-indigo-50 px-5 py-4 text-indigo-900">
@@ -90,21 +95,53 @@ description: How taxtracker.org turns public records into a transparent inventor
       <ul class="mt-2 text-slate-700 space-y-1 text-sm">
         <li><code>name</code>, <code>slug</code>, <code>status</code>, <code>type</code></li>
         <li><code>jurisdiction</code> (level, name, slug)</li>
+        <li><code>authority</code> (legal citation + URL)</li>
         <li><code>agency</code> (name, slug)</li>
         <li><code>rates[]</code> (percent/amount; applies_to; cap)</li>
         <li><code>revenue</code> & <code>revenue_year</code> (latest annual USD)</li>
         <li><code>sources[]</code> (name + URL), <code>updated_at</code>, <code>notes</code></li>
+        <li><code>data_status</code> (see below)</li>
       </ul>
     </div>
 
     <div class="rounded-2xl border border-slate-200 bg-white p-6">
       <h3 class="font-semibold">Provenance & verification</h3>
       <ul class="mt-2 text-slate-700 space-y-1 text-sm">
-        <li>Every fact links to an official source.</li>
+        <li>Every record answers three questions: what law imposes it, how it is levied and collected, and how much it raises.</li>
+        <li>Unknown values are shown as unknown, never estimated.</li>
         <li>Edits via PR/Issues leave an auditable history.</li>
-        <li>Automated validation catches schema drift.</li>
+        <li>The build rejects a record whose status claims more than its sources support.</li>
       </ul>
     </div>
+  </section>
+
+  <section
+    id="data-status"
+    class="mt-6 scroll-mt-32 rounded-2xl border border-slate-200 bg-white p-6"
+  >
+    <h2 class="text-lg font-semibold">Data status</h2>
+    <p class="mt-2 text-sm text-slate-700">
+      Every record carries one of four labels.
+      Most records are currently <em>Sourced · partial</em>, usually because collected revenue has not yet been sourced.
+    </p>
+    <dl class="mt-4 space-y-3 text-sm text-slate-700">
+      <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:gap-3">
+        <dt class="shrink-0 sm:w-36">{% include data_status_badge.html status="verified" %}</dt>
+        <dd>Legal authority, rate, and revenue are each present and linked to an official source.</dd>
+      </div>
+      <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:gap-3">
+        <dt class="shrink-0 sm:w-36">{% include data_status_badge.html status="partial" %}</dt>
+        <dd>Everything shown is linked to a source, but at least one of the three answers is still missing.</dd>
+      </div>
+      <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:gap-3">
+        <dt class="shrink-0 sm:w-36">{% include data_status_badge.html status="needs_source" %}</dt>
+        <dd>The record exists but is not yet linked to an official source.</dd>
+      </div>
+      <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:gap-3">
+        <dt class="shrink-0 sm:w-36">{% include data_status_badge.html status="demo" %}</dt>
+        <dd>Illustrative only, and not to be cited.</dd>
+      </div>
+    </dl>
   </section>
 
   <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
@@ -126,15 +163,12 @@ description: How taxtracker.org turns public records into a transparent inventor
       <a href="/taxes/inventory/"
         class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold hover:bg-slate-50">Browse
         inventory</a>
-      <a href="/get-started"
-        class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold hover:bg-slate-50">Get
-        started</a>
       <a href="/contribute"
         class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700">Contribute
         data</a>
     </div>
     <div class="mt-6 pt-4 border-t border-slate-200">
-      {% include fund_feature.html feature="Methodology & verification" address="12345" %}
+      {% include fund_feature.html feature="Methodology & verification" %}
     </div>
   </section>
 
@@ -164,7 +198,7 @@ description: How taxtracker.org turns public records into a transparent inventor
   "@context":"https://schema.org",
   "@type":"FAQPage",
   "mainEntity":[
-    {"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"From public sources: municipal/state codes, agency pages, and ballot or ordinance records, each cited on the tax detail pages."}},
+    {"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"From public sources: municipal/state codes, agency pages, and ballot or ordinance records, cited on the tax detail pages. Each record carries a data-status label showing how completely it is sourced."}},
     {"@type":"Question","name":"How current is the data?","acceptedAnswer":{"@type":"Answer","text":"We compile changes as soon as contributors submit updates. The inventory reads a compiled JSON snapshot generated at build time."}},
     {"@type":"Question","name":"Can I contribute?","acceptedAnswer":{"@type":"Answer","text":"Yes—start with your local jurisdiction and add one tax with an official source. See the Get started and Contribute pages for templates."}}
   ]

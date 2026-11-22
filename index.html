@@ -54,9 +54,12 @@ description: Explore sourced U.S. tax rates, revenue, responsible agencies, and 
             <dt class="text-xs text-slate-500">Data Sources</dt>
             <dd class="mt-1 text-base font-semibold">State & Local</dd>
           </div>
+          {% assign last_update = site.data.compiled.taxes | map: 'updated_at' | sort | last %}
           <div class="rounded-xl border border-slate-200 p-3">
-            <dt class="text-xs text-slate-500">Updated</dt>
-            <dd class="mt-1 text-base font-semibold">Monthly</dd>
+            <dt class="text-xs text-slate-500">Last record update</dt>
+            <dd class="mt-1 text-base font-semibold">
+              <time datetime="{{ last_update }}">{{ last_update | date: "%b %Y" }}</time>
+            </dd>
           </div>
           <div class="rounded-xl border border-slate-200 p-3">
             <dt class="text-xs text-slate-500">Open License</dt>
@@ -74,18 +77,28 @@ description: Explore sourced U.S. tax rates, revenue, responsible agencies, and 
             width="1800" height="1303" fetchpriority="high" decoding="async"
             class="w-full rounded-3xl border border-slate-200 shadow-xl" />
           <figcaption class="sr-only">Illustration of tax flow transparency</figcaption>
-          <!-- Floating card WITH sparkline; no external link yet -->
-          <div
-            class="hidden md:block absolute -bottom-6 right-6 w-64 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-lg">
-            <div class="p-4">
-              <p class="text-xs text-slate-500">Example</p>
-              <p class="mt-1 text-sm font-semibold">Sales Tax → General Fund → Parks Dept → Vendor #8312</p>
-              <div class="mt-2 flex items-center justify-between text-xs">
-                <span class="text-slate-600">$2.8M FY24</span>
-                <span class="text-slate-500 hidden">See details</span>
+          <!-- Floating card: a real record, rendered from the data so it cannot drift -->
+          {% assign example = site.data.compiled.taxes | where: "id", "los-angeles-county-measure-a-homelessness-sales-tax" | first %}
+          {% if example %}
+            {% assign example_fund = example.funds | first %}
+            <div
+              class="hidden md:block absolute -bottom-6 right-6 w-72 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-lg"
+            >
+              <div class="p-4">
+                <p class="text-xs text-slate-500">From the inventory · {{ example.jurisdiction.name }}</p>
+                <p class="mt-1 text-sm font-semibold">
+                  Measure A {{ example.rates[0].value }}% sales tax → {{ example_fund.share | times: 100 | round }}% {{ example_fund.name | downcase }}
+                </p>
+                <div class="mt-2 flex items-center justify-between text-xs">
+                  <span class="text-slate-600">{{ example.sources.size }} official sources</span>
+                  <a
+                    class="font-semibold text-indigo-700 hover:underline"
+                    href="/taxes/{{ example.jurisdiction.slug }}-{{ example.slug }}/"
+                  >See the record</a>
+                </div>
               </div>
             </div>
-          </div>
+          {% endif %}
         </figure>
       </div>
     </div>

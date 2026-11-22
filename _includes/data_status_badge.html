@@ -1,0 +1,30 @@
+{%- comment -%}
+  Data-status pill. Usage: {% include data_status_badge.html status=item.data_status %}
+  Meanings are defined on /how-it-works/#data-status and enforced by lib/build-tax-data-file.cjs.
+{%- endcomment -%}
+{%- assign ds = include.status | default: 'needs_source' -%}
+{%- case ds -%}
+  {%- when 'verified' -%}
+    {%- assign ds_label = 'Verified' -%}
+    {%- assign ds_classes = 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' -%}
+    {%- assign ds_title = 'Legal authority, rate, and revenue are each linked to an official source.' -%}
+  {%- when 'partial' -%}
+    {%- assign ds_label = 'Sourced · partial' -%}
+    {%- assign ds_classes = 'bg-sky-50 text-sky-700 ring-sky-600/20' -%}
+    {%- assign ds_title = 'Everything shown is linked to a source, but at least one of legal authority, rate, or revenue is still missing.' -%}
+  {%- when 'demo' -%}
+    {%- assign ds_label = 'Demo' -%}
+    {%- assign ds_classes = 'bg-slate-100 text-slate-700 ring-slate-500/20' -%}
+    {%- assign ds_title = 'Illustrative record. Do not cite.' -%}
+  {%- else -%}
+    {%- assign ds_label = 'Needs source' -%}
+    {%- assign ds_classes = 'bg-amber-50 text-amber-800 ring-amber-600/20' -%}
+    {%- assign ds_title = 'Not yet linked to an official source.' -%}
+{%- endcase -%}
+<a
+  href="{{ '/how-it-works/#data-status' | relative_url }}"
+  title="{{ ds_title }}"
+  class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset hover:underline {{ ds_classes }}"
+>
+  {{ ds_label }}
+</a>

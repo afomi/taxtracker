@@ -5,61 +5,45 @@
 
 # TaxTracker
 
-**Making taxation visible—from origination to expenditure**
+**Making taxation visible — from origination to expenditure**
 
-**Public Alpha** – still evolving; feedback appreciated.
+**Public alpha.** The inventory is small and growing; feedback and corrections are welcome.
 
----
+Site: [taxtracker.org](https://taxtracker.org)
 
-## Overview
+## What it is
 
-TaxTracker provides a transparent, data-rich view of taxation flows in the U.S.:
+A sourced inventory of U.S. taxes at federal, state, and local levels.
+Every record tries to answer three questions, each from an official source:
 
-- **Inventory of Taxes**
-  Explore 80+ federal, state, and local tax types, including income, property, sales, excise, and customs duties, plus user/license fees :contentReference[oaicite:1]{index=1}.
+1. **Legal authority** — what law imposes the tax?
+2. **Levy and collection** — on what, at what rate, collected by whom?
+3. **Amount** — how much revenue did it actually raise?
 
-- **Follow the Money**
-  Prototype tool visualizing how tax dollars move from collection to eventual spending (e.g., *Sales Tax → General Fund → Parks Dept → Vendor #8312*), with FY24 figures, e.g., $2.8M flows illustrated :contentReference[oaicite:2]{index=2}.
+Unknown values are recorded as unknown, not estimated.
 
-- **Data Capacity & Licensing**
-  Data updated **monthly**, covering state and local sources, and available under **CC BY 4.0** :contentReference[oaicite:3]{index=3}.
+## What is in it today
 
-- **APIs & Exports** *(Coming Soon)*
-  Plans to enable CSV/JSON exports and API access—with support funding options via Bitcoin SV donations :contentReference[oaicite:4]{index=4}.
+- A small set of tax records in `_data/taxes/`, each labeled with a `data_status`:
+  `verified`, `partial`, `needs_source`, or `demo`.
+  Most are currently `partial`: authority and rate are sourced, collected revenue is not yet.
+- A [taxpayer receipt](https://taxtracker.org/receipt/) prototype built on Vacaville's FY2025-26 General Fund budget.
+- A [flows](https://taxtracker.org/flows/) prototype visualizing how money moves from collection to spending.
 
----
+## Develop
 
-## Features & Navigation
+```bash
+npm install && bundle install
+npm run build:data        # validate + compile _data/taxes → _data/compiled/taxes.json
+npm run validate:data     # validate only, writes nothing
+bundle exec jekyll serve
+```
 
-- **Browse Taxes**: Statutes, rates, collection volumes, responsible agencies.
-- **Explore “Follow the Money” Prototype**: Dynamic trace of funds across agencies and vendors.
-- **Export/API Support**: In progress; users can fund development to prioritize these features.
+## Contribute
 
----
-
-## Quick Links
-
-- [TaxTracker Home](https://taxtracker.org)
-- [Inventory of Taxes](https://taxtracker.org/taxes)
-
----
-
-## Contributing & Funding
-
-TaxTracker welcomes both feedback and support. Features like the data exports and APIs are actively seeking funding via BSV donations—every contribution helps push priorities forward :contentReference[oaicite:5]{index=5}.
-
----
-
-## TL;DR
-
-TaxTracker is an alpha-level tool focused on tax transparency. You can explore a growing tax inventory, visualize fund flows, and anticipate more robust tooling (APIs, exports) soon.
-
----
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+One accurate, sourced record is a useful contribution.
 
 ## License
 
-All data and content are licensed under **CC BY 4.0** — free to use with accreditation :contentReference[oaicite:6]{index=6}.
-
----
-
-Thanks for checking out TaxTracker! Feedback and support is everything — let’s make tax data more visible together. 🚀
+Data and content are licensed under **CC BY 4.0**.

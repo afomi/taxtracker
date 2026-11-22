@@ -2,6 +2,7 @@
 layout: default
 title: Contribute data
 permalink: /contribute/
+description: Help expand TaxTracker by contributing a sourced federal, state, county, city, or special-district tax record.
 ---
 
 {% include header.html %}
@@ -20,14 +21,14 @@ permalink: /contribute/
         and add it as a small JSON file via Pull Request or Issue.
         <a
           href="https://github.com/afomi/taxtracker/issues/new"
-          class="underline"></a>Get in touch</a> if you'd like some help.
+          class="underline">Get in touch</a> if you'd like some help.
       </p>
     </div>
 
     <div>
       <label class="block text-sm font-semibold mb-2">Copy this research prompt</label>
       <div class="relative">
-        <textarea id="research-prompt" class="w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-xs font-mono" rows="42"
+        <textarea id="research-prompt" class="w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-xs font-mono" rows="48"
           readonly>
   Goal: add one or more taxes for my local jurisdiction to taxtracker.org as structured JSON.
 
@@ -41,8 +42,10 @@ permalink: /contribute/
   2) Status (active, proposed, repealed) and the most recent updated/ballot/ordinance date.
   3) Administering agency (department name).
   4) Rate — percent or amount (flat), note what it applies to.
-  5) At least one authoritative source URL (statute/ordinance, ballot measure, agency page, revenue office, state admin).
-  6) Optional notes (earmarks, funds, thresholds).
+  5) Legal authority — the statute, ordinance, or ballot measure that imposes the tax, with its citation and URL.
+  6) Revenue actually collected, with the fiscal year, from a budget or audited financial report. If you cannot find it, leave it null. Do not estimate.
+  7) At least one official source URL for every fact above (statute/ordinance, ballot measure, agency page, revenue office, state admin).
+  8) Optional notes (earmarks, funds, thresholds).
 
   Where to look:
   - City/County code (the city's website and municipal ordinance section).
@@ -53,12 +56,16 @@ permalink: /contribute/
   Deliverable (JSON keys alphabetically sorted):
   {
     "agency": { "name": "Dept. of Revenue", "slug": "dept-revenue" },
+    "authority": { "citation": "Municipal Code ch. 3.16", "url": "https://…" },
+    "data_status": "partial",
     "effective": { "start": "YYYY-MM-DD", "end": null },
     "id": "<jurisdiction-slug>-<tax-slug>",
-    "jurisdiction": { "level": "city", "name": "Vacaville", "slug": "vacaville" },
+    "jurisdiction": { "level": "city", "name": "Vacaville", "slug": "vacaville", "state_abbr": "CA" },
     "name": "Sales and Use Tax",
     "notes": "",
     "rates": [ { "applies_to": "taxable sales", "cap": null, "kind": "percent", "value": 3.00 } ],
+    "revenue": null,
+    "revenue_year": null,
     "slug": "sales-and-use-tax",
     "sources": [ { "name": "Municipal code", "url": "https://…" } ],
     "status": "active",
