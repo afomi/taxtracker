@@ -6,6 +6,14 @@ Entrypoint for this project. Start here.
 origination → collection → expenditure, and helps residents understand their total
 tax burden and what they can do about it.
 
+**Destination:** Every U.S. jurisdiction, every tax levied there, each one sourced.
+A government charge for the privilege of doing business, registering a vehicle, parking, or crossing a bridge belongs in that inventory.
+The record keeps the word the defining document uses, whether that word is tax, fee, license, or toll.
+Jurisdictional keeps the jurisdiction (`jurisdictional_id` and `ocd_id`).
+TaxTracker keeps the tax: the defining document, the collections document, and the expenditures document.
+A place with no opened document is a gap.
+The glossary at `/taxes/text/` is a wall of type names, not this inventory.
+
 ---
 
 ## Now
@@ -16,6 +24,8 @@ The method is [SOURCE_DOCUMENTS.md](SOURCE_DOCUMENTS.md) (also `/how-it-works/so
 The sketch is `/places/vacaville/`.
 A second sketch, `/taxes/layers/`, draws the taxes that apply in Vacaville as federal, state, local, and other layers around one object. The list annotates those layers.
 The picture's next cut is a life experience: the moment a person meets the tax. See [design/life-experiences.md](design/life-experiences.md). Sales tax is a purchase of milk, coffee, or food. Property tax is a property transaction. One drawing can carry every tax that lands in that moment.
+A typographic wall of the glossary types is at `/taxes/text/`.
+It is a local preview, left out of the sitemap.
 Stubs may appear there so the stack can be seen, with no rates and no dollars.
 The inventory stays in `_data/taxes`, and a row enters it only after its defining document has been opened.
 Same pass, next place, once Vacaville has been around the loop.
