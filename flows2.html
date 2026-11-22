@@ -1,0 +1,410 @@
+---
+layout: default
+title: Circular flow visualization
+permalink: /flows2/
+description: Explore a force-directed visualization of taxes, wages, public spending, savings, imports, and debt service across households, businesses, and government.
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-7xl p-4 sm:p-8">
+
+  <header class="mb-4">
+    <h1 class="text-3xl tracking-tight mb-4">Circular flows
+      <span
+        class="text-slate-400 italic font-light"
+      >prototype</span>
+    </h1>
+    <p class="mt-1 text-slate-600 max-w-prose">
+      A force-directed view of economic circulation: households earn wages from both government and businesses,
+      pay taxes, and government spending returns to households and businesses. Sinks (savings, imports, debt service)
+      drain from the cycle.
+    </p>
+  </header>
+
+  <!-- Controls -->
+  <section class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Link strength</span>
+      <input
+        id="linkStrength"
+        type="range"
+        min="0.1"
+        max="2"
+        step="0.1"
+        value="0.8"
+        class="w-40"
+      />
+    </label>
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Particle speed</span>
+      <input
+        id="speed"
+        type="range"
+        min="0.5"
+        max="3"
+        step="0.25"
+        value="1"
+        class="w-40"
+      />
+    </label>
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Show sinks</span>
+      <input
+        id="showSinks"
+        type="checkbox"
+        checked
+        class="h-4 w-4"
+      />
+    </label>
+    <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <button
+        id="reset"
+        class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-semibold hover:bg-slate-50"
+      >Reset</button>
+      <button
+        id="pause"
+        class="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-1.5 font-semibold text-white hover:bg-indigo-700"
+      >Pause</button>
+    </div>
+  </section>
+
+  <!-- Legend -->
+  <section class="mb-3 flex flex-wrap items-center gap-3 text-xs text-slate-600">
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-block h-2 w-6 rounded bg-indigo-500/70"></span>Taxes (H→G)
+    </span>
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-block h-2 w-6 rounded bg-teal-500/70"></span>Taxes (B→G)
+    </span>
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-block h-2 w-6 rounded bg-emerald-500/70"></span>Public wages (G→H)
+    </span>
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-block h-2 w-6 rounded bg-amber-500/70"></span>Contracts (G→B)
+    </span>
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-block h-2 w-6 rounded bg-rose-500/70"></span>Private wages (B→H)
+    </span>
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-block h-2 w-6 rounded bg-slate-400/70"></span>Sinks
+    </span>
+  </section>
+
+  <!-- SVG container -->
+  <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+    <svg
+      id="graph"
+      class="block w-full"
+      style="height: 520px;"
+    ></svg>
+  </section>
+
+  <section class="mt-4 text-sm text-slate-600 max-w-prose">
+    <h2 class="font-semibold mb-2">Capital sinks &amp; flows</h2>
+    <ul class="list-disc ml-5 space-y-1">
+      <li><strong>Sinks</strong>: Savings/investment, imports/trade deficit, debt service (interest to external holders)</li>
+      <li><strong>Sources</strong>: New money creation (Fed), exports, borrowing</li>
+      <li>Drag nodes to explore the structure. The circular layout emphasizes how wages and spending create feedback loops.</li>
+    </ul>
+  </section>
+</main>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(function() {
+  const svg = d3.select('#graph');
+  const container = svg.node().parentElement;
+  let width = container.clientWidth - 16;
+  let height = 520;
+
+  svg.attr('viewBox', `0 0 ${width} ${height}`);
+
+  // State
+  let paused = false;
+  let speed = 1;
+  let showSinks = true;
+  let linkStrengthMult = 0.8;
+
+  // Node types: households (H), businesses (B), government levels (G), sinks (S)
+  const nodes = [
+    // Core actors
+    { id: 'households', label: 'Households', type: 'H', r: 40, color: '#6366f1' },
+    { id: 'businesses', label: 'Businesses', type: 'B', r: 35, color: '#14b8a6' },
+    // Government
+    { id: 'federal', label: 'Federal', type: 'G', r: 28, color: '#f59e0b' },
+    { id: 'state', label: 'State', type: 'G', r: 24, color: '#f59e0b' },
+    { id: 'local', label: 'Local', type: 'G', r: 20, color: '#f59e0b' },
+    // Sinks
+    { id: 'savings', label: 'Savings', type: 'S', r: 16, color: '#94a3b8' },
+    { id: 'imports', label: 'Imports', type: 'S', r: 16, color: '#94a3b8' },
+    { id: 'debt_service', label: 'Debt service', type: 'S', r: 14, color: '#94a3b8' }
+  ];
+
+  // Links with flow amounts (relative weights)
+  const links = [
+    // Taxes: Households → Government
+    { source: 'households', target: 'federal', value: 45, flowType: 'tax_h', color: '#6366f1' },
+    { source: 'households', target: 'state', value: 20, flowType: 'tax_h', color: '#6366f1' },
+    { source: 'households', target: 'local', value: 12, flowType: 'tax_h', color: '#6366f1' },
+    // Taxes: Businesses → Government
+    { source: 'businesses', target: 'federal', value: 25, flowType: 'tax_b', color: '#14b8a6' },
+    { source: 'businesses', target: 'state', value: 15, flowType: 'tax_b', color: '#14b8a6' },
+    { source: 'businesses', target: 'local', value: 8, flowType: 'tax_b', color: '#14b8a6' },
+    // Public wages: Government → Households
+    { source: 'federal', target: 'households', value: 30, flowType: 'wage_pub', color: '#10b981' },
+    { source: 'state', target: 'households', value: 18, flowType: 'wage_pub', color: '#10b981' },
+    { source: 'local', target: 'households', value: 14, flowType: 'wage_pub', color: '#10b981' },
+    // Contracts: Government → Businesses
+    { source: 'federal', target: 'businesses', value: 35, flowType: 'contract', color: '#f59e0b' },
+    { source: 'state', target: 'businesses', value: 12, flowType: 'contract', color: '#f59e0b' },
+    { source: 'local', target: 'businesses', value: 6, flowType: 'contract', color: '#f59e0b' },
+    // Private wages: Businesses → Households
+    { source: 'businesses', target: 'households', value: 80, flowType: 'wage_priv', color: '#f43f5e' },
+    // Sinks
+    { source: 'households', target: 'savings', value: 12, flowType: 'sink', color: '#94a3b8' },
+    { source: 'households', target: 'imports', value: 18, flowType: 'sink', color: '#94a3b8' },
+    { source: 'federal', target: 'debt_service', value: 10, flowType: 'sink', color: '#94a3b8' }
+  ];
+
+  // Filter sinks based on toggle
+  function getActiveNodes() {
+    return showSinks ? nodes : nodes.filter(n => n.type !== 'S');
+  }
+  function getActiveLinks() {
+    const activeIds = new Set(getActiveNodes().map(n => n.id));
+    return links.filter(l => activeIds.has(l.source.id || l.source) && activeIds.has(l.target.id || l.target));
+  }
+
+  // Force simulation
+  let simulation;
+  let link, node, label, particles = [];
+
+  function initSimulation() {
+    const activeNodes = getActiveNodes();
+    const activeLinks = getActiveLinks().map(l => ({
+      ...l,
+      source: l.source.id || l.source,
+      target: l.target.id || l.target
+    }));
+
+    // Position nodes in a rough circle initially
+    const cx = width / 2, cy = height / 2;
+    activeNodes.forEach((n, i) => {
+      const angle = (i / activeNodes.length) * Math.PI * 2 - Math.PI / 2;
+      const radius = n.type === 'S' ? 180 : 120;
+      n.x = cx + Math.cos(angle) * radius;
+      n.y = cy + Math.sin(angle) * radius;
+    });
+
+    simulation = d3.forceSimulation(activeNodes)
+      .force('link', d3.forceLink(activeLinks).id(d => d.id).distance(100).strength(linkStrengthMult * 0.5))
+      .force('charge', d3.forceManyBody().strength(-400))
+      .force('center', d3.forceCenter(cx, cy))
+      .force('collision', d3.forceCollide().radius(d => d.r + 10))
+      .on('tick', ticked);
+
+    // Build SVG elements
+    svg.selectAll('*').remove();
+
+    // Arrow markers
+    const defs = svg.append('defs');
+    const markerColors = ['#6366f1', '#14b8a6', '#10b981', '#f59e0b', '#f43f5e', '#94a3b8'];
+    markerColors.forEach(color => {
+      defs.append('marker')
+        .attr('id', `arrow-${color.replace('#', '')}`)
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 20)
+        .attr('refY', 0)
+        .attr('markerWidth', 6)
+        .attr('markerHeight', 6)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,-5L10,0L0,5')
+        .attr('fill', color);
+    });
+
+    // Links
+    link = svg.append('g')
+      .attr('class', 'links')
+      .selectAll('path')
+      .data(activeLinks)
+      .join('path')
+      .attr('fill', 'none')
+      .attr('stroke', d => d.color)
+      .attr('stroke-opacity', 0.5)
+      .attr('stroke-width', d => Math.sqrt(d.value) * 0.8)
+      .attr('marker-end', d => `url(#arrow-${d.color.replace('#', '')})`);
+
+    // Nodes
+    node = svg.append('g')
+      .attr('class', 'nodes')
+      .selectAll('circle')
+      .data(activeNodes)
+      .join('circle')
+      .attr('r', d => d.r)
+      .attr('fill', d => d.color)
+      .attr('fill-opacity', 0.85)
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 2)
+      .call(d3.drag()
+        .on('start', dragstarted)
+        .on('drag', dragged)
+        .on('end', dragended));
+
+    // Labels
+    label = svg.append('g')
+      .attr('class', 'labels')
+      .selectAll('text')
+      .data(activeNodes)
+      .join('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.35em')
+      .attr('font-size', d => d.r > 24 ? 11 : 9)
+      .attr('font-weight', 500)
+      .attr('fill', '#fff')
+      .attr('pointer-events', 'none')
+      .text(d => d.label);
+
+    // Particles container
+    svg.append('g').attr('class', 'particles');
+
+    // Initialize particles on links
+    particles = [];
+    activeLinks.forEach(l => {
+      const count = Math.ceil(l.value / 10);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          link: l,
+          t: Math.random(),
+          speed: 0.003 + Math.random() * 0.002
+        });
+      }
+    });
+  }
+
+  function ticked() {
+    // Curved links
+    link.attr('d', d => {
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const dr = Math.sqrt(dx * dx + dy * dy) * 1.5;
+      return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+    });
+
+    node
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y);
+
+    label
+      .attr('x', d => d.x)
+      .attr('y', d => d.y);
+  }
+
+  function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+
+  // Particle animation
+  function animateParticles() {
+    if (paused) {
+      requestAnimationFrame(animateParticles);
+      return;
+    }
+
+    const particleGroup = svg.select('.particles');
+    particleGroup.selectAll('circle').remove();
+
+    particles.forEach(p => {
+      p.t += p.speed * speed;
+      if (p.t > 1) p.t = 0;
+
+      const l = p.link;
+      if (!l.source.x || !l.target.x) return;
+
+      // Sample position along the arc
+      const dx = l.target.x - l.source.x;
+      const dy = l.target.y - l.source.y;
+      const dr = Math.sqrt(dx * dx + dy * dy) * 1.5;
+
+      // Approximate arc position using quadratic interpolation
+      const midX = (l.source.x + l.target.x) / 2;
+      const midY = (l.source.y + l.target.y) / 2;
+      // Perpendicular offset for arc
+      const len = Math.sqrt(dx * dx + dy * dy);
+      const perpX = -dy / len * (dr - len) * 0.3;
+      const perpY = dx / len * (dr - len) * 0.3;
+      const ctrlX = midX + perpX;
+      const ctrlY = midY + perpY;
+
+      // Quadratic bezier
+      const t = p.t;
+      const x = (1 - t) * (1 - t) * l.source.x + 2 * (1 - t) * t * ctrlX + t * t * l.target.x;
+      const y = (1 - t) * (1 - t) * l.source.y + 2 * (1 - t) * t * ctrlY + t * t * l.target.y;
+
+      particleGroup.append('circle')
+        .attr('cx', x)
+        .attr('cy', y)
+        .attr('r', 3)
+        .attr('fill', l.color)
+        .attr('fill-opacity', 0.9);
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+
+  // Controls
+  document.getElementById('linkStrength').addEventListener('input', e => {
+    linkStrengthMult = parseFloat(e.target.value);
+    simulation.force('link').strength(linkStrengthMult * 0.5);
+    simulation.alpha(0.3).restart();
+  });
+
+  document.getElementById('speed').addEventListener('input', e => {
+    speed = parseFloat(e.target.value);
+  });
+
+  document.getElementById('showSinks').addEventListener('change', e => {
+    showSinks = e.target.checked;
+    initSimulation();
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    initSimulation();
+  });
+
+  const pauseBtn = document.getElementById('pause');
+  pauseBtn.addEventListener('click', () => {
+    paused = !paused;
+    pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+  });
+
+  // Resize handler
+  function handleResize() {
+    width = container.clientWidth - 16;
+    svg.attr('viewBox', `0 0 ${width} ${height}`);
+    if (simulation) {
+      simulation.force('center', d3.forceCenter(width / 2, height / 2));
+      simulation.alpha(0.3).restart();
+    }
+  }
+  window.addEventListener('resize', handleResize);
+
+  // Init
+  initSimulation();
+  animateParticles();
+})();
+</script>

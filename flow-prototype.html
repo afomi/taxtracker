@@ -1,14 +1,32 @@
 ---
 layout: default
-title: Prototype visualization
+title: Tax Revenue Flow Visualization
 permalink: /flows/
+description: Explore an interactive visualization of how money moves from residents and businesses through tax collection, government funds, and public spending.
 ---
 
-<meta name="description" content="Low-resolution flow visualization prototype with visual fibers from residents & businesses to tax collectors to spending." />
 <style>
   /* Improve canvas crispness on some browsers */
   canvas { image-rendering: -webkit-optimize-contrast; }
 </style>
+
+{% comment %}
+  Build a JS-accessible map of fund data from _data/funds/.
+  Structure: { "solano": { "general-fund": { name, total, expenditures: [...] } }, ... }
+{% endcomment %}
+<script id="fund-data" type="application/json">
+{
+  {% for jur in site.data.funds %}
+  {% unless forloop.first %},{% endunless %}
+  "{{ jur[0] }}": {
+    {% for fund_entry in jur[1] %}
+    {% unless forloop.first %},{% endunless %}
+    "{{ fund_entry[0] }}": {{ fund_entry[1] | jsonify }}
+    {% endfor %}
+  }
+  {% endfor %}
+}
+</script>
 
 {% include header.html %}
 
@@ -26,7 +44,16 @@ permalink: /flows/
   </header>
 
   <!-- Controls -->
-  <section class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Jurisdiction</span>
+      <select
+        id="jurisdiction"
+        class="rounded border-slate-300 text-sm"
+      >
+        <option value="">Illustrative</option>
+      </select>
+    </label>
     <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
       <span>Residents</span>
       <input id="residents" type="range" min="10" max="300" step="10" value="100" class="w-40" />
@@ -55,6 +82,14 @@ permalink: /flows/
 </section>
 
 
+  <!-- Fund info (shown when real data selected) -->
+  <section
+    id="fund-info"
+    class="mb-3 hidden rounded-xl border border-indigo-100 bg-indigo-50/50 px-4 py-2 text-sm text-indigo-900"
+  >
+    <span id="fund-info-text"></span>
+  </section>
+
   <!-- Canvas wrapper -->
   <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
     <div class="relative">
@@ -70,6 +105,21 @@ permalink: /flows/
 </main>
 
 <script>
+  // Load fund data injected by Jekyll
+  const fundData = JSON.parse(document.getElementById('fund-data').textContent || '{}');
+
+  // Populate jurisdiction selector
+  const jurSelect = document.getElementById('jurisdiction');
+  const fundNames = { solano: 'Solano County', vacaville: 'Vacaville', fairfield: 'Fairfield' };
+  for (const [slug, funds] of Object.entries(fundData)) {
+    for (const [fundSlug, fund] of Object.entries(funds)) {
+      const opt = document.createElement('option');
+      opt.value = `${slug}/${fundSlug}`;
+      opt.textContent = `${fund.jurisdiction?.name || fundNames[slug] || slug} — ${fund.name}`;
+      jurSelect.appendChild(opt);
+    }
+  }
+
   // Read URL params
   const params = new URLSearchParams(location.search);
   const param = (k, fn) => {
@@ -77,6 +127,35 @@ permalink: /flows/
     const v = params.get(k);
     try { return fn ? fn(v) : v; } catch(_) { return null; }
   };
+
+  // Pre-select jurisdiction from URL
+  const jurParam = param('jurisdiction');
+  if (jurParam && jurSelect.querySelector(`option[value="${jurParam}"]`)) {
+    jurSelect.value = jurParam;
+  }
+
+  // Get active fund's expenditure data (or null for illustrative mode)
+  function getActiveFund() {
+    const val = jurSelect.value;
+    if (!val) return null;
+    const [jur, fund] = val.split('/');
+    return fundData[jur]?.[fund] || null;
+  }
+
+  // Build spend labels and weights from fund data
+  function getSpendConfig() {
+    const fund = getActiveFund();
+    if (!fund || !fund.expenditures || !fund.expenditures.length) {
+      return {
+        labels: ['Education','Health','Transport','Public Safety','Parks','Admin'],
+        weights: null // uniform
+      };
+    }
+    return {
+      labels: fund.expenditures.map(e => e.name),
+      weights: fund.expenditures.map(e => e.share || e.amount || 1)
+    };
+  }
 
   // Share of spending that goes directly to public payroll (rest to private vendors)
   const sharePublicPayroll = param('wages_public', v => Math.max(0, Math.min(0.95, parseFloat(v)))) ?? 0.60;
@@ -177,9 +256,10 @@ permalink: /flows/
       y: topPad + (i + 0.5) * ((botPad - topPad) / collectorLabels.length)
     }));
 
+    const spendConfig = getSpendConfig();
     const spendLabels = (window.__customSpends && window.__customSpends.length)
       ? window.__customSpends
-      : ['Education','Health','Transport','Public Safety','Parks','Admin'];
+      : spendConfig.labels;
     state.entities.spends = spendLabels.map((label, i) => ({
       label,
       x: Rx,
@@ -204,8 +284,24 @@ permalink: /flows/
       return state.entities.collectors[weights.length - 1];
     };
 
-    const chooseSpend = () =>
-      state.entities.spends[Math.floor(Math.random() * state.entities.spends.length)];
+    // Weighted spend selection using fund expenditure shares
+    const spendWeights = spendConfig.weights;
+    const chooseSpend = (() => {
+      if (!spendWeights) {
+        return () => state.entities.spends[Math.floor(Math.random() * state.entities.spends.length)];
+      }
+      const total = spendWeights.reduce((a, b) => a + b, 0) || 1;
+      const normalized = spendWeights.map(w => w / total);
+      return () => {
+        const r = Math.random();
+        let acc = 0;
+        for (let i = 0; i < normalized.length; i++) {
+          acc += normalized[i];
+          if (r <= acc) return state.entities.spends[i];
+        }
+        return state.entities.spends[normalized.length - 1];
+      };
+    })();
     const choosePrivate = () =>
       state.entities.priv[Math.floor(Math.random() * state.entities.priv.length)];
     const chooseResident = () =>
@@ -375,20 +471,51 @@ permalink: /flows/
     seedPackets();
   }
 
+  function updateFundInfo() {
+    const fund = getActiveFund();
+    const infoEl = document.getElementById('fund-info');
+    const textEl = document.getElementById('fund-info-text');
+    if (!fund) {
+      infoEl.classList.add('hidden');
+      return;
+    }
+    infoEl.classList.remove('hidden');
+    const parts = [];
+    parts.push(`<strong>${fund.jurisdiction?.name || ''} ${fund.name}</strong>`);
+    if (fund.fiscal_year) parts.push(fund.fiscal_year);
+    if (fund.total) parts.push('$' + fund.total.toLocaleString() + ' total expenditures');
+    if (fund.sources?.[0]?.name) parts.push('Source: ' + fund.sources[0].name);
+    textEl.innerHTML = parts.join(' · ');
+  }
+
+  jurSelect.addEventListener('change', () => {
+    rebuild();
+    updateFundInfo();
+    window.tt && tt.track('flow_control', { control: 'jurisdiction', value: jurSelect.value });
+  });
+  updateFundInfo();
+
   document.getElementById('residents').addEventListener('input', e => {
     state.residents = parseInt(e.target.value,10); rebuild();
+    window.tt && tt.track('flow_control', { control: 'residents', value: state.residents });
   });
   document.getElementById('businesses').addEventListener('input', e => {
     state.businesses = parseInt(e.target.value,10); rebuild();
+    window.tt && tt.track('flow_control', { control: 'businesses', value: state.businesses });
   });
   document.getElementById('speed').addEventListener('input', e => {
     state.speed = parseFloat(e.target.value);
+    window.tt && tt.track('flow_control', { control: 'speed', value: state.speed });
   });
-  document.getElementById('reset').addEventListener('click', () => rebuild());
+  document.getElementById('reset').addEventListener('click', () => {
+    rebuild();
+    window.tt && tt.track('flow_control', { control: 'reset' });
+  });
   const pauseBtn = document.getElementById('pause');
   pauseBtn.addEventListener('click', () => {
     state.paused = !state.paused;
     pauseBtn.textContent = state.paused ? 'Resume' : 'Pause';
+    window.tt && tt.track('flow_control', { control: state.paused ? 'pause' : 'resume' });
   });
 
   // Init

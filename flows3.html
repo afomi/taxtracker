@@ -1,0 +1,599 @@
+---
+layout: default
+title: High-resolution capital flows
+permalink: /flows3/
+description: Explore a detailed force-directed visualization of capital moving through households, businesses, government, real estate, banking, and financial markets.
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-7xl p-4 sm:p-8">
+
+  <header class="mb-4">
+    <h1 class="text-3xl tracking-tight mb-4">Capital flows
+      <span
+        class="text-slate-400 italic font-light"
+      >high resolution</span>
+    </h1>
+    <p class="mt-1 text-slate-600 max-w-prose">
+      A granular view of how capital circulates through the economy: households, businesses, government,
+      real estate, financial markets, and banking. Toggle sectors to explore subsystems.
+    </p>
+  </header>
+
+  <!-- Sector toggles -->
+  <section class="mb-4 flex flex-wrap gap-4">
+    <fieldset class="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm">
+      <legend class="sr-only">Sectors</legend>
+      <label class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          data-sector="core"
+          checked
+          disabled
+          class="h-4 w-4"
+        />
+        <span class="font-medium">Core</span>
+      </label>
+      <label class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          data-sector="government"
+          checked
+          class="h-4 w-4 accent-amber-500"
+        />
+        <span>Government</span>
+      </label>
+      <label class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          data-sector="realestate"
+          checked
+          class="h-4 w-4 accent-cyan-500"
+        />
+        <span>Real Estate</span>
+      </label>
+      <label class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          data-sector="markets"
+          checked
+          class="h-4 w-4 accent-violet-500"
+        />
+        <span>Markets</span>
+      </label>
+      <label class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          data-sector="banking"
+          checked
+          class="h-4 w-4 accent-yellow-500"
+        />
+        <span>Banking</span>
+      </label>
+      <label class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          data-sector="external"
+          checked
+          class="h-4 w-4 accent-slate-400"
+        />
+        <span>External/Sinks</span>
+      </label>
+    </fieldset>
+  </section>
+
+  <!-- Controls -->
+  <section class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Particle speed</span>
+      <input
+        id="speed"
+        type="range"
+        min="0.25"
+        max="3"
+        step="0.25"
+        value="1"
+        class="w-32"
+      />
+    </label>
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Link opacity</span>
+      <input
+        id="linkOpacity"
+        type="range"
+        min="0.1"
+        max="0.8"
+        step="0.05"
+        value="0.4"
+        class="w-32"
+      />
+    </label>
+    <label class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <span>Charge strength</span>
+      <input
+        id="charge"
+        type="range"
+        min="-800"
+        max="-100"
+        step="50"
+        value="-350"
+        class="w-32"
+      />
+    </label>
+    <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+      <button
+        id="reset"
+        class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-semibold hover:bg-slate-50"
+      >Reset</button>
+      <button
+        id="pause"
+        class="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-1.5 font-semibold text-white hover:bg-indigo-700"
+      >Pause</button>
+    </div>
+  </section>
+
+  <!-- Legend -->
+  <section class="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600">
+    <span class="inline-flex items-center gap-1.5">
+      <span class="inline-block h-2 w-4 rounded bg-indigo-500"></span>Core
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <span class="inline-block h-2 w-4 rounded bg-amber-500"></span>Government
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <span class="inline-block h-2 w-4 rounded bg-cyan-500"></span>Real Estate
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <span class="inline-block h-2 w-4 rounded bg-violet-500"></span>Markets
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <span class="inline-block h-2 w-4 rounded bg-yellow-500"></span>Banking
+    </span>
+    <span class="inline-flex items-center gap-1.5">
+      <span class="inline-block h-2 w-4 rounded bg-slate-400"></span>External
+    </span>
+  </section>
+
+  <!-- SVG container -->
+  <section class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm overflow-hidden">
+    <svg
+      id="graph"
+      class="block w-full"
+      style="height: 600px;"
+    ></svg>
+  </section>
+
+  <!-- Tooltip -->
+  <div
+    id="tooltip"
+    class="pointer-events-none fixed z-50 hidden max-w-xs rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-lg"
+  ></div>
+
+</main>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(function() {
+  const svg = d3.select('#graph');
+  const container = svg.node().parentElement;
+  const tooltip = document.getElementById('tooltip');
+  let width = container.clientWidth - 16;
+  let height = 600;
+
+  svg.attr('viewBox', `0 0 ${width} ${height}`);
+
+  // State
+  let paused = false;
+  let speed = 1;
+  let linkOpacity = 0.4;
+  let chargeStrength = -350;
+
+  const activeSectors = new Set(['core', 'government', 'realestate', 'markets', 'banking', 'external']);
+
+  // Color palette
+  const colors = {
+    core: '#6366f1',       // indigo
+    government: '#f59e0b', // amber
+    realestate: '#06b6d4', // cyan
+    markets: '#8b5cf6',    // violet
+    banking: '#eab308',    // yellow
+    external: '#94a3b8'    // slate
+  };
+
+  // === NODES ===
+  const allNodes = [
+    // Core actors
+    { id: 'households', label: 'Households', sector: 'core', r: 38, desc: 'Wage earners, consumers, savers, investors' },
+    { id: 'corporations', label: 'Corporations', sector: 'core', r: 32, desc: 'Large businesses, public companies' },
+    { id: 'small_biz', label: 'Small Business', sector: 'core', r: 26, desc: 'Private businesses, sole proprietors' },
+
+    // Government
+    { id: 'federal', label: 'Federal Gov', sector: 'government', r: 30, desc: 'Federal spending, taxation, transfers' },
+    { id: 'state', label: 'State Gov', sector: 'government', r: 24, desc: 'State budgets, services' },
+    { id: 'local', label: 'Local Gov', sector: 'government', r: 20, desc: 'Cities, counties, school districts' },
+
+    // Real Estate
+    { id: 'residential', label: 'Residential', sector: 'realestate', r: 28, desc: 'Housing stock, home values' },
+    { id: 'commercial_re', label: 'Commercial RE', sector: 'realestate', r: 24, desc: 'Office, retail, industrial property' },
+    { id: 'reits', label: 'REITs', sector: 'realestate', r: 20, desc: 'Real estate investment trusts' },
+    { id: 'mortgage', label: 'Mortgage Lenders', sector: 'realestate', r: 22, desc: 'Home loans, refinancing' },
+
+    // Financial Markets
+    { id: 'stocks', label: 'Stock Market', sector: 'markets', r: 28, desc: 'Equities, IPOs, secondary trading' },
+    { id: 'bonds', label: 'Bond Market', sector: 'markets', r: 26, desc: 'Corporate and government debt' },
+    { id: 'derivatives', label: 'Derivatives', sector: 'markets', r: 20, desc: 'Options, futures, swaps' },
+
+    // Banking
+    { id: 'banks', label: 'Commercial Banks', sector: 'banking', r: 28, desc: 'Deposits, loans, credit creation' },
+    { id: 'fed', label: 'Federal Reserve', sector: 'banking', r: 26, desc: 'Monetary policy, reserves, QE' },
+    { id: 'credit', label: 'Credit Markets', sector: 'banking', r: 20, desc: 'Consumer credit, corporate loans' },
+
+    // External / Sinks
+    { id: 'savings', label: 'Savings', sector: 'external', r: 18, desc: 'Retained earnings, rainy day funds' },
+    { id: 'imports', label: 'Imports', sector: 'external', r: 18, desc: 'Foreign goods, trade deficit' },
+    { id: 'exports', label: 'Exports', sector: 'external', r: 16, desc: 'Foreign demand for US goods' },
+    { id: 'debt_service', label: 'Debt Service', sector: 'external', r: 16, desc: 'Interest to bondholders' },
+    { id: 'foreign_inv', label: 'Foreign Investment', sector: 'external', r: 16, desc: 'Inbound capital flows' }
+  ];
+
+  // Assign colors
+  allNodes.forEach(n => n.color = colors[n.sector]);
+
+  // === LINKS ===
+  const allLinks = [
+    // --- WAGES ---
+    { source: 'corporations', target: 'households', value: 60, flowType: 'wages', label: 'Corporate wages' },
+    { source: 'small_biz', target: 'households', value: 40, flowType: 'wages', label: 'Small biz wages' },
+    { source: 'federal', target: 'households', value: 25, flowType: 'wages', label: 'Federal payroll' },
+    { source: 'state', target: 'households', value: 15, flowType: 'wages', label: 'State payroll' },
+    { source: 'local', target: 'households', value: 12, flowType: 'wages', label: 'Local payroll' },
+
+    // --- TAXES ---
+    { source: 'households', target: 'federal', value: 45, flowType: 'taxes', label: 'Income tax' },
+    { source: 'households', target: 'state', value: 18, flowType: 'taxes', label: 'State income/sales' },
+    { source: 'households', target: 'local', value: 10, flowType: 'taxes', label: 'Property tax' },
+    { source: 'corporations', target: 'federal', value: 20, flowType: 'taxes', label: 'Corporate tax' },
+    { source: 'corporations', target: 'state', value: 8, flowType: 'taxes', label: 'State corp tax' },
+    { source: 'small_biz', target: 'federal', value: 10, flowType: 'taxes', label: 'Pass-through tax' },
+    { source: 'small_biz', target: 'state', value: 5, flowType: 'taxes', label: 'State biz tax' },
+
+    // --- GOVERNMENT SPENDING ---
+    { source: 'federal', target: 'corporations', value: 35, flowType: 'contracts', label: 'Federal contracts' },
+    { source: 'state', target: 'corporations', value: 12, flowType: 'contracts', label: 'State contracts' },
+    { source: 'local', target: 'small_biz', value: 8, flowType: 'contracts', label: 'Local contracts' },
+
+    // --- BANKING ---
+    { source: 'households', target: 'banks', value: 30, flowType: 'deposits', label: 'Deposits' },
+    { source: 'corporations', target: 'banks', value: 25, flowType: 'deposits', label: 'Corp deposits' },
+    { source: 'banks', target: 'households', value: 20, flowType: 'loans', label: 'Consumer loans' },
+    { source: 'banks', target: 'corporations', value: 25, flowType: 'loans', label: 'Business loans' },
+    { source: 'banks', target: 'small_biz', value: 15, flowType: 'loans', label: 'Small biz loans' },
+    { source: 'banks', target: 'fed', value: 12, flowType: 'reserves', label: 'Reserve deposits' },
+    { source: 'fed', target: 'banks', value: 15, flowType: 'liquidity', label: 'Liquidity/discount' },
+    { source: 'fed', target: 'bonds', value: 20, flowType: 'qe', label: 'QE purchases' },
+    { source: 'banks', target: 'credit', value: 18, flowType: 'credit', label: 'Credit extension' },
+    { source: 'credit', target: 'households', value: 15, flowType: 'credit', label: 'Consumer credit' },
+
+    // --- REAL ESTATE ---
+    { source: 'households', target: 'mortgage', value: 25, flowType: 'mortgage', label: 'Mortgage payments' },
+    { source: 'mortgage', target: 'residential', value: 22, flowType: 'housing', label: 'Home purchases' },
+    { source: 'mortgage', target: 'banks', value: 18, flowType: 'mbs', label: 'MBS/Securitization' },
+    { source: 'banks', target: 'mortgage', value: 20, flowType: 'funding', label: 'Mortgage funding' },
+    { source: 'households', target: 'residential', value: 15, flowType: 'rent', label: 'Rent' },
+    { source: 'corporations', target: 'commercial_re', value: 18, flowType: 'lease', label: 'Commercial leases' },
+    { source: 'small_biz', target: 'commercial_re', value: 10, flowType: 'lease', label: 'Retail/office rent' },
+    { source: 'reits', target: 'commercial_re', value: 15, flowType: 'investment', label: 'REIT holdings' },
+    { source: 'reits', target: 'households', value: 8, flowType: 'dividends', label: 'REIT dividends' },
+    { source: 'residential', target: 'households', value: 10, flowType: 'equity', label: 'Home equity' },
+
+    // --- FINANCIAL MARKETS ---
+    { source: 'households', target: 'stocks', value: 25, flowType: 'investment', label: '401k/brokerage' },
+    { source: 'corporations', target: 'stocks', value: 15, flowType: 'equity', label: 'IPO/buybacks' },
+    { source: 'stocks', target: 'households', value: 18, flowType: 'dividends', label: 'Dividends/gains' },
+    { source: 'stocks', target: 'corporations', value: 12, flowType: 'capital', label: 'Equity capital' },
+    { source: 'federal', target: 'bonds', value: 30, flowType: 'issuance', label: 'Treasury issuance' },
+    { source: 'bonds', target: 'federal', value: 25, flowType: 'funding', label: 'Debt funding' },
+    { source: 'households', target: 'bonds', value: 12, flowType: 'investment', label: 'Bond purchases' },
+    { source: 'bonds', target: 'households', value: 8, flowType: 'interest', label: 'Bond interest' },
+    { source: 'corporations', target: 'derivatives', value: 10, flowType: 'hedging', label: 'Hedging' },
+    { source: 'banks', target: 'derivatives', value: 12, flowType: 'trading', label: 'Derivatives trading' },
+
+    // --- EXTERNAL / SINKS ---
+    { source: 'households', target: 'savings', value: 15, flowType: 'savings', label: 'Personal savings' },
+    { source: 'corporations', target: 'savings', value: 12, flowType: 'retained', label: 'Retained earnings' },
+    { source: 'households', target: 'imports', value: 20, flowType: 'trade', label: 'Consumer imports' },
+    { source: 'corporations', target: 'imports', value: 15, flowType: 'trade', label: 'Business imports' },
+    { source: 'exports', target: 'corporations', value: 18, flowType: 'trade', label: 'Export revenue' },
+    { source: 'federal', target: 'debt_service', value: 12, flowType: 'interest', label: 'Debt interest' },
+    { source: 'foreign_inv', target: 'bonds', value: 20, flowType: 'investment', label: 'Foreign bond buying' },
+    { source: 'foreign_inv', target: 'stocks', value: 10, flowType: 'investment', label: 'Foreign equity' }
+  ];
+
+  // Compute link colors based on source sector
+  allLinks.forEach(l => {
+    const srcNode = allNodes.find(n => n.id === l.source);
+    l.color = srcNode ? srcNode.color : '#94a3b8';
+  });
+
+  // === FILTERING ===
+  function getActiveNodes() {
+    return allNodes.filter(n => activeSectors.has(n.sector));
+  }
+
+  function getActiveLinks() {
+    const activeIds = new Set(getActiveNodes().map(n => n.id));
+    return allLinks
+      .filter(l => activeIds.has(l.source) && activeIds.has(l.target))
+      .map(l => ({ ...l })); // clone for D3
+  }
+
+  // === SIMULATION ===
+  let simulation, link, node, label, particles = [];
+  const g = svg.append('g');
+
+  // Zoom
+  const zoom = d3.zoom()
+    .scaleExtent([0.3, 3])
+    .on('zoom', (event) => g.attr('transform', event.transform));
+  svg.call(zoom);
+
+  function initSimulation() {
+    const activeNodes = getActiveNodes();
+    const activeLinks = getActiveLinks();
+
+    // Initial positions in sectors
+    const cx = width / 2, cy = height / 2;
+    const sectorAngles = {
+      core: 0,
+      government: Math.PI * 0.4,
+      realestate: Math.PI * 0.8,
+      markets: Math.PI * 1.2,
+      banking: Math.PI * 1.6,
+      external: Math.PI * 1.9
+    };
+
+    activeNodes.forEach((n, i) => {
+      const baseAngle = sectorAngles[n.sector] || 0;
+      const jitter = (Math.random() - 0.5) * 0.4;
+      const radius = n.sector === 'external' ? 220 : 150;
+      n.x = cx + Math.cos(baseAngle + jitter) * radius;
+      n.y = cy + Math.sin(baseAngle + jitter) * radius;
+    });
+
+    if (simulation) simulation.stop();
+
+    simulation = d3.forceSimulation(activeNodes)
+      .force('link', d3.forceLink(activeLinks).id(d => d.id).distance(80).strength(0.4))
+      .force('charge', d3.forceManyBody().strength(chargeStrength))
+      .force('center', d3.forceCenter(cx, cy))
+      .force('collision', d3.forceCollide().radius(d => d.r + 8))
+      .on('tick', ticked);
+
+    // Clear and rebuild
+    g.selectAll('*').remove();
+
+    // Arrow markers
+    const defs = g.append('defs');
+    Object.values(colors).forEach(color => {
+      defs.append('marker')
+        .attr('id', `arrow-${color.replace('#', '')}`)
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 18)
+        .attr('refY', 0)
+        .attr('markerWidth', 5)
+        .attr('markerHeight', 5)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,-4L10,0L0,4')
+        .attr('fill', color);
+    });
+
+    // Links
+    link = g.append('g')
+      .attr('class', 'links')
+      .selectAll('path')
+      .data(activeLinks)
+      .join('path')
+      .attr('fill', 'none')
+      .attr('stroke', d => d.color)
+      .attr('stroke-opacity', linkOpacity)
+      .attr('stroke-width', d => Math.sqrt(d.value) * 0.6)
+      .attr('marker-end', d => `url(#arrow-${d.color.replace('#', '')})`)
+      .on('mouseenter', (event, d) => showTooltip(event, `${d.label}: ${d.source.label || d.source} → ${d.target.label || d.target}`))
+      .on('mouseleave', hideTooltip);
+
+    // Nodes
+    node = g.append('g')
+      .attr('class', 'nodes')
+      .selectAll('circle')
+      .data(activeNodes)
+      .join('circle')
+      .attr('r', d => d.r)
+      .attr('fill', d => d.color)
+      .attr('fill-opacity', 0.85)
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 2)
+      .attr('cursor', 'grab')
+      .on('mouseenter', (event, d) => showTooltip(event, `<strong>${d.label}</strong><br>${d.desc}`))
+      .on('mouseleave', hideTooltip)
+      .call(d3.drag()
+        .on('start', dragstarted)
+        .on('drag', dragged)
+        .on('end', dragended));
+
+    // Labels
+    label = g.append('g')
+      .attr('class', 'labels')
+      .selectAll('text')
+      .data(activeNodes)
+      .join('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.35em')
+      .attr('font-size', d => d.r > 24 ? 10 : 8)
+      .attr('font-weight', 600)
+      .attr('fill', '#fff')
+      .attr('pointer-events', 'none')
+      .text(d => d.label.length > 12 ? d.label.slice(0, 10) + '…' : d.label);
+
+    // Particles
+    g.append('g').attr('class', 'particles');
+
+    particles = [];
+    activeLinks.forEach(l => {
+      const count = Math.ceil(l.value / 12);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          link: l,
+          t: Math.random(),
+          speed: 0.002 + Math.random() * 0.002
+        });
+      }
+    });
+  }
+
+  function ticked() {
+    link.attr('d', d => {
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const dr = Math.sqrt(dx * dx + dy * dy) * 1.2;
+      return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+    });
+
+    node
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y);
+
+    label
+      .attr('x', d => d.x)
+      .attr('y', d => d.y);
+  }
+
+  function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+
+  // Tooltip
+  function showTooltip(event, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = (event.pageX + 12) + 'px';
+    tooltip.style.top = (event.pageY - 10) + 'px';
+    tooltip.classList.remove('hidden');
+  }
+
+  function hideTooltip() {
+    tooltip.classList.add('hidden');
+  }
+
+  // Particle animation
+  function animateParticles() {
+    if (paused) {
+      requestAnimationFrame(animateParticles);
+      return;
+    }
+
+    const particleGroup = g.select('.particles');
+    particleGroup.selectAll('circle').remove();
+
+    particles.forEach(p => {
+      p.t += p.speed * speed;
+      if (p.t > 1) p.t = 0;
+
+      const l = p.link;
+      if (!l.source.x || !l.target.x) return;
+
+      const dx = l.target.x - l.source.x;
+      const dy = l.target.y - l.source.y;
+      const dr = Math.sqrt(dx * dx + dy * dy) * 1.2;
+
+      const midX = (l.source.x + l.target.x) / 2;
+      const midY = (l.source.y + l.target.y) / 2;
+      const len = Math.sqrt(dx * dx + dy * dy) || 1;
+      const perpX = -dy / len * (dr - len) * 0.25;
+      const perpY = dx / len * (dr - len) * 0.25;
+      const ctrlX = midX + perpX;
+      const ctrlY = midY + perpY;
+
+      const t = p.t;
+      const x = (1 - t) * (1 - t) * l.source.x + 2 * (1 - t) * t * ctrlX + t * t * l.target.x;
+      const y = (1 - t) * (1 - t) * l.source.y + 2 * (1 - t) * t * ctrlY + t * t * l.target.y;
+
+      particleGroup.append('circle')
+        .attr('cx', x)
+        .attr('cy', y)
+        .attr('r', 2.5)
+        .attr('fill', l.color)
+        .attr('fill-opacity', 0.85);
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+
+  // === CONTROLS ===
+  document.querySelectorAll('[data-sector]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const sector = cb.dataset.sector;
+      if (cb.checked) {
+        activeSectors.add(sector);
+      } else {
+        activeSectors.delete(sector);
+      }
+      initSimulation();
+    });
+  });
+
+  document.getElementById('speed').addEventListener('input', e => {
+    speed = parseFloat(e.target.value);
+  });
+
+  document.getElementById('linkOpacity').addEventListener('input', e => {
+    linkOpacity = parseFloat(e.target.value);
+    link.attr('stroke-opacity', linkOpacity);
+  });
+
+  document.getElementById('charge').addEventListener('input', e => {
+    chargeStrength = parseFloat(e.target.value);
+    simulation.force('charge', d3.forceManyBody().strength(chargeStrength));
+    simulation.alpha(0.5).restart();
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity);
+    initSimulation();
+  });
+
+  const pauseBtn = document.getElementById('pause');
+  pauseBtn.addEventListener('click', () => {
+    paused = !paused;
+    pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+  });
+
+  // Resize
+  function handleResize() {
+    width = container.clientWidth - 16;
+    svg.attr('viewBox', `0 0 ${width} ${height}`);
+    if (simulation) {
+      simulation.force('center', d3.forceCenter(width / 2, height / 2));
+      simulation.alpha(0.3).restart();
+    }
+  }
+  window.addEventListener('resize', handleResize);
+
+  // Init
+  initSimulation();
+  animateParticles();
+})();
+</script>
