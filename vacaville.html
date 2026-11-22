@@ -1,0 +1,228 @@
+---
+layout: default
+title: One resident in Vacaville
+permalink: /places/vacaville/
+description: A sketch of the taxes that can reach a person who lives in Vacaville, California.
+sitemap: false
+robots: noindex
+---
+
+{% include header.html %}
+
+<main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+  <aside
+    class="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-950"
+  >
+    <p class="text-sm font-semibold">
+      This is a sketch for the picture.
+    </p>
+    <p class="mt-1 text-sm">
+      Stubs are not the inventory.
+    </p>
+    <p class="mt-2 text-sm leading-relaxed">
+      Read
+      <a
+        href="{{ '/how-it-works/source-documents/' | relative_url }}"
+        class="font-semibold underline decoration-amber-700/70 hover:decoration-amber-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-800"
+      >how the three documents are found</a>,
+      and see
+      <a
+        href="{{ '/taxes/inventory/' | relative_url }}"
+        class="font-semibold underline decoration-amber-700/70 hover:decoration-amber-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-800"
+      >the inventory</a>.
+    </p>
+  </aside>
+
+  <header class="mt-8">
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+      One resident in Vacaville
+    </h1>
+    <p class="mt-3 text-slate-700">
+      This page follows one resident in Vacaville, California.
+    </p>
+    <p class="mt-2 text-slate-700">
+      The groups are the different ways a tax reaches them.
+    </p>
+    <p class="mt-2 text-slate-700">
+      Each tax has three document slots: Defined, Collected, and Spent.
+    </p>
+    <p class="mt-2 text-slate-700">
+      Most slots are empty.
+    </p>
+    <p class="mt-2 text-slate-700">
+      That emptiness is the point.
+    </p>
+  </header>
+
+  {%- assign vacaville_stack = site.data.prototypes.vacaville_stack -%}
+  {%- if vacaville_stack == nil or vacaville_stack.size == 0 -%}
+    <p class="mt-8 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
+      The Vacaville stack data did not load.
+    </p>
+  {%- else -%}
+
+    <section
+      class="mt-12"
+      aria-labelledby="vacaville-list-heading"
+    >
+      <h2
+        id="vacaville-list-heading"
+        class="text-2xl font-semibold tracking-tight text-slate-900"
+      >
+        As a list
+      </h2>
+      <p class="mt-2 max-w-3xl text-slate-600">
+        The same taxes are drawn again below as a stack.
+      </p>
+
+      {%- for group in vacaville_stack -%}
+        <section
+          id="list-{{ group.id }}"
+          class="mt-10"
+          aria-labelledby="list-heading-{{ group.id }}"
+        >
+          <h3
+            id="list-heading-{{ group.id }}"
+            class="text-xl font-semibold text-slate-900"
+          >
+            {{ group.title }}
+          </h3>
+          <p class="mt-2 max-w-3xl text-slate-700">
+            {{ group.standpoint }}
+          </p>
+          <ul class="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+            {%- for tax in group.taxes -%}
+              <li class="py-5">
+                <h4 class="text-base font-semibold text-slate-900">
+                  {{ tax.name }}
+                </h4>
+                <p class="mt-1 text-sm text-slate-600">
+                  {{ tax.who }}
+                </p>
+                <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-800">
+                  {{ tax.reaches }}
+                </p>
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  {% include vacaville_documents.html tax=tax mode="mark" %}
+                </div>
+                {% include vacaville_documents.html tax=tax mode="slots" %}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if group.id == "parcel" -%}
+            <aside class="mt-4 max-w-3xl rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+              <p>
+                A Vacaville property-tax bill also carries on the order of 17 direct assessments.
+              </p>
+              <p class="mt-1">
+                They are one slab until each name is taken from the bill or the county special-assessment narratives.
+              </p>
+            </aside>
+          {%- endif -%}
+        </section>
+      {%- endfor -%}
+    </section>
+
+    <section
+      class="mt-16"
+      aria-labelledby="vacaville-stack-heading"
+    >
+      <h2
+        id="vacaville-stack-heading"
+        class="text-2xl font-semibold tracking-tight text-slate-900"
+      >
+        As a stack
+      </h2>
+      <div class="mt-3 max-w-3xl space-y-1 text-sm leading-relaxed text-slate-600">
+        <p>
+          The length is only so the stack can be seen.
+        </p>
+        <p>
+          It is not revenue and it is not a rate.
+        </p>
+        <p>
+          A stub is marked with the word Stub, an amber edge, and a hatch.
+        </p>
+        <p>
+          An inventory record has an indigo edge and a link, and the word Stub is absent.
+        </p>
+        <p>
+          One stub still links to a use-tax record, because the sales-tax stack is not that record.
+        </p>
+        <p>
+          Each slab has three pips: Defined, Collected, and Spent.
+        </p>
+        <p>
+          A filled pip means a document URL is on file.
+        </p>
+        <p>
+          An empty pip means none yet.
+        </p>
+      </div>
+
+      {%- for group in vacaville_stack -%}
+        <section
+          id="stack-{{ group.id }}"
+          class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5"
+          aria-labelledby="stack-heading-{{ group.id }}"
+        >
+          <h3
+            id="stack-heading-{{ group.id }}"
+            class="text-lg font-semibold text-slate-900"
+          >
+            {{ group.title }}
+          </h3>
+          <p class="mt-1 max-w-3xl text-sm text-slate-700">
+            {{ group.standpoint }}
+          </p>
+          <ul class="mt-4 flex list-none flex-col items-start gap-3 p-0">
+            {%- for tax in group.taxes -%}
+              {%- if tax.weight == 1 -%}
+                {%- assign slab_width = "w-full sm:w-1/3" -%}
+              {%- elsif tax.weight == 2 -%}
+                {%- assign slab_width = "w-full sm:w-2/3" -%}
+              {%- else -%}
+                {%- assign slab_width = "w-full" -%}
+              {%- endif -%}
+              {%- if tax.stub -%}
+                {%- assign slab_face = "border-y border-r border-l-4 border-amber-200 border-l-amber-500 bg-amber-50 [background-image:repeating-linear-gradient(135deg,transparent_0_7px,rgb(245_158_11_/_0.35)_7px_8px)]" -%}
+              {%- elsif tax.inventory_url -%}
+                {%- assign slab_face = "border-y border-r border-l-4 border-indigo-200 border-l-indigo-600 bg-white" -%}
+              {%- else -%}
+                {%- assign slab_face = "border border-slate-200 bg-white" -%}
+              {%- endif -%}
+              <li class="{{ slab_width }}">
+                <article class="rounded-2xl px-4 py-3 {{ slab_face }}">
+                  <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <h4 class="text-sm font-semibold text-slate-900">
+                      {{ tax.name }}
+                    </h4>
+                    {% include vacaville_documents.html tax=tax mode="mark" %}
+                  </div>
+                  <p class="mt-1 text-sm text-slate-600">
+                    {{ tax.who }}
+                  </p>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-800">
+                    {{ tax.reaches }}
+                  </p>
+                  {% include vacaville_documents.html tax=tax mode="pips" %}
+                </article>
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if group.id == "parcel" -%}
+            <aside class="mt-4 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">
+              <p>
+                A Vacaville property-tax bill also carries on the order of 17 direct assessments.
+              </p>
+              <p class="mt-1">
+                They are one slab until each name is taken from the bill or the county special-assessment narratives.
+              </p>
+            </aside>
+          {%- endif -%}
+        </section>
+      {%- endfor -%}
+    </section>
+
+  {%- endif -%}
+</main>

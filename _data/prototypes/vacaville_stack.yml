@@ -1,0 +1,224 @@
+# Sketch only. Weight is a display length (1, 2, or 3), not revenue and not a rate.
+# defined is filled only when this pass opened that document.
+- id: income
+  title: Income
+  standpoint: These reach a resident through wages and other income.
+  taxes:
+    - name: Federal income tax
+      who: United States
+      reaches: It reaches the taxable income a resident reports to the United States.
+      stub: false
+      weight: 3
+      defined: https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section1&num=0&edition=prelim
+      collected: null
+      spent: null
+      inventory_url: /taxes/united-states-federal-income-tax/
+    - name: Social Security and Medicare
+      who: United States
+      reaches: They are payroll taxes on wages.
+      stub: true
+      weight: 2
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+    - name: California personal income tax
+      who: State of California
+      reaches: It reaches the taxable income a resident reports to the state.
+      stub: false
+      weight: 3
+      defined: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17041
+      collected: null
+      spent: null
+      inventory_url: /taxes/california-personal-income-tax/
+    - name: Additional personal income tax
+      who: State of California
+      reaches: It is a separate state income tax, defined in its own section.
+      stub: false
+      weight: 1
+      defined: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17043
+      collected: null
+      spent: null
+      inventory_url: /taxes/california-additional-personal-income-tax/
+
+- id: purchase
+  title: A purchase in Vacaville
+  standpoint: These reach a resident who buys something in Vacaville.
+  taxes:
+    - name: California sales and use tax
+      who: State of California
+      reaches: It reaches a purchase in California, and the inventory link is the use-tax record rather than the sales-tax stack.
+      stub: true
+      weight: 2
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: /taxes/california-use-tax/
+    - name: Combined sales and use tax in Vacaville
+      who: California Department of Tax and Fee Administration
+      reaches: The state rate schedule prints one combined figure for a sale in the city, and it does not split that figure into statutes.
+      stub: false
+      weight: 3
+      defined: https://cdtfa.ca.gov/formspubs/cdtfa95.pdf
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-combined-sales-and-use-tax/
+    - name: Uniform local sales and use tax
+      who: City of Vacaville
+      reaches: The municipal code imposes this city sales and use tax.
+      stub: false
+      weight: 2
+      defined: https://ecode360.com/48403844
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-uniform-local-sales-and-use-tax/
+    - name: Transactions and use tax
+      who: City of Vacaville
+      reaches: The municipal code imposes this city transactions and use tax, and the chapter does not call it Measure M.
+      stub: false
+      weight: 2
+      defined: https://ecode360.com/48403876
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-transactions-and-use-tax/
+    - name: Measure M
+      who: City of Vacaville
+      reaches: The FY2025-26 city budget names it as city revenue. The code chapter above does not use this name, so this row stays a stub.
+      stub: true
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+    - name: Solano County library transactions and use tax
+      who: Solano County
+      reaches: It reaches a taxable transaction in Solano County.
+      stub: false
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: /taxes/solano-county-ca-library-transactions-and-use-tax/
+
+- id: parcel
+  title: The parcel
+  standpoint: These meet a resident on the bill for a parcel, and the fuel tax meets someone who buys fuel.
+  taxes:
+    - name: Property tax, 1% general levy
+      who: Solano County
+      reaches: Solano County collects this general levy on a parcel.
+      stub: false
+      weight: 3
+      defined: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A
+      collected: null
+      spent: null
+      inventory_url: /taxes/solano-property-tax/
+    - name: Voter-approved debt on this tax rate area
+      who: School districts and others
+      reaches: The names depend on the parcel, so this row does not list them.
+      stub: true
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+    - name: Direct assessments on the bill
+      who: County and districts
+      reaches: A bill carries on the order of 17 of these charges, and this row does not name each one.
+      stub: true
+      weight: 2
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+    - name: Real property transfer tax
+      who: City of Vacaville
+      reaches: It reaches a sale of real property in the city.
+      stub: false
+      weight: 1
+      defined: https://ecode360.com/48403816
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-real-property-transfer-tax/
+    - name: California fuel excise tax
+      who: State of California
+      reaches: It reaches someone who buys fuel.
+      stub: false
+      weight: 1
+      defined: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=7360
+      collected: null
+      spent: null
+      inventory_url: /taxes/california-fuel-excise-tax/
+
+- id: business
+  title: A business in the city
+  standpoint: These reach a business in the city rather than the household.
+  taxes:
+    - name: Business license tax
+      who: City of Vacaville
+      reaches: It reaches a business that the city licenses.
+      stub: false
+      weight: 1
+      defined: https://ecode360.com/48404181
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-business-license-tax/
+    - name: Community services and facilities tax
+      who: City of Vacaville
+      reaches: The ordinance collects it with the water and sewer bill, the business license, or the lodging tax.
+      stub: false
+      weight: 2
+      defined: https://ecode360.com/48403797
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-community-services-and-facilities-tax/
+    - name: Paramedic tax
+      who: City of Vacaville
+      reaches: The FY2025-26 city budget names it as city revenue, and this sketch does not yet say what it reaches.
+      stub: true
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+    - name: Franchise tax
+      who: City of Vacaville
+      reaches: The FY2025-26 city budget names it as city revenue, and this sketch does not yet say what it reaches.
+      stub: true
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+    - name: Excise tax
+      who: City of Vacaville
+      reaches: The FY2025-26 city budget names it as city revenue and does not say what it falls on.
+      stub: true
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
+
+- id: guest
+  title: A guest
+  standpoint: These reach a lodging guest rather than the household that lives in Vacaville.
+  taxes:
+    - name: Transient occupancy tax
+      who: City of Vacaville
+      reaches: A lodging guest pays it, not the household.
+      stub: false
+      weight: 2
+      defined: https://ecode360.com/48403921
+      collected: null
+      spent: null
+      inventory_url: /taxes/vacaville-lodging-tax/
+    - name: A separate lodging excise and a hotel assessment
+      who: City and a business improvement district
+      reaches: It is named beside the occupancy tax, and it is not part of that city tax.
+      stub: true
+      weight: 1
+      defined: null
+      collected: null
+      spent: null
+      inventory_url: null
