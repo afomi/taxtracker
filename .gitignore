@@ -6,3 +6,6 @@ _site
 node_modules/
 vendor
 /assets/css/styles.css
+
+# Private outreach material — contact info, never published or committed
+_outreach/
