@@ -31,9 +31,26 @@
         <h2 id="fund-{{ fid }}-title" class="text-lg font-semibold">
           Fund "{{ include.feature | default: 'Feature' }}"
         </h2>
-        <p class="mt-1 text-sm text-slate-600">
-          You can donate in Bitcoin SV (BSV) to the address below to support development.
-        </p>
+        {% if site.donations.github_sponsors %}
+          <p class="mt-1 text-sm text-slate-600">
+            Sponsor development on GitHub, one time or monthly.
+          </p>
+          <a
+            class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+            href="https://github.com/sponsors/{{ site.donations.github_sponsors }}"
+            rel="noopener"
+            onclick="window.tt && tt.track('fund_click', { feature: '{{ fid }}', via: 'github_sponsors' })"
+          >
+            Sponsor on GitHub
+          </a>
+          <p class="mt-4 text-sm text-slate-600">
+            Or donate in Bitcoin SV (BSV):
+          </p>
+        {% else %}
+          <p class="mt-1 text-sm text-slate-600">
+            You can donate in Bitcoin SV (BSV) to the address below to support development.
+          </p>
+        {% endif %}
 
         <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3">
           <div class="text-xs text-slate-500">BSV address</div>
