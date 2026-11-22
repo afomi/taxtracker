@@ -1,96 +1,536 @@
 [
   {
     "agency": {
-      "name": "Denver Department of Finance",
+      "name": "City and County of Denver Department of Finance, Treasury Division",
       "slug": "finance"
     },
+    "authority": {
+      "citation": "Denver Revised Municipal Code §§53-150 to 53-164",
+      "url": null
+    },
+    "data_status": "partial",
     "effective": {},
-    "id": "denver-short-term-rental-tax",
+    "id": "denver-lodgers-tax",
     "jurisdiction": {
       "level": "city",
       "name": "Denver",
-      "slug": "denver"
+      "slug": "denver",
+      "state_abbr": "CO"
     },
-    "name": "Short-Term Rental Tax",
-    "notes": "Demo record; applied to STR bookings.",
+    "name": "Lodger's Tax",
+    "notes": "Paid by the guest and collected at the time of sale by the vendor: the host, or the lodging platform when it is the merchant of record. Vendors remit to the Manager of Finance monthly, quarterly or annually depending on liability. The State of Colorado separately imposes a 4% sales tax on lodging, for 14.75% in total; the state tax is not included in the rate here. Revenue collected has not yet been sourced.",
     "rates": [
-      {}
+      {
+        "applies_to": "the entire amount charged for lodging of less than 30 consecutive days, including short-term rentals",
+        "cap": null,
+        "kind": "percent",
+        "value": 10.75
+      }
     ],
-    "revenue": 100000,
-    "revenue_year": "2025",
-    "slug": "short-term-rental-tax",
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "lodgers-tax",
     "sources": [
       {
-        "name": "Example source2"
+        "name": "City and County of Denver Tax Guide Topic No. 97 — Short-Term Rentals (revised April 2026)",
+        "url": "https://denvergov.org/files/assets/public/v/2/finance/documents/treasury/tax-guides/2026/taxguidetopic97_shorttermrentals.pdf"
       }
     ],
     "status": "active",
     "type": "lodging",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-10-02"
   },
   {
     "agency": {
-      "name": "Vacaville Finance Department",
-      "slug": "finance"
+      "name": "City of Vacaville tax collector",
+      "slug": "tax-collector"
     },
+    "authority": {
+      "citation": "Vacaville Municipal Code ch. 5.12 (Ord. 923 §4.1, 1977; Ord. 1634, 2000)",
+      "url": "https://ecode360.com/48404181"
+    },
+    "data_status": "partial",
     "effective": {},
     "id": "vacaville-business-license-tax",
     "jurisdiction": {
       "level": "city",
       "name": "Vacaville",
-      "slug": "vacaville"
+      "slug": "vacaville",
+      "state_abbr": "CA"
     },
     "name": "Business License Tax",
-    "notes": "Demo record; gross-receipts based example.",
+    "notes": "An annual tax for the privilege of doing business in the city, measured by the code's employee schedule or by dwelling units, not by gross receipts, except for the reduced schedule when gross income is between $1,000 and $2,500. Amounts below are the amounts printed in chapter 5.12. They are not the community services and facilities tax in chapter 3.06, which the city may bill on the same license. Section 5.12.060 caps the total under section 5.12.010 at $500 for one location, and the total under the apartment, hotel, and trailer-park sections at $350. Section 5.12.070 lets the council increase the fees after a 10% rise in the San Francisco Bay Area CPI; no resolution adopting an increase was opened. Home occupations at or under $1,000 of gross receipts are sent to section 5.16.010, which was not opened. Revenue collected was not in a document opened for this record.",
     "rates": [
-      {}
+      {
+        "applies_to": "annual base for a business other than NAICS sectors 52, 53, 54, 55, and 62 (ch. 5.12.010(B)); employee additions are separate",
+        "cap": 500,
+        "kind": "amount",
+        "value": 50
+      },
+      {
+        "applies_to": "annual base for a business in NAICS sectors 52, 53, 54, 55, or 62 (ch. 5.12.010(A)); employee additions are separate",
+        "cap": 500,
+        "kind": "amount",
+        "value": 75
+      },
+      {
+        "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 2 to 5",
+        "cap": null,
+        "kind": "amount",
+        "value": 25
+      },
+      {
+        "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 6 to 12",
+        "cap": null,
+        "kind": "amount",
+        "value": 50
+      },
+      {
+        "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 13 to 25",
+        "cap": null,
+        "kind": "amount",
+        "value": 125
+      },
+      {
+        "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 26 to 50",
+        "cap": null,
+        "kind": "amount",
+        "value": 150
+      },
+      {
+        "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 51 to 100",
+        "cap": null,
+        "kind": "amount",
+        "value": 250
+      },
+      {
+        "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, for each 50 employees over 100 or fraction thereof",
+        "cap": null,
+        "kind": "amount",
+        "value": 25
+      },
+      {
+        "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 2 to 5",
+        "cap": null,
+        "kind": "amount",
+        "value": 25
+      },
+      {
+        "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 6 to 12",
+        "cap": null,
+        "kind": "amount",
+        "value": 50
+      },
+      {
+        "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 13 to 25",
+        "cap": null,
+        "kind": "amount",
+        "value": 100
+      },
+      {
+        "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 26 to 50",
+        "cap": null,
+        "kind": "amount",
+        "value": 125
+      },
+      {
+        "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 51 to 100",
+        "cap": null,
+        "kind": "amount",
+        "value": 225
+      },
+      {
+        "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), for each 50 employees over 100 or fraction thereof",
+        "cap": null,
+        "kind": "amount",
+        "value": 25
+      },
+      {
+        "applies_to": "reduced annual base under ch. 5.12.010(C) when gross income is between $1,000 and $2,500",
+        "cap": null,
+        "kind": "amount",
+        "value": 25
+      },
+      {
+        "applies_to": "added annual amount under ch. 5.12.010(C) when average employees are 2 to 5",
+        "cap": null,
+        "kind": "amount",
+        "value": 15
+      },
+      {
+        "applies_to": "each apartment dwelling unit per year (ch. 5.12.020); the section caps these unit taxes at $350 in total",
+        "cap": 350,
+        "kind": "amount",
+        "value": 4
+      },
+      {
+        "applies_to": "each hotel or motel dwelling unit per year (ch. 5.12.030); the section caps these unit taxes at $350 in total",
+        "cap": 350,
+        "kind": "amount",
+        "value": 3
+      },
+      {
+        "applies_to": "each trailer-park space per year (ch. 5.12.040); the section caps these unit taxes at $350 in total",
+        "cap": 350,
+        "kind": "amount",
+        "value": 2
+      }
     ],
     "revenue": null,
     "revenue_year": null,
     "slug": "business-license-tax",
     "sources": [
       {
-        "name": "Example source"
+        "name": "Defined in: Vacaville Municipal Code ch. 5.12 — License Taxes",
+        "url": "https://ecode360.com/48404181"
       }
     ],
     "status": "active",
-    "type": "other",
-    "updated_at": "2025-08-20"
+    "type": "business",
+    "updated_at": "2026-11-21"
   },
   {
     "agency": {
-      "name": "Vacaville Finance Department",
+      "name": "California Department of Tax and Fee Administration",
+      "slug": "cdtfa"
+    },
+    "authority": {
+      "citation": "CDTFA-95 (S1F) REV. 39 (10-26), California Sales and Use Tax Rates by County and City, operative October 1, 2026",
+      "url": "https://cdtfa.ca.gov/formspubs/cdtfa95.pdf"
+    },
+    "data_status": "partial",
+    "effective": {
+      "start": "2026-10-01"
+    },
+    "id": "vacaville-combined-sales-and-use-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville",
+      "state_abbr": "CA"
+    },
+    "name": "Combined Sales and Use Tax (Vacaville)",
+    "notes": "The rate a sale in the city is charged, as printed by CDTFA. It is not one tax. CDTFA-95 prints 'City of Vacaville 8.125%' and, on the same page, 'SOLANO COUNTY 7.375%'. The sheet's header says the figures include state, county, local, and district taxes. It does not list the components of the Vacaville figure. The October 1, 2026 rate file prints Vacaville, Solano, City, at 0.08125, with no note that separates components. The CDTFA rates page states a statewide rate of 7.25% and says district taxes range from 0.10% to 2.00%; it does not assign those pieces to Vacaville. The city taxes this pass recorded separately, and which this combined figure bundles without naming, are the 1% uniform local sales and use tax and the 0.75% transactions and use tax. No agency reports a collected amount for the combined rate as a single tax.",
+    "rates": [
+      {
+        "applies_to": "taxable sales and use in the City of Vacaville, combined rate operative October 1, 2026",
+        "cap": null,
+        "kind": "percent",
+        "value": 8.125
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "combined-sales-and-use-tax",
+    "sources": [
+      {
+        "name": "Rate schedule (combined rate, not one imposing statute): CDTFA-95, operative October 1, 2026",
+        "url": "https://cdtfa.ca.gov/formspubs/cdtfa95.pdf"
+      },
+      {
+        "name": "Rate schedule (Vacaville row; no component split): CDTFA sales-tax rate file, effective October 1, 2026",
+        "url": "https://cdtfa.ca.gov/taxes-and-fees/SalesTaxRates10-1-26.xlsx"
+      },
+      {
+        "name": "Index: CDTFA California City and County Sales and Use Tax Rates (statewide 7.25% stated; Vacaville components not stated)",
+        "url": "https://cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm"
+      }
+    ],
+    "status": "active",
+    "type": "sales",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "City of Vacaville Director of Finance",
       "slug": "finance"
     },
+    "authority": {
+      "citation": "Vacaville Municipal Code ch. 3.06 (Community Services and Facilities Tax), §3.06.080 (Ord. 1843, 2012)",
+      "url": "https://ecode360.com/48403797"
+    },
+    "data_status": "partial",
+    "effective": {},
+    "funds": [
+      {
+        "name": "General Fund",
+        "share": 1,
+        "slug": "general-fund"
+      }
+    ],
+    "id": "vacaville-community-services-and-facilities-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville",
+      "state_abbr": "CA"
+    },
+    "name": "Community Services and Facilities Tax",
+    "notes": "A general excise tax for the privilege of using city services. Section 3.06.080 states the levy 'at not to exceed' the amounts below, so they are ceilings in the ordinance, not a resolution of the amount billed this year. On an occupied single-family home the tax is collected with the city water and sewer bill, and neither service is cut off for nonpayment of the tax. On a business it is collected with the business license tax or by direct bill. On a short hotel stay it is collected with the transient occupancy tax. The chapter says the tax runs for a maximum of 25 years from the day after the Measure I excise tax approved on November 8, 1988 expires; that expiration date is not in the sections opened here. Section 3.06.050 says the proceeds are paid into the general fund. No collections or spending document for a named year was opened.",
+    "rates": [
+      {
+        "applies_to": "not to exceed, per occupied single-family residential unit per year, other than a transient stay",
+        "cap": 58,
+        "kind": "amount",
+        "value": 58
+      },
+      {
+        "applies_to": "not to exceed, per apartment or mobile-home-park rental unit per year, for a stay longer than 30 days",
+        "cap": 58,
+        "kind": "amount",
+        "value": 58
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with one employee that is subject to the city business license tax",
+        "cap": 15,
+        "kind": "amount",
+        "value": 15
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with 2 to 5 employees",
+        "cap": 60,
+        "kind": "amount",
+        "value": 60
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with 6 to 12 employees",
+        "cap": 90,
+        "kind": "amount",
+        "value": 90
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with 13 to 25 employees",
+        "cap": 120,
+        "kind": "amount",
+        "value": 120
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with 26 to 50 employees",
+        "cap": 180,
+        "kind": "amount",
+        "value": 180
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with 51 to 100 employees",
+        "cap": 300,
+        "kind": "amount",
+        "value": 300
+      },
+      {
+        "applies_to": "not to exceed, per year, a business with more than 100 employees",
+        "cap": 600,
+        "kind": "amount",
+        "value": 600
+      },
+      {
+        "applies_to": "not to exceed, rent for a hotel stay of 30 days or fewer",
+        "cap": 2,
+        "kind": "percent",
+        "value": 2
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "community-services-and-facilities-tax",
+    "sources": [
+      {
+        "name": "Defined in: Vacaville Municipal Code ch. 3.06 — Community Services and Facilities Tax, imposition",
+        "url": "https://ecode360.com/48403797"
+      },
+      {
+        "name": "Defined in: Vacaville Municipal Code ch. 3.06 — proceeds paid into the general fund",
+        "url": "https://ecode360.com/48403781"
+      }
+    ],
+    "status": "active",
+    "type": "excise",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "Solano County Recorder",
+      "slug": "county-recorder"
+    },
+    "authority": {
+      "citation": "Vacaville Municipal Code ch. 3.08, §3.08.020 (Ord. 657, 1967)",
+      "url": "https://ecode360.com/48403816"
+    },
+    "data_status": "partial",
+    "effective": {},
+    "id": "vacaville-real-property-transfer-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville",
+      "state_abbr": "CA"
+    },
+    "name": "Real Property Transfer Tax",
+    "notes": "Imposed on each deed or other instrument that conveys realty sold in the city when the consideration or value, exclusive of liens or encumbrances remaining at the time of sale, exceeds $100. The rate in section 3.08.020 is twenty-seven and one-half cents for each $500 or fractional part thereof. The person who makes, signs, or issues the instrument, or for whose use it is issued, pays it. The county recorder administers the chapter in conformity with the Documentary Transfer Tax Act and any county ordinance. This is the city tax only. The county's own documentary transfer tax is a separate record. Revenue collected was not in a document opened for this record.",
+    "rates": [
+      {
+        "applies_to": "each $500 or fractional part of consideration or value above $100, exclusive of liens remaining on the property",
+        "cap": null,
+        "kind": "amount",
+        "value": 0.275
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "real-property-transfer-tax",
+    "sources": [
+      {
+        "name": "Defined in: Vacaville Municipal Code ch. 3.08 — Real Property Transfer Tax",
+        "url": "https://ecode360.com/48403816"
+      }
+    ],
+    "status": "active",
+    "type": "transfer",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "California Department of Tax and Fee Administration",
+      "slug": "cdtfa"
+    },
+    "authority": {
+      "citation": "Vacaville Municipal Code ch. 3.14 (Transactions and Use Tax), §§3.14.050 and 3.14.070 (Ord. 1844, 2012; Ord. 1899, 2016)",
+      "url": "https://ecode360.com/48403876"
+    },
+    "data_status": "partial",
+    "effective": {
+      "start": "2018-04-01"
+    },
+    "funds": [
+      {
+        "name": "General Fund",
+        "share": 1,
+        "slug": "general-fund"
+      }
+    ],
+    "id": "vacaville-transactions-and-use-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville",
+      "state_abbr": "CA"
+    },
+    "name": "Transactions and Use Tax",
+    "notes": "A general retail transactions and use tax in the incorporated city, at three-quarter percent of gross receipts and at the same rate on the sales price of property stored, used, or consumed in the city. Section 3.14.020 sets the operative date at April 1, 2018. The chapter says the city contracts with the State Board of Equalization to administer it. Section 3.14.120 says it is a general tax and the proceeds are deposited in the city's general fund. A code reviser's note quotes Ordinance No. 1899: authority to levy the tax expires twenty years after the date the tax is first collected. The chapter does not use another name for the tax. It is separate from the 1% uniform local sales and use tax in chapter 3.12 and from the combined rate on the CDTFA schedule. Revenue collected for a named year was not in a document opened for this record.",
+    "rates": [
+      {
+        "applies_to": "gross receipts from retail sales of tangible personal property in the city, and the sales price of property stored, used, or consumed in the city, on and after April 1, 2018",
+        "cap": null,
+        "kind": "percent",
+        "value": 0.75
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "transactions-and-use-tax",
+    "sources": [
+      {
+        "name": "Defined in: Vacaville Municipal Code ch. 3.14 — Transactions and Use Tax",
+        "url": "https://ecode360.com/48403876"
+      }
+    ],
+    "status": "active",
+    "type": "sales",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "City of Vacaville Director of Finance",
+      "slug": "finance"
+    },
+    "authority": {
+      "citation": "Vacaville Municipal Code ch. 3.16 (Transient Occupancy Tax), §3.16.020",
+      "url": "https://ecode360.com/48403921"
+    },
+    "data_status": "partial",
     "effective": {},
     "id": "vacaville-lodging-tax",
     "jurisdiction": {
       "level": "city",
       "name": "Vacaville",
-      "slug": "vacaville"
+      "slug": "vacaville",
+      "state_abbr": "CA"
     },
-    "name": "Lodging (Transient Occupancy) Tax",
-    "notes": "Demo record; applies to hotels and short-term rentals.",
+    "name": "Transient Occupancy Tax (hotel tax)",
+    "notes": "A transient, someone occupying lodging for 30 consecutive days or fewer, pays 8% of the rent to the operator at the time the rent is paid. The operator, or a short-term rental facilitator that collects the payment, remits it to the Director of Finance. The 8% is this tax only. Chapter 3.06 imposes a separate community services tax, stated as not to exceed 2% of rent, on the same short stays, and chapter 3.17 levies a hotel business improvement district assessment. Section 3.17.040(B) states that assessment at 2% of rent except as subsection C provides; the text opened for this record does not include subsection C, so the amount billed is not recorded here. Revenue collected, and the fund that receives this tax, were not in a document opened for this record.",
     "rates": [
-      {}
+      {
+        "applies_to": "rent charged for occupancy of a hotel or short-term rental by a transient, for 30 consecutive days or fewer",
+        "cap": null,
+        "kind": "percent",
+        "value": 8
+      }
     ],
-    "revenue": 200000,
-    "revenue_year": "2025",
+    "revenue": null,
+    "revenue_year": null,
     "slug": "lodging-tax",
     "sources": [
       {
-        "name": "Example ordinance"
+        "name": "Defined in: Vacaville Municipal Code ch. 3.16 — Transient Occupancy Tax",
+        "url": "https://ecode360.com/48403921"
       }
     ],
     "status": "active",
     "type": "lodging",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "California Department of Tax and Fee Administration",
+      "slug": "cdtfa"
+    },
+    "authority": {
+      "citation": "Vacaville Municipal Code ch. 3.12 (Uniform Local Sales and Use Tax), §3.12.020 (Ord. 811, 1974)",
+      "url": "https://ecode360.com/48403844"
+    },
+    "data_status": "partial",
+    "effective": {
+      "start": "1974-01-01"
+    },
+    "id": "vacaville-uniform-local-sales-and-use-tax",
+    "jurisdiction": {
+      "level": "city",
+      "name": "Vacaville",
+      "slug": "vacaville",
+      "state_abbr": "CA"
+    },
+    "name": "Uniform Local Sales and Use Tax",
+    "notes": "The city's Bradley-Burns sales and use tax. Section 3.12.020 sets the rate at 1% of gross receipts from retail sales of tangible personal property in the city, and the same rate on the sales price of property stored, used, or consumed in the city. The chapter says the city contracts with the State Board of Equalization to administer it; that board's sales-tax duties are now with the California Department of Tax and Fee Administration. This 1% is not the combined rate a shopper pays, and it is not the separate three-quarter percent transactions and use tax in chapter 3.14. The chapter does not state which fund receives the city's share. Revenue collected was not in a document opened for this record.",
+    "rates": [
+      {
+        "applies_to": "gross receipts from retail sales of tangible personal property in the city, and the sales price of property stored, used, or consumed in the city",
+        "cap": null,
+        "kind": "percent",
+        "value": 1
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "uniform-local-sales-and-use-tax",
+    "sources": [
+      {
+        "name": "Defined in: Vacaville Municipal Code ch. 3.12 — Sales and Use Tax",
+        "url": "https://ecode360.com/48403844"
+      }
+    ],
+    "status": "active",
+    "type": "sales",
+    "updated_at": "2026-11-21"
   },
   {
     "agency": {
       "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
       "slug": "cdtfa"
     },
+    "authority": {
+      "citation": "L.A. County Measure A (Nov. 2024); Cal. Rev. & Tax. Code §7286.01 (AB 1679, Stats. 2023, ch. 731)",
+      "url": "https://cdtfa.ca.gov/lawguides/vol1/alt/additional-local-taxes-sec7286-01.html"
+    },
+    "data_status": "partial",
     "effective": {
       "end": null,
       "start": "2025-04-01"
@@ -121,7 +561,8 @@
     "jurisdiction": {
       "level": "county",
       "name": "Los Angeles County",
-      "slug": "los-angeles"
+      "slug": "los-angeles",
+      "state_abbr": "CA"
     },
     "name": "Measure A — Affordable Housing, Homelessness Solutions and Prevention Ordinance (Sales Tax)",
     "notes": "IN EFFECT. A 0.50% (half-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters in November 2024 and effective April 1, 2025. It repealed and replaced the 0.25% Measure H homeless-services tax (which was scheduled to expire in 2027 — see [[los-angeles-county-measure-h-homeless-services-sales-tax]]). State enabling authority is AB 1679 (Chapter 731, Statutes of 2023; signed Oct 10, 2023), which added Chapter 2.4 (Sections 7286.01–7286.02) to Part 1.7, Division 2 of the Revenue & Taxation Code and authorized L.A. County to levy up to 0.50% dedicated to homelessness services/prevention or affordable housing, exempt from the RTC Section 7251.1 2% combined-rate cap. The ~$1B/yr figure is the County's estimate; the fund shares recorded here are the measure's statutory allocation, not collected revenue. Proceeds are distributed among the County, cities and Councils of Government, the L.A. County Development Authority (LACDA), and LACAHSA. No sunset date.",
@@ -159,6 +600,11 @@
       "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
       "slug": "cdtfa"
     },
+    "authority": {
+      "citation": "Resolution of the L.A. County Board of Supervisors, Feb. 10, 2026 (Measure ER)",
+      "url": "https://file.lacounty.gov/SDSInter/lac/1201778_SalesTax_BoardResolution021026.pdf"
+    },
+    "data_status": "partial",
     "effective": {
       "end": "2031-10-01",
       "start": "2026-10-01"
@@ -219,10 +665,11 @@
     "jurisdiction": {
       "level": "county",
       "name": "Los Angeles County",
-      "slug": "los-angeles"
+      "slug": "los-angeles",
+      "state_abbr": "CA"
     },
     "name": "Measure ER — Essential Services Restoration Act (General Sales Tax for Health Services)",
-    "notes": "PROPOSED, not yet in effect. A 0.50% general transactions-and-use (sales) tax placed on the June 2, 2026 primary ballot by the L.A. County Board of Supervisors (motion, amendment, and resolution adopted Feb 10, 2026). Passage requires a simple majority. Because it would push the combined transactions-and-use-tax rate in some L.A. County cities above the 2% cap in Revenue & Taxation Code Section 7251.1, it also requires California State legislature approval to take effect; as of this record the specific enabling statute for Measure ER had not been confirmed (this is distinct from AB 1679 / RTC Sec. 7286.01, which enables the homelessness Measure A — see [[los-angeles-county-measure-a-homelessness-sales-tax]]). Revenue is a general-fund levy; the Board adopted a spending plan (the fund shares recorded here) allocating proceeds to county health, public health, and human services to backfill federal Medi-Cal/SNAP cuts from H.R.1 (One Big Beautiful Bill Act, July 4, 2025). The ~$1B/yr figure is the County's own estimate, not collected revenue. A nine-member citizens' oversight committee and an annual independent Auditor-Controller report (due March 31 each year) are part of the measure.",
+    "notes": "NEEDS RE-VERIFICATION: news reports say voters approved Measure ER on June 2, 2026 and that it took effect October 1, 2026. This record has not yet been re-checked against an official source, so the status below still reflects the pre-election record. A 0.50% general transactions-and-use (sales) tax placed on the June 2, 2026 primary ballot by the L.A. County Board of Supervisors (motion, amendment, and resolution adopted Feb 10, 2026). Passage requires a simple majority. Because it would push the combined transactions-and-use-tax rate in some L.A. County cities above the 2% cap in Revenue & Taxation Code Section 7251.1, it also requires California State legislature approval to take effect; as of this record the specific enabling statute for Measure ER had not been confirmed (this is distinct from AB 1679 / RTC Sec. 7286.01, which enables the homelessness Measure A — see [[los-angeles-county-measure-a-homelessness-sales-tax]]). Revenue is a general-fund levy; the Board adopted a spending plan (the fund shares recorded here) allocating proceeds to county health, public health, and human services to backfill federal Medi-Cal/SNAP cuts from H.R.1 (One Big Beautiful Bill Act, July 4, 2025). The ~$1B/yr figure is the County's own estimate, not collected revenue. A nine-member citizens' oversight committee and an annual independent Auditor-Controller report (due March 31 each year) are part of the measure.",
     "rates": [
       {
         "applies_to": "retail transactions countywide (general sales tax)",
@@ -261,6 +708,11 @@
       "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
       "slug": "cdtfa"
     },
+    "authority": {
+      "citation": "L.A. County Measure H (approved March 7, 2017)",
+      "url": null
+    },
+    "data_status": "partial",
     "effective": {
       "end": "2025-03-31",
       "start": "2017-10-01"
@@ -276,7 +728,8 @@
     "jurisdiction": {
       "level": "county",
       "name": "Los Angeles County",
-      "slug": "los-angeles"
+      "slug": "los-angeles",
+      "state_abbr": "CA"
     },
     "name": "Measure H — Sales Tax for Homeless Services and Prevention",
     "notes": "REPEALED / REPLACED. A 0.25% (quarter-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters on March 7, 2017 (two-thirds vote, special-purpose tax). Revenue was legally restricted to homeless services and prevention and held in the Measure H Special Revenue Fund. It was originally scheduled to expire in 2027 but was repealed and replaced early by the 0.50% Measure A effective April 1, 2025 — see [[los-angeles-county-measure-a-homelessness-sales-tax]]. Recorded here for historical/provenance continuity. Revenue figures not yet attached.",
@@ -307,103 +760,120 @@
   },
   {
     "agency": {
-      "name": "Clerk & Recorder",
-      "slug": "clerk-recorder"
+      "name": "Solano County Treasurer–Tax Collector–County Clerk (billing and collection); Auditor-Controller (rates and apportionment)",
+      "slug": "treasurer-tax-collector"
     },
+    "authority": {
+      "citation": "Cal. Const. art. XIII A, §1 (Proposition 13)",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+    },
+    "data_status": "partial",
     "effective": {},
-    "id": "solano-lodging-tax",
-    "jurisdiction": {
-      "level": "county",
-      "name": "Solano County",
-      "slug": "solano"
-    },
-    "name": "Lodging Tax",
-    "notes": "Transient occupancy (hotels/STRs). Dedicated to tourism & infrastructure.",
-    "rates": [
-      {}
-    ],
-    "revenue": null,
-    "revenue_year": null,
-    "slug": "lodging-tax",
-    "sources": [
-      {
-        "name": "Ballot measure"
-      }
-    ],
-    "status": "proposed",
-    "type": "lodging",
-    "updated_at": "2025-08-01"
-  },
-  {
-    "agency": {
-      "name": "Solano County Assessor/Tax Collector",
-      "slug": "assessor-tax-collector"
-    },
-    "effective": {},
-    "funds": [
-      {
-        "name": "General Fund",
-        "share": 0.6,
-        "slug": "general-fund"
-      }
-    ],
     "id": "solano-property-tax",
     "jurisdiction": {
       "level": "county",
       "name": "Solano County",
-      "slug": "solano"
+      "slug": "solano",
+      "state_abbr": "CA"
     },
-    "name": "Property Tax (ad valorem)",
-    "notes": "Demo record; rate varies—illustrative composite percent shown.",
+    "name": "Property Tax (ad valorem, 1% general levy)",
+    "notes": "Article XIII A, section 1 says the maximum ad valorem tax on real property shall not exceed 1% of full cash value, collected by the counties and apportioned according to law to the districts within the counties. The limit does not apply to the voter-approved debt described in subdivision (b). The Auditor-Controller's fiscal year 2026-27 tax-rate-area fund composition lists fund 0059, '1 PCT TAX LIMITATION,' at 1.000000, and lists other funds, including voter-debt funds, with a figure in a column headed Tax Rate. Those other figures differ by tax rate area and are not recorded as rates of this tax. The same year's direct-charge narratives describe special assessments one by one, including assessments the City of Vacaville renews under the Landscaping and Lighting Act of 1972. Each of those is its own charge. None is recorded here. A collected dollar amount for the 1% levy was not in a document opened for this record.",
     "rates": [
-      {}
+      {
+        "applies_to": "full cash value of real property (general levy; maximum under article XIII A, section 1)",
+        "cap": null,
+        "kind": "percent",
+        "value": 1
+      }
     ],
     "revenue": null,
     "revenue_year": null,
     "slug": "property-tax",
     "sources": [
       {
-        "name": "Example source"
+        "name": "Defined in: California Constitution, article XIII A, section 1",
+        "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+      },
+      {
+        "name": "Rate book (tax rate area composition, not a collections total): Solano County Auditor-Controller, TRA Fund Composition and Rates, fiscal year 2026-27",
+        "url": "https://content.solanocounty.gov/sites/default/files/2026-10/TRA_Fund_Composition_and_Rates_2627.pdf"
+      },
+      {
+        "name": "Special-assessment narratives (index of direct charges, not the 1% levy): Solano County Auditor-Controller, FY 2026-27",
+        "url": "https://content.solanocounty.gov/sites/default/files/2026-11/FY26-27_Narratives.pdf"
+      },
+      {
+        "name": "Index: Solano County Auditor-Controller, Property Tax Information 2026-2027",
+        "url": "https://www.solanocounty.gov/government/auditor-controller/property-tax/property-tax-information-2026-2027"
+      },
+      {
+        "name": "Solano County Auditor-Controller — Property Tax",
+        "url": "https://www.solanocounty.gov/government/auditor-controller/property-tax"
+      },
+      {
+        "name": "Solano County Assessor — Property Tax System",
+        "url": "https://www.solanocounty.gov/government/assessorrecorder/assessor-division/property-tax-system"
       }
     ],
     "status": "active",
     "type": "property",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-11-21"
   },
   {
     "agency": {
-      "name": "Solano County Tax Collector",
-      "slug": "tax-collector"
+      "name": "Solano County Treasurer–Tax Collector–County Clerk",
+      "slug": "treasurer-tax-collector"
     },
+    "authority": {
+      "citation": "Solano County Code ch. 11, §11-20 et seq.; Cal. Rev. & Tax. Code §7280",
+      "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
+    },
+    "data_status": "partial",
     "effective": {},
-    "id": "solano-public-safety-sales-tax",
+    "id": "solano-lodging-tax",
     "jurisdiction": {
       "level": "county",
       "name": "Solano County",
-      "slug": "solano"
+      "slug": "solano",
+      "state_abbr": "CA"
     },
-    "name": "Public Safety Sales Tax",
-    "notes": "Demo record; example 0.50% local add-on dedicated to safety services.",
+    "name": "Transient Occupancy Tax (unincorporated area)",
+    "notes": "Paid by the guest and collected by the lodging operator, who reports and remits it to the county within one calendar month of the close of each reporting period. It applies only outside city limits; cities levy their own occupancy taxes. Revenue collected has not yet been sourced.",
     "rates": [
-      {}
+      {
+        "applies_to": "rent charged for lodging stays of 30 days or fewer in unincorporated Solano County",
+        "cap": null,
+        "kind": "percent",
+        "value": 5
+      }
     ],
     "revenue": null,
     "revenue_year": null,
-    "slug": "public-safety-sales-tax",
+    "slug": "lodging-tax",
     "sources": [
       {
-        "name": "Example ballot"
+        "name": "Solano County Tax Collector — Transient Occupancy Tax",
+        "url": "https://www.solanocounty.gov/government/treasurer-tax-collector-county-clerk/tax-collector/transient-occupancy-tax"
+      },
+      {
+        "name": "Solano County Code ch. 11 — Finances, Fees, Taxation and Revenue",
+        "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
       }
     ],
-    "status": "proposed",
-    "type": "sales",
-    "updated_at": "2025-08-20"
+    "status": "active",
+    "type": "lodging",
+    "updated_at": "2026-10-02"
   },
   {
     "agency": {
       "name": "Auditor-Controller",
       "slug": "auditor-controller"
     },
+    "authority": {
+      "citation": "Solano County Measure C (Nov. 8, 2016); Solano County Code ch. 11",
+      "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
+    },
+    "data_status": "partial",
     "effective": {
       "end": null,
       "start": "2018-01-01"
@@ -412,7 +882,8 @@
     "jurisdiction": {
       "level": "county",
       "name": "Solano County, CA",
-      "slug": "solano-county-ca"
+      "slug": "solano-county-ca",
+      "state_abbr": "CA"
     },
     "name": "Cannabis Business License Tax",
     "notes": "General business license tax on cannabis businesses in the unincorporated area. Board may set specific rates by resolution up to the voter-approved cap.",
@@ -450,6 +921,11 @@
       "name": "Assessor/Recorder – Recorder Division",
       "slug": "assessor-recorder-recorder-division"
     },
+    "authority": {
+      "citation": "Cal. Rev. & Tax. Code §11911 et seq. (Documentary Transfer Tax Act)",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=11911"
+    },
+    "data_status": "partial",
     "effective": {
       "end": null,
       "start": "1968-11-08"
@@ -458,7 +934,8 @@
     "jurisdiction": {
       "level": "county",
       "name": "Solano County, CA",
-      "slug": "solano-county-ca"
+      "slug": "solano-county-ca",
+      "state_abbr": "CA"
     },
     "name": "Documentary Transfer Tax",
     "notes": "Tax on transfers of real property; standard county rate under California Revenue & Taxation Code §11911 et seq. Collected at recording.",
@@ -496,6 +973,7 @@
       "name": "California Department of Tax and Fee Administration (CDTFA)",
       "slug": "cdtfa"
     },
+    "data_status": "partial",
     "effective": {
       "end": null,
       "start": "1998-10-01"
@@ -504,7 +982,8 @@
     "jurisdiction": {
       "level": "county",
       "name": "Solano County, CA",
-      "slug": "solano-county-ca"
+      "slug": "solano-county-ca",
+      "state_abbr": "CA"
     },
     "name": "Public Library Transactions and Use Tax",
     "notes": "Countywide district transactions and use tax for the Solano County Library system; collected by CDTFA and allocated to the Library.",
@@ -531,38 +1010,14 @@
   },
   {
     "agency": {
-      "name": "SolTrans (Transit District)",
-      "slug": "soltrans"
-    },
-    "effective": {},
-    "id": "solano-transit-district-fare-surcharge",
-    "jurisdiction": {
-      "level": "county",
-      "name": "Solano Transit District",
-      "slug": "solano-transit-district"
-    },
-    "name": "Transit Fare Surcharge",
-    "notes": "Demo record; illustrative per-ride surcharge.",
-    "rates": [
-      {}
-    ],
-    "revenue": null,
-    "revenue_year": null,
-    "slug": "fare-surcharge",
-    "sources": [
-      {
-        "name": "Example board action"
-      }
-    ],
-    "status": "proposed",
-    "type": "excise",
-    "updated_at": "2025-08-20"
-  },
-  {
-    "agency": {
       "name": "Internal Revenue Service",
       "slug": "irs"
     },
+    "authority": {
+      "citation": "26 U.S.C. §1",
+      "url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section1&num=0&edition=prelim"
+    },
+    "data_status": "partial",
     "effective": {},
     "id": "united-states-federal-income-tax",
     "jurisdiction": {
@@ -570,108 +1025,246 @@
       "name": "United States",
       "slug": "united-states"
     },
-    "name": "Federal Income Tax (demo simplified)",
-    "notes": "Demo record with a simplified single bracket for illustration only.",
+    "name": "Federal Individual Income Tax",
+    "notes": "A graduated tax: each rate applies only to the income inside its bracket. For a single filer in tax year 2025 the brackets are 10% to $11,925; 12% to $48,475; 22% to $103,350; 24% to $197,300; 32% to $250,525; 35% to $626,350; and 37% above that. Thresholds differ by filing status and are adjusted annually. Revenue collected has not yet been sourced.",
     "rates": [
-      {}
+      {
+        "applies_to": "taxable income of individuals, tax year 2025",
+        "cap": null,
+        "kind": "other",
+        "value": "10%–37% (seven brackets)"
+      }
     ],
     "revenue": null,
     "revenue_year": null,
     "slug": "federal-income-tax",
     "sources": [
       {
-        "name": "Example source"
+        "name": "IRS — Federal income tax rates and brackets",
+        "url": "https://www.irs.gov/filing/federal-income-tax-rates-and-brackets"
       }
     ],
     "status": "active",
     "type": "income",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-10-02"
   },
   {
     "agency": {
-      "name": "CA Dept. of Tax and Fee Administration",
+      "name": "Franchise Tax Board",
+      "slug": "franchise-tax-board"
+    },
+    "authority": {
+      "citation": "Cal. Rev. & Tax. Code §17043 (added by Proposition 63, November 2, 2004)",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17043"
+    },
+    "data_status": "partial",
+    "effective": {
+      "start": "2005-01-01"
+    },
+    "id": "california-additional-personal-income-tax",
+    "jurisdiction": {
+      "level": "state",
+      "name": "California",
+      "slug": "california",
+      "state_abbr": "CA"
+    },
+    "name": "Additional Personal Income Tax (income over $1,000,000)",
+    "notes": "For each taxable year beginning on or after January 1, 2005, section 17043 imposes an additional tax of 1% on the portion of taxable income over $1,000,000, in addition to the tax under section 17041. The section says the bracket recomputation in section 17041 does not apply to this tax, and neither do the credit rules in section 17039 or the joint-return rules in section 17045. The section does not name a fund. Revenue collected was not in a document opened for this record.",
+    "rates": [
+      {
+        "applies_to": "the portion of taxable income over $1,000,000, taxable years beginning on or after January 1, 2005",
+        "cap": null,
+        "kind": "percent",
+        "value": 1
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "additional-personal-income-tax",
+    "sources": [
+      {
+        "name": "Defined in: Cal. Rev. & Tax. Code §17043",
+        "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17043"
+      }
+    ],
+    "status": "active",
+    "type": "income",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "California Department of Tax and Fee Administration (CDTFA)",
       "slug": "cdtfa"
     },
+    "authority": {
+      "citation": "Cal. Rev. & Tax. Code §7360 (Motor Vehicle Fuel Tax Law)",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=7360"
+    },
+    "data_status": "partial",
     "effective": {},
     "id": "california-fuel-excise-tax",
     "jurisdiction": {
       "level": "state",
       "name": "California",
-      "slug": "california"
+      "slug": "california",
+      "state_abbr": "CA"
     },
-    "name": "Fuel Excise Tax (gasoline)",
-    "notes": "Demo record; amount shown per gallon.",
+    "name": "Motor Vehicle Fuel Tax (gasoline excise)",
+    "notes": "A per-gallon excise tax, adjusted each July 1 by the change in the California Consumer Price Index as the statute directs. The rate for July 2025 through June 2026 was $0.612 per gallon. Sales tax on fuel is a separate levy. Revenue collected has not yet been sourced.",
     "rates": [
-      {}
+      {
+        "applies_to": "each gallon of gasoline, July 1, 2026 through June 30, 2027",
+        "cap": null,
+        "kind": "amount",
+        "value": 0.634
+      }
     ],
     "revenue": null,
     "revenue_year": null,
     "slug": "fuel-excise-tax",
     "sources": [
       {
-        "name": "Example source"
+        "name": "CDTFA — Sales Tax Rates for Fuels (Motor Vehicle Fuel rates by period)",
+        "url": "https://cdtfa.ca.gov/taxes-and-fees/sales-tax-rates-for-fuels.htm"
+      },
+      {
+        "name": "Cal. Rev. & Tax. Code §7360",
+        "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=7360"
       }
     ],
     "status": "active",
     "type": "excise",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-10-02"
   },
   {
     "agency": {
-      "name": "CA Dept. of Tax and Fee Administration",
+      "name": "Franchise Tax Board",
+      "slug": "franchise-tax-board"
+    },
+    "authority": {
+      "citation": "Cal. Rev. & Tax. Code §17041",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17041"
+    },
+    "data_status": "partial",
+    "effective": {},
+    "id": "california-personal-income-tax",
+    "jurisdiction": {
+      "level": "state",
+      "name": "California",
+      "slug": "california",
+      "state_abbr": "CA"
+    },
+    "name": "Personal Income Tax",
+    "notes": "Imposed on the taxable income of a California resident. For a resident who is not a head of household, section 17041(a) prints brackets of 1%, 2%, 4%, 6%, 8%, and 9.3%, and for a head of household section 17041(c) prints the same percentages on a different table. The dollar thresholds printed in the section are not the current brackets: subdivision (h) requires the Franchise Tax Board to recompute them each year from the California Consumer Price Index. No Franchise Tax Board bracket schedule was opened, so those dollar thresholds are not recorded. A separate additional tax of 1% on taxable income over $1,000,000 is imposed by section 17043 and is its own record. Revenue collected was not in a document opened for this record.",
+    "rates": [
+      {
+        "applies_to": "taxable income of a resident; percentages in §17041, on brackets the Franchise Tax Board recomputes each year",
+        "cap": null,
+        "kind": "other",
+        "value": "1%–9.3%"
+      }
+    ],
+    "revenue": null,
+    "revenue_year": null,
+    "slug": "personal-income-tax",
+    "sources": [
+      {
+        "name": "Defined in: Cal. Rev. & Tax. Code §17041",
+        "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17041"
+      }
+    ],
+    "status": "active",
+    "type": "income",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "agency": {
+      "name": "California Department of Tax and Fee Administration (CDTFA)",
       "slug": "cdtfa"
     },
+    "authority": {
+      "citation": "Cal. Rev. & Tax. Code §6201 et seq. (Sales and Use Tax Law)",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=6201"
+    },
+    "data_status": "partial",
     "effective": {},
     "id": "california-use-tax",
     "jurisdiction": {
       "level": "state",
       "name": "California",
-      "slug": "california"
+      "slug": "california",
+      "state_abbr": "CA"
     },
     "name": "Use Tax",
-    "notes": "Demo record; applies to out-of-state purchases used in CA.",
+    "notes": "The companion to the sales tax, owed on purchases from a retailer for storage, use or consumption in California. The 7.25% statewide base rate is the sum of several state components and a 1.25% local component. District taxes of 0.10% to 2.00% may apply on top, depending on location. Revenue collected has not yet been sourced.",
     "rates": [
-      {}
+      {
+        "applies_to": "the sales price of tangible personal property stored, used or consumed in California (statewide base rate)",
+        "cap": null,
+        "kind": "percent",
+        "value": 7.25
+      }
     ],
     "revenue": null,
     "revenue_year": null,
     "slug": "use-tax",
     "sources": [
       {
-        "name": "Example source"
+        "name": "CDTFA — Detailed Description of the Sales & Use Tax Rate",
+        "url": "https://cdtfa.ca.gov/taxes-and-fees/sut-rates-description.htm"
+      },
+      {
+        "name": "Cal. Rev. & Tax. Code §6201",
+        "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=6201"
       }
     ],
     "status": "active",
     "type": "use",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-10-02"
   },
   {
     "agency": {
       "name": "Colorado Department of Revenue",
       "slug": "dor"
     },
+    "authority": {
+      "citation": "Colo. Rev. Stat. §39-22-104",
+      "url": null
+    },
+    "data_status": "partial",
     "effective": {},
     "id": "colorado-state-income-tax",
     "jurisdiction": {
       "level": "state",
       "name": "Colorado",
-      "slug": "colorado"
+      "slug": "colorado",
+      "state_abbr": "CO"
     },
-    "name": "State Income Tax (demo simplified)",
-    "notes": "Demo record; illustrative flat rate.",
+    "name": "Individual Income Tax",
+    "notes": "A flat-rate tax on Colorado taxable income. State law allows the rate to be temporarily reduced in years when state revenue exceeds the TABOR spending limit, so the rate should be re-checked each tax year. Revenue collected has not yet been sourced.",
     "rates": [
-      {}
+      {
+        "applies_to": "Colorado taxable income, tax year 2025 (flat rate)",
+        "cap": null,
+        "kind": "percent",
+        "value": 4.4
+      }
     ],
     "revenue": null,
     "revenue_year": null,
     "slug": "state-income-tax",
     "sources": [
       {
-        "name": "Example source"
+        "name": "Colorado Department of Revenue — Individual Income Tax Guide",
+        "url": "https://tax.colorado.gov/individual-income-tax-guide"
+      },
+      {
+        "name": "Colorado Department of Revenue — 2025 Individual Income Tax Booklet (Book 104)",
+        "url": "https://tax.colorado.gov/sites/tax/files/documents/Book104_2025.pdf"
       }
     ],
     "status": "active",
     "type": "income",
-    "updated_at": "2025-08-20"
+    "updated_at": "2026-10-02"
   }
 ]

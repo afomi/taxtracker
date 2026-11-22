@@ -1,0 +1,106 @@
+{
+  "agency": {
+    "name": "City of Vacaville Director of Finance",
+    "slug": "finance"
+  },
+  "authority": {
+    "citation": "Vacaville Municipal Code ch. 3.06 (Community Services and Facilities Tax), §3.06.080 (Ord. 1843, 2012)",
+    "url": "https://ecode360.com/48403797"
+  },
+  "data_status": "partial",
+  "effective": {},
+  "funds": [
+    {
+      "name": "General Fund",
+      "share": 1,
+      "slug": "general-fund"
+    }
+  ],
+  "id": "vacaville-community-services-and-facilities-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville",
+    "state_abbr": "CA"
+  },
+  "name": "Community Services and Facilities Tax",
+  "notes": "A general excise tax for the privilege of using city services. Section 3.06.080 states the levy 'at not to exceed' the amounts below, so they are ceilings in the ordinance, not a resolution of the amount billed this year. On an occupied single-family home the tax is collected with the city water and sewer bill, and neither service is cut off for nonpayment of the tax. On a business it is collected with the business license tax or by direct bill. On a short hotel stay it is collected with the transient occupancy tax. The chapter says the tax runs for a maximum of 25 years from the day after the Measure I excise tax approved on November 8, 1988 expires; that expiration date is not in the sections opened here. Section 3.06.050 says the proceeds are paid into the general fund. No collections or spending document for a named year was opened.",
+  "rates": [
+    {
+      "applies_to": "not to exceed, per occupied single-family residential unit per year, other than a transient stay",
+      "cap": 58,
+      "kind": "amount",
+      "value": 58
+    },
+    {
+      "applies_to": "not to exceed, per apartment or mobile-home-park rental unit per year, for a stay longer than 30 days",
+      "cap": 58,
+      "kind": "amount",
+      "value": 58
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with one employee that is subject to the city business license tax",
+      "cap": 15,
+      "kind": "amount",
+      "value": 15
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with 2 to 5 employees",
+      "cap": 60,
+      "kind": "amount",
+      "value": 60
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with 6 to 12 employees",
+      "cap": 90,
+      "kind": "amount",
+      "value": 90
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with 13 to 25 employees",
+      "cap": 120,
+      "kind": "amount",
+      "value": 120
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with 26 to 50 employees",
+      "cap": 180,
+      "kind": "amount",
+      "value": 180
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with 51 to 100 employees",
+      "cap": 300,
+      "kind": "amount",
+      "value": 300
+    },
+    {
+      "applies_to": "not to exceed, per year, a business with more than 100 employees",
+      "cap": 600,
+      "kind": "amount",
+      "value": 600
+    },
+    {
+      "applies_to": "not to exceed, rent for a hotel stay of 30 days or fewer",
+      "cap": 2,
+      "kind": "percent",
+      "value": 2
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "community-services-and-facilities-tax",
+  "sources": [
+    {
+      "name": "Defined in: Vacaville Municipal Code ch. 3.06 — Community Services and Facilities Tax, imposition",
+      "url": "https://ecode360.com/48403797"
+    },
+    {
+      "name": "Defined in: Vacaville Municipal Code ch. 3.06 — proceeds paid into the general fund",
+      "url": "https://ecode360.com/48403781"
+    }
+  ],
+  "status": "active",
+  "type": "excise",
+  "updated_at": "2026-11-21"
+}

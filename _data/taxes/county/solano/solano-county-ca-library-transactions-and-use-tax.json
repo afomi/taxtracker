@@ -3,6 +3,7 @@
     "name": "California Department of Tax and Fee Administration (CDTFA)",
     "slug": "cdtfa"
   },
+  "data_status": "partial",
   "effective": {
     "end": null,
     "start": "1998-10-01"
@@ -11,7 +12,8 @@
   "jurisdiction": {
     "level": "county",
     "name": "Solano County, CA",
-    "slug": "solano-county-ca"
+    "slug": "solano-county-ca",
+    "state_abbr": "CA"
   },
   "name": "Public Library Transactions and Use Tax",
   "notes": "Countywide district transactions and use tax for the Solano County Library system; collected by CDTFA and allocated to the Library.",

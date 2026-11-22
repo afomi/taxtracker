@@ -1,0 +1,50 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration",
+    "slug": "cdtfa"
+  },
+  "authority": {
+    "citation": "Vacaville Municipal Code ch. 3.14 (Transactions and Use Tax), §§3.14.050 and 3.14.070 (Ord. 1844, 2012; Ord. 1899, 2016)",
+    "url": "https://ecode360.com/48403876"
+  },
+  "data_status": "partial",
+  "effective": {
+    "start": "2018-04-01"
+  },
+  "funds": [
+    {
+      "name": "General Fund",
+      "share": 1,
+      "slug": "general-fund"
+    }
+  ],
+  "id": "vacaville-transactions-and-use-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville",
+    "state_abbr": "CA"
+  },
+  "name": "Transactions and Use Tax",
+  "notes": "A general retail transactions and use tax in the incorporated city, at three-quarter percent of gross receipts and at the same rate on the sales price of property stored, used, or consumed in the city. Section 3.14.020 sets the operative date at April 1, 2018. The chapter says the city contracts with the State Board of Equalization to administer it. Section 3.14.120 says it is a general tax and the proceeds are deposited in the city's general fund. A code reviser's note quotes Ordinance No. 1899: authority to levy the tax expires twenty years after the date the tax is first collected. The chapter does not use another name for the tax. It is separate from the 1% uniform local sales and use tax in chapter 3.12 and from the combined rate on the CDTFA schedule. Revenue collected for a named year was not in a document opened for this record.",
+  "rates": [
+    {
+      "applies_to": "gross receipts from retail sales of tangible personal property in the city, and the sales price of property stored, used, or consumed in the city, on and after April 1, 2018",
+      "cap": null,
+      "kind": "percent",
+      "value": 0.75
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "transactions-and-use-tax",
+  "sources": [
+    {
+      "name": "Defined in: Vacaville Municipal Code ch. 3.14 — Transactions and Use Tax",
+      "url": "https://ecode360.com/48403876"
+    }
+  ],
+  "status": "active",
+  "type": "sales",
+  "updated_at": "2026-11-21"
+}

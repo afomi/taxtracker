@@ -3,27 +3,43 @@
     "name": "Colorado Department of Revenue",
     "slug": "dor"
   },
+  "authority": {
+    "citation": "Colo. Rev. Stat. §39-22-104",
+    "url": null
+  },
+  "data_status": "partial",
   "effective": {},
   "id": "colorado-state-income-tax",
   "jurisdiction": {
     "level": "state",
     "name": "Colorado",
-    "slug": "colorado"
+    "slug": "colorado",
+    "state_abbr": "CO"
   },
-  "name": "State Income Tax (demo simplified)",
-  "notes": "Demo record; illustrative flat rate.",
+  "name": "Individual Income Tax",
+  "notes": "A flat-rate tax on Colorado taxable income. State law allows the rate to be temporarily reduced in years when state revenue exceeds the TABOR spending limit, so the rate should be re-checked each tax year. Revenue collected has not yet been sourced.",
   "rates": [
-    {}
+    {
+      "applies_to": "Colorado taxable income, tax year 2025 (flat rate)",
+      "cap": null,
+      "kind": "percent",
+      "value": 4.4
+    }
   ],
   "revenue": null,
   "revenue_year": null,
   "slug": "state-income-tax",
   "sources": [
     {
-      "name": "Example source"
+      "name": "Colorado Department of Revenue — Individual Income Tax Guide",
+      "url": "https://tax.colorado.gov/individual-income-tax-guide"
+    },
+    {
+      "name": "Colorado Department of Revenue — 2025 Individual Income Tax Booklet (Book 104)",
+      "url": "https://tax.colorado.gov/sites/tax/files/documents/Book104_2025.pdf"
     }
   ],
   "status": "active",
   "type": "income",
-  "updated_at": "2025-08-20"
+  "updated_at": "2026-10-02"
 }

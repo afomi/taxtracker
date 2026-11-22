@@ -1,0 +1,43 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration",
+    "slug": "cdtfa"
+  },
+  "authority": {
+    "citation": "Vacaville Municipal Code ch. 3.12 (Uniform Local Sales and Use Tax), §3.12.020 (Ord. 811, 1974)",
+    "url": "https://ecode360.com/48403844"
+  },
+  "data_status": "partial",
+  "effective": {
+    "start": "1974-01-01"
+  },
+  "id": "vacaville-uniform-local-sales-and-use-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville",
+    "state_abbr": "CA"
+  },
+  "name": "Uniform Local Sales and Use Tax",
+  "notes": "The city's Bradley-Burns sales and use tax. Section 3.12.020 sets the rate at 1% of gross receipts from retail sales of tangible personal property in the city, and the same rate on the sales price of property stored, used, or consumed in the city. The chapter says the city contracts with the State Board of Equalization to administer it; that board's sales-tax duties are now with the California Department of Tax and Fee Administration. This 1% is not the combined rate a shopper pays, and it is not the separate three-quarter percent transactions and use tax in chapter 3.14. The chapter does not state which fund receives the city's share. Revenue collected was not in a document opened for this record.",
+  "rates": [
+    {
+      "applies_to": "gross receipts from retail sales of tangible personal property in the city, and the sales price of property stored, used, or consumed in the city",
+      "cap": null,
+      "kind": "percent",
+      "value": 1
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "uniform-local-sales-and-use-tax",
+  "sources": [
+    {
+      "name": "Defined in: Vacaville Municipal Code ch. 3.12 — Sales and Use Tax",
+      "url": "https://ecode360.com/48403844"
+    }
+  ],
+  "status": "active",
+  "type": "sales",
+  "updated_at": "2026-11-21"
+}

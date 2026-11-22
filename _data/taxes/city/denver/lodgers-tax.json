@@ -1,0 +1,41 @@
+{
+  "agency": {
+    "name": "City and County of Denver Department of Finance, Treasury Division",
+    "slug": "finance"
+  },
+  "authority": {
+    "citation": "Denver Revised Municipal Code §§53-150 to 53-164",
+    "url": null
+  },
+  "data_status": "partial",
+  "effective": {},
+  "id": "denver-lodgers-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Denver",
+    "slug": "denver",
+    "state_abbr": "CO"
+  },
+  "name": "Lodger's Tax",
+  "notes": "Paid by the guest and collected at the time of sale by the vendor: the host, or the lodging platform when it is the merchant of record. Vendors remit to the Manager of Finance monthly, quarterly or annually depending on liability. The State of Colorado separately imposes a 4% sales tax on lodging, for 14.75% in total; the state tax is not included in the rate here. Revenue collected has not yet been sourced.",
+  "rates": [
+    {
+      "applies_to": "the entire amount charged for lodging of less than 30 consecutive days, including short-term rentals",
+      "cap": null,
+      "kind": "percent",
+      "value": 10.75
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "lodgers-tax",
+  "sources": [
+    {
+      "name": "City and County of Denver Tax Guide Topic No. 97 — Short-Term Rentals (revised April 2026)",
+      "url": "https://denvergov.org/files/assets/public/v/2/finance/documents/treasury/tax-guides/2026/taxguidetopic97_shorttermrentals.pdf"
+    }
+  ],
+  "status": "active",
+  "type": "lodging",
+  "updated_at": "2026-10-02"
+}

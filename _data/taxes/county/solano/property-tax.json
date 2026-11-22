@@ -1,36 +1,61 @@
 {
   "agency": {
-    "name": "Solano County Assessor/Tax Collector",
-    "slug": "assessor-tax-collector"
+    "name": "Solano County Treasurer–Tax Collector–County Clerk (billing and collection); Auditor-Controller (rates and apportionment)",
+    "slug": "treasurer-tax-collector"
   },
+  "authority": {
+    "citation": "Cal. Const. art. XIII A, §1 (Proposition 13)",
+    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+  },
+  "data_status": "partial",
   "effective": {},
-  "funds": [
-    {
-      "name": "General Fund",
-      "share": 0.6,
-      "slug": "general-fund"
-    }
-  ],
   "id": "solano-property-tax",
   "jurisdiction": {
     "level": "county",
     "name": "Solano County",
-    "slug": "solano"
+    "slug": "solano",
+    "state_abbr": "CA"
   },
-  "name": "Property Tax (ad valorem)",
-  "notes": "Demo record; rate varies—illustrative composite percent shown.",
+  "name": "Property Tax (ad valorem, 1% general levy)",
+  "notes": "Article XIII A, section 1 says the maximum ad valorem tax on real property shall not exceed 1% of full cash value, collected by the counties and apportioned according to law to the districts within the counties. The limit does not apply to the voter-approved debt described in subdivision (b). The Auditor-Controller's fiscal year 2026-27 tax-rate-area fund composition lists fund 0059, '1 PCT TAX LIMITATION,' at 1.000000, and lists other funds, including voter-debt funds, with a figure in a column headed Tax Rate. Those other figures differ by tax rate area and are not recorded as rates of this tax. The same year's direct-charge narratives describe special assessments one by one, including assessments the City of Vacaville renews under the Landscaping and Lighting Act of 1972. Each of those is its own charge. None is recorded here. A collected dollar amount for the 1% levy was not in a document opened for this record.",
   "rates": [
-    {}
+    {
+      "applies_to": "full cash value of real property (general levy; maximum under article XIII A, section 1)",
+      "cap": null,
+      "kind": "percent",
+      "value": 1
+    }
   ],
   "revenue": null,
   "revenue_year": null,
   "slug": "property-tax",
   "sources": [
     {
-      "name": "Example source"
+      "name": "Defined in: California Constitution, article XIII A, section 1",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+    },
+    {
+      "name": "Rate book (tax rate area composition, not a collections total): Solano County Auditor-Controller, TRA Fund Composition and Rates, fiscal year 2026-27",
+      "url": "https://content.solanocounty.gov/sites/default/files/2026-10/TRA_Fund_Composition_and_Rates_2627.pdf"
+    },
+    {
+      "name": "Special-assessment narratives (index of direct charges, not the 1% levy): Solano County Auditor-Controller, FY 2026-27",
+      "url": "https://content.solanocounty.gov/sites/default/files/2026-11/FY26-27_Narratives.pdf"
+    },
+    {
+      "name": "Index: Solano County Auditor-Controller, Property Tax Information 2026-2027",
+      "url": "https://www.solanocounty.gov/government/auditor-controller/property-tax/property-tax-information-2026-2027"
+    },
+    {
+      "name": "Solano County Auditor-Controller — Property Tax",
+      "url": "https://www.solanocounty.gov/government/auditor-controller/property-tax"
+    },
+    {
+      "name": "Solano County Assessor — Property Tax System",
+      "url": "https://www.solanocounty.gov/government/assessorrecorder/assessor-division/property-tax-system"
     }
   ],
   "status": "active",
   "type": "property",
-  "updated_at": "2025-08-20"
+  "updated_at": "2026-11-21"
 }

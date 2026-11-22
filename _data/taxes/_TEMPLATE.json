@@ -1,0 +1,41 @@
+{
+  "agency": {
+    "name": "Agency that collects or administers the tax",
+    "slug": "agency-slug"
+  },
+  "authority": {
+    "citation": "Statute, code section, ordinance, or ballot measure that imposes the tax",
+    "url": null
+  },
+  "data_status": "partial",
+  "effective": {},
+  "id": "jurisdiction-slug-tax-slug",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Jurisdiction name",
+    "slug": "jurisdiction-slug",
+    "state_abbr": "CA"
+  },
+  "name": "Tax name",
+  "notes": "Who pays, how it is collected, and what is still unknown.",
+  "rates": [
+    {
+      "applies_to": "what the rate applies to",
+      "cap": null,
+      "kind": "percent",
+      "value": null
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "tax-slug",
+  "sources": [
+    {
+      "name": "Official source title",
+      "url": "https://"
+    }
+  ],
+  "status": "active",
+  "type": "sales",
+  "updated_at": "YYYY-MM-DD"
+}

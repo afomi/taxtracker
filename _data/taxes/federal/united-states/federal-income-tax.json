@@ -3,6 +3,11 @@
     "name": "Internal Revenue Service",
     "slug": "irs"
   },
+  "authority": {
+    "citation": "26 U.S.C. §1",
+    "url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section1&num=0&edition=prelim"
+  },
+  "data_status": "partial",
   "effective": {},
   "id": "united-states-federal-income-tax",
   "jurisdiction": {
@@ -10,20 +15,26 @@
     "name": "United States",
     "slug": "united-states"
   },
-  "name": "Federal Income Tax (demo simplified)",
-  "notes": "Demo record with a simplified single bracket for illustration only.",
+  "name": "Federal Individual Income Tax",
+  "notes": "A graduated tax: each rate applies only to the income inside its bracket. For a single filer in tax year 2025 the brackets are 10% to $11,925; 12% to $48,475; 22% to $103,350; 24% to $197,300; 32% to $250,525; 35% to $626,350; and 37% above that. Thresholds differ by filing status and are adjusted annually. Revenue collected has not yet been sourced.",
   "rates": [
-    {}
+    {
+      "applies_to": "taxable income of individuals, tax year 2025",
+      "cap": null,
+      "kind": "other",
+      "value": "10%–37% (seven brackets)"
+    }
   ],
   "revenue": null,
   "revenue_year": null,
   "slug": "federal-income-tax",
   "sources": [
     {
-      "name": "Example source"
+      "name": "IRS — Federal income tax rates and brackets",
+      "url": "https://www.irs.gov/filing/federal-income-tax-rates-and-brackets"
     }
   ],
   "status": "active",
   "type": "income",
-  "updated_at": "2025-08-20"
+  "updated_at": "2026-10-02"
 }

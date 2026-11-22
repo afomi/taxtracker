@@ -1,0 +1,43 @@
+{
+  "agency": {
+    "name": "Franchise Tax Board",
+    "slug": "franchise-tax-board"
+  },
+  "authority": {
+    "citation": "Cal. Rev. & Tax. Code §17043 (added by Proposition 63, November 2, 2004)",
+    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17043"
+  },
+  "data_status": "partial",
+  "effective": {
+    "start": "2005-01-01"
+  },
+  "id": "california-additional-personal-income-tax",
+  "jurisdiction": {
+    "level": "state",
+    "name": "California",
+    "slug": "california",
+    "state_abbr": "CA"
+  },
+  "name": "Additional Personal Income Tax (income over $1,000,000)",
+  "notes": "For each taxable year beginning on or after January 1, 2005, section 17043 imposes an additional tax of 1% on the portion of taxable income over $1,000,000, in addition to the tax under section 17041. The section says the bracket recomputation in section 17041 does not apply to this tax, and neither do the credit rules in section 17039 or the joint-return rules in section 17045. The section does not name a fund. Revenue collected was not in a document opened for this record.",
+  "rates": [
+    {
+      "applies_to": "the portion of taxable income over $1,000,000, taxable years beginning on or after January 1, 2005",
+      "cap": null,
+      "kind": "percent",
+      "value": 1
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "additional-personal-income-tax",
+  "sources": [
+    {
+      "name": "Defined in: Cal. Rev. & Tax. Code §17043",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17043"
+    }
+  ],
+  "status": "active",
+  "type": "income",
+  "updated_at": "2026-11-21"
+}

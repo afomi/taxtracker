@@ -1,29 +1,149 @@
 {
   "agency": {
-    "name": "Vacaville Finance Department",
-    "slug": "finance"
+    "name": "City of Vacaville tax collector",
+    "slug": "tax-collector"
   },
+  "authority": {
+    "citation": "Vacaville Municipal Code ch. 5.12 (Ord. 923 §4.1, 1977; Ord. 1634, 2000)",
+    "url": "https://ecode360.com/48404181"
+  },
+  "data_status": "partial",
   "effective": {},
   "id": "vacaville-business-license-tax",
   "jurisdiction": {
     "level": "city",
     "name": "Vacaville",
-    "slug": "vacaville"
+    "slug": "vacaville",
+    "state_abbr": "CA"
   },
   "name": "Business License Tax",
-  "notes": "Demo record; gross-receipts based example.",
+  "notes": "An annual tax for the privilege of doing business in the city, measured by the code's employee schedule or by dwelling units, not by gross receipts, except for the reduced schedule when gross income is between $1,000 and $2,500. Amounts below are the amounts printed in chapter 5.12. They are not the community services and facilities tax in chapter 3.06, which the city may bill on the same license. Section 5.12.060 caps the total under section 5.12.010 at $500 for one location, and the total under the apartment, hotel, and trailer-park sections at $350. Section 5.12.070 lets the council increase the fees after a 10% rise in the San Francisco Bay Area CPI; no resolution adopting an increase was opened. Home occupations at or under $1,000 of gross receipts are sent to section 5.16.010, which was not opened. Revenue collected was not in a document opened for this record.",
   "rates": [
-    {}
+    {
+      "applies_to": "annual base for a business other than NAICS sectors 52, 53, 54, 55, and 62 (ch. 5.12.010(B)); employee additions are separate",
+      "cap": 500,
+      "kind": "amount",
+      "value": 50
+    },
+    {
+      "applies_to": "annual base for a business in NAICS sectors 52, 53, 54, 55, or 62 (ch. 5.12.010(A)); employee additions are separate",
+      "cap": 500,
+      "kind": "amount",
+      "value": 75
+    },
+    {
+      "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 2 to 5",
+      "cap": null,
+      "kind": "amount",
+      "value": 25
+    },
+    {
+      "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 6 to 12",
+      "cap": null,
+      "kind": "amount",
+      "value": 50
+    },
+    {
+      "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 13 to 25",
+      "cap": null,
+      "kind": "amount",
+      "value": 125
+    },
+    {
+      "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 26 to 50",
+      "cap": null,
+      "kind": "amount",
+      "value": 150
+    },
+    {
+      "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, when average employees are 51 to 100",
+      "cap": null,
+      "kind": "amount",
+      "value": 250
+    },
+    {
+      "applies_to": "added annual amount, NAICS sectors 52, 53, 54, 55, or 62, for each 50 employees over 100 or fraction thereof",
+      "cap": null,
+      "kind": "amount",
+      "value": 25
+    },
+    {
+      "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 2 to 5",
+      "cap": null,
+      "kind": "amount",
+      "value": 25
+    },
+    {
+      "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 6 to 12",
+      "cap": null,
+      "kind": "amount",
+      "value": 50
+    },
+    {
+      "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 13 to 25",
+      "cap": null,
+      "kind": "amount",
+      "value": 100
+    },
+    {
+      "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 26 to 50",
+      "cap": null,
+      "kind": "amount",
+      "value": 125
+    },
+    {
+      "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), when average employees are 51 to 100",
+      "cap": null,
+      "kind": "amount",
+      "value": 225
+    },
+    {
+      "applies_to": "added annual amount, other businesses under ch. 5.12.010(B), for each 50 employees over 100 or fraction thereof",
+      "cap": null,
+      "kind": "amount",
+      "value": 25
+    },
+    {
+      "applies_to": "reduced annual base under ch. 5.12.010(C) when gross income is between $1,000 and $2,500",
+      "cap": null,
+      "kind": "amount",
+      "value": 25
+    },
+    {
+      "applies_to": "added annual amount under ch. 5.12.010(C) when average employees are 2 to 5",
+      "cap": null,
+      "kind": "amount",
+      "value": 15
+    },
+    {
+      "applies_to": "each apartment dwelling unit per year (ch. 5.12.020); the section caps these unit taxes at $350 in total",
+      "cap": 350,
+      "kind": "amount",
+      "value": 4
+    },
+    {
+      "applies_to": "each hotel or motel dwelling unit per year (ch. 5.12.030); the section caps these unit taxes at $350 in total",
+      "cap": 350,
+      "kind": "amount",
+      "value": 3
+    },
+    {
+      "applies_to": "each trailer-park space per year (ch. 5.12.040); the section caps these unit taxes at $350 in total",
+      "cap": 350,
+      "kind": "amount",
+      "value": 2
+    }
   ],
   "revenue": null,
   "revenue_year": null,
   "slug": "business-license-tax",
   "sources": [
     {
-      "name": "Example source"
+      "name": "Defined in: Vacaville Municipal Code ch. 5.12 — License Taxes",
+      "url": "https://ecode360.com/48404181"
     }
   ],
   "status": "active",
-  "type": "other",
-  "updated_at": "2025-08-20"
+  "type": "business",
+  "updated_at": "2026-11-21"
 }

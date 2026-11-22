@@ -3,6 +3,11 @@
     "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
     "slug": "cdtfa"
   },
+  "authority": {
+    "citation": "Resolution of the L.A. County Board of Supervisors, Feb. 10, 2026 (Measure ER)",
+    "url": "https://file.lacounty.gov/SDSInter/lac/1201778_SalesTax_BoardResolution021026.pdf"
+  },
+  "data_status": "partial",
   "effective": {
     "end": "2031-10-01",
     "start": "2026-10-01"
@@ -63,10 +68,11 @@
   "jurisdiction": {
     "level": "county",
     "name": "Los Angeles County",
-    "slug": "los-angeles"
+    "slug": "los-angeles",
+    "state_abbr": "CA"
   },
   "name": "Measure ER — Essential Services Restoration Act (General Sales Tax for Health Services)",
-  "notes": "PROPOSED, not yet in effect. A 0.50% general transactions-and-use (sales) tax placed on the June 2, 2026 primary ballot by the L.A. County Board of Supervisors (motion, amendment, and resolution adopted Feb 10, 2026). Passage requires a simple majority. Because it would push the combined transactions-and-use-tax rate in some L.A. County cities above the 2% cap in Revenue & Taxation Code Section 7251.1, it also requires California State legislature approval to take effect; as of this record the specific enabling statute for Measure ER had not been confirmed (this is distinct from AB 1679 / RTC Sec. 7286.01, which enables the homelessness Measure A — see [[los-angeles-county-measure-a-homelessness-sales-tax]]). Revenue is a general-fund levy; the Board adopted a spending plan (the fund shares recorded here) allocating proceeds to county health, public health, and human services to backfill federal Medi-Cal/SNAP cuts from H.R.1 (One Big Beautiful Bill Act, July 4, 2025). The ~$1B/yr figure is the County's own estimate, not collected revenue. A nine-member citizens' oversight committee and an annual independent Auditor-Controller report (due March 31 each year) are part of the measure.",
+  "notes": "NEEDS RE-VERIFICATION: news reports say voters approved Measure ER on June 2, 2026 and that it took effect October 1, 2026. This record has not yet been re-checked against an official source, so the status below still reflects the pre-election record. A 0.50% general transactions-and-use (sales) tax placed on the June 2, 2026 primary ballot by the L.A. County Board of Supervisors (motion, amendment, and resolution adopted Feb 10, 2026). Passage requires a simple majority. Because it would push the combined transactions-and-use-tax rate in some L.A. County cities above the 2% cap in Revenue & Taxation Code Section 7251.1, it also requires California State legislature approval to take effect; as of this record the specific enabling statute for Measure ER had not been confirmed (this is distinct from AB 1679 / RTC Sec. 7286.01, which enables the homelessness Measure A — see [[los-angeles-county-measure-a-homelessness-sales-tax]]). Revenue is a general-fund levy; the Board adopted a spending plan (the fund shares recorded here) allocating proceeds to county health, public health, and human services to backfill federal Medi-Cal/SNAP cuts from H.R.1 (One Big Beautiful Bill Act, July 4, 2025). The ~$1B/yr figure is the County's own estimate, not collected revenue. A nine-member citizens' oversight committee and an annual independent Auditor-Controller report (due March 31 each year) are part of the measure.",
   "rates": [
     {
       "applies_to": "retail transactions countywide (general sales tax)",

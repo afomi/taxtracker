@@ -1,0 +1,41 @@
+{
+  "agency": {
+    "name": "Franchise Tax Board",
+    "slug": "franchise-tax-board"
+  },
+  "authority": {
+    "citation": "Cal. Rev. & Tax. Code §17041",
+    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17041"
+  },
+  "data_status": "partial",
+  "effective": {},
+  "id": "california-personal-income-tax",
+  "jurisdiction": {
+    "level": "state",
+    "name": "California",
+    "slug": "california",
+    "state_abbr": "CA"
+  },
+  "name": "Personal Income Tax",
+  "notes": "Imposed on the taxable income of a California resident. For a resident who is not a head of household, section 17041(a) prints brackets of 1%, 2%, 4%, 6%, 8%, and 9.3%, and for a head of household section 17041(c) prints the same percentages on a different table. The dollar thresholds printed in the section are not the current brackets: subdivision (h) requires the Franchise Tax Board to recompute them each year from the California Consumer Price Index. No Franchise Tax Board bracket schedule was opened, so those dollar thresholds are not recorded. A separate additional tax of 1% on taxable income over $1,000,000 is imposed by section 17043 and is its own record. Revenue collected was not in a document opened for this record.",
+  "rates": [
+    {
+      "applies_to": "taxable income of a resident; percentages in §17041, on brackets the Franchise Tax Board recomputes each year",
+      "cap": null,
+      "kind": "other",
+      "value": "1%–9.3%"
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "personal-income-tax",
+  "sources": [
+    {
+      "name": "Defined in: Cal. Rev. & Tax. Code §17041",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=17041"
+    }
+  ],
+  "status": "active",
+  "type": "income",
+  "updated_at": "2026-11-21"
+}

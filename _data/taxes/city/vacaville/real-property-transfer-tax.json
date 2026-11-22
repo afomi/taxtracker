@@ -1,0 +1,41 @@
+{
+  "agency": {
+    "name": "Solano County Recorder",
+    "slug": "county-recorder"
+  },
+  "authority": {
+    "citation": "Vacaville Municipal Code ch. 3.08, §3.08.020 (Ord. 657, 1967)",
+    "url": "https://ecode360.com/48403816"
+  },
+  "data_status": "partial",
+  "effective": {},
+  "id": "vacaville-real-property-transfer-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville",
+    "state_abbr": "CA"
+  },
+  "name": "Real Property Transfer Tax",
+  "notes": "Imposed on each deed or other instrument that conveys realty sold in the city when the consideration or value, exclusive of liens or encumbrances remaining at the time of sale, exceeds $100. The rate in section 3.08.020 is twenty-seven and one-half cents for each $500 or fractional part thereof. The person who makes, signs, or issues the instrument, or for whose use it is issued, pays it. The county recorder administers the chapter in conformity with the Documentary Transfer Tax Act and any county ordinance. This is the city tax only. The county's own documentary transfer tax is a separate record. Revenue collected was not in a document opened for this record.",
+  "rates": [
+    {
+      "applies_to": "each $500 or fractional part of consideration or value above $100, exclusive of liens remaining on the property",
+      "cap": null,
+      "kind": "amount",
+      "value": 0.275
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "real-property-transfer-tax",
+  "sources": [
+    {
+      "name": "Defined in: Vacaville Municipal Code ch. 3.08 — Real Property Transfer Tax",
+      "url": "https://ecode360.com/48403816"
+    }
+  ],
+  "status": "active",
+  "type": "transfer",
+  "updated_at": "2026-11-21"
+}

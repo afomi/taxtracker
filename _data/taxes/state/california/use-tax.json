@@ -1,29 +1,45 @@
 {
   "agency": {
-    "name": "CA Dept. of Tax and Fee Administration",
+    "name": "California Department of Tax and Fee Administration (CDTFA)",
     "slug": "cdtfa"
   },
+  "authority": {
+    "citation": "Cal. Rev. & Tax. Code §6201 et seq. (Sales and Use Tax Law)",
+    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=6201"
+  },
+  "data_status": "partial",
   "effective": {},
   "id": "california-use-tax",
   "jurisdiction": {
     "level": "state",
     "name": "California",
-    "slug": "california"
+    "slug": "california",
+    "state_abbr": "CA"
   },
   "name": "Use Tax",
-  "notes": "Demo record; applies to out-of-state purchases used in CA.",
+  "notes": "The companion to the sales tax, owed on purchases from a retailer for storage, use or consumption in California. The 7.25% statewide base rate is the sum of several state components and a 1.25% local component. District taxes of 0.10% to 2.00% may apply on top, depending on location. Revenue collected has not yet been sourced.",
   "rates": [
-    {}
+    {
+      "applies_to": "the sales price of tangible personal property stored, used or consumed in California (statewide base rate)",
+      "cap": null,
+      "kind": "percent",
+      "value": 7.25
+    }
   ],
   "revenue": null,
   "revenue_year": null,
   "slug": "use-tax",
   "sources": [
     {
-      "name": "Example source"
+      "name": "CDTFA — Detailed Description of the Sales & Use Tax Rate",
+      "url": "https://cdtfa.ca.gov/taxes-and-fees/sut-rates-description.htm"
+    },
+    {
+      "name": "Cal. Rev. & Tax. Code §6201",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=6201"
     }
   ],
   "status": "active",
   "type": "use",
-  "updated_at": "2025-08-20"
+  "updated_at": "2026-10-02"
 }

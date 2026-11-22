@@ -3,6 +3,11 @@
     "name": "Auditor-Controller",
     "slug": "auditor-controller"
   },
+  "authority": {
+    "citation": "Solano County Measure C (Nov. 8, 2016); Solano County Code ch. 11",
+    "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
+  },
+  "data_status": "partial",
   "effective": {
     "end": null,
     "start": "2018-01-01"
@@ -11,7 +16,8 @@
   "jurisdiction": {
     "level": "county",
     "name": "Solano County, CA",
-    "slug": "solano-county-ca"
+    "slug": "solano-county-ca",
+    "state_abbr": "CA"
   },
   "name": "Cannabis Business License Tax",
   "notes": "General business license tax on cannabis businesses in the unincorporated area. Board may set specific rates by resolution up to the voter-approved cap.",

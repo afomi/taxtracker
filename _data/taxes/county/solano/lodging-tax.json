@@ -1,0 +1,45 @@
+{
+  "agency": {
+    "name": "Solano County Treasurer–Tax Collector–County Clerk",
+    "slug": "treasurer-tax-collector"
+  },
+  "authority": {
+    "citation": "Solano County Code ch. 11, §11-20 et seq.; Cal. Rev. & Tax. Code §7280",
+    "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
+  },
+  "data_status": "partial",
+  "effective": {},
+  "id": "solano-lodging-tax",
+  "jurisdiction": {
+    "level": "county",
+    "name": "Solano County",
+    "slug": "solano",
+    "state_abbr": "CA"
+  },
+  "name": "Transient Occupancy Tax (unincorporated area)",
+  "notes": "Paid by the guest and collected by the lodging operator, who reports and remits it to the county within one calendar month of the close of each reporting period. It applies only outside city limits; cities levy their own occupancy taxes. Revenue collected has not yet been sourced.",
+  "rates": [
+    {
+      "applies_to": "rent charged for lodging stays of 30 days or fewer in unincorporated Solano County",
+      "cap": null,
+      "kind": "percent",
+      "value": 5
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "lodging-tax",
+  "sources": [
+    {
+      "name": "Solano County Tax Collector — Transient Occupancy Tax",
+      "url": "https://www.solanocounty.gov/government/treasurer-tax-collector-county-clerk/tax-collector/transient-occupancy-tax"
+    },
+    {
+      "name": "Solano County Code ch. 11 — Finances, Fees, Taxation and Revenue",
+      "url": "https://www.codepublishing.com/CA/SolanoCounty/html/SolanoCounty1100.html"
+    }
+  ],
+  "status": "active",
+  "type": "lodging",
+  "updated_at": "2026-10-02"
+}

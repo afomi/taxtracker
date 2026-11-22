@@ -1,0 +1,51 @@
+{
+  "agency": {
+    "name": "California Department of Tax and Fee Administration",
+    "slug": "cdtfa"
+  },
+  "authority": {
+    "citation": "CDTFA-95 (S1F) REV. 39 (10-26), California Sales and Use Tax Rates by County and City, operative October 1, 2026",
+    "url": "https://cdtfa.ca.gov/formspubs/cdtfa95.pdf"
+  },
+  "data_status": "partial",
+  "effective": {
+    "start": "2026-10-01"
+  },
+  "id": "vacaville-combined-sales-and-use-tax",
+  "jurisdiction": {
+    "level": "city",
+    "name": "Vacaville",
+    "slug": "vacaville",
+    "state_abbr": "CA"
+  },
+  "name": "Combined Sales and Use Tax (Vacaville)",
+  "notes": "The rate a sale in the city is charged, as printed by CDTFA. It is not one tax. CDTFA-95 prints 'City of Vacaville 8.125%' and, on the same page, 'SOLANO COUNTY 7.375%'. The sheet's header says the figures include state, county, local, and district taxes. It does not list the components of the Vacaville figure. The October 1, 2026 rate file prints Vacaville, Solano, City, at 0.08125, with no note that separates components. The CDTFA rates page states a statewide rate of 7.25% and says district taxes range from 0.10% to 2.00%; it does not assign those pieces to Vacaville. The city taxes this pass recorded separately, and which this combined figure bundles without naming, are the 1% uniform local sales and use tax and the 0.75% transactions and use tax. No agency reports a collected amount for the combined rate as a single tax.",
+  "rates": [
+    {
+      "applies_to": "taxable sales and use in the City of Vacaville, combined rate operative October 1, 2026",
+      "cap": null,
+      "kind": "percent",
+      "value": 8.125
+    }
+  ],
+  "revenue": null,
+  "revenue_year": null,
+  "slug": "combined-sales-and-use-tax",
+  "sources": [
+    {
+      "name": "Rate schedule (combined rate, not one imposing statute): CDTFA-95, operative October 1, 2026",
+      "url": "https://cdtfa.ca.gov/formspubs/cdtfa95.pdf"
+    },
+    {
+      "name": "Rate schedule (Vacaville row; no component split): CDTFA sales-tax rate file, effective October 1, 2026",
+      "url": "https://cdtfa.ca.gov/taxes-and-fees/SalesTaxRates10-1-26.xlsx"
+    },
+    {
+      "name": "Index: CDTFA California City and County Sales and Use Tax Rates (statewide 7.25% stated; Vacaville components not stated)",
+      "url": "https://cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm"
+    }
+  ],
+  "status": "active",
+  "type": "sales",
+  "updated_at": "2026-11-21"
+}

@@ -1,29 +1,45 @@
 {
   "agency": {
-    "name": "CA Dept. of Tax and Fee Administration",
+    "name": "California Department of Tax and Fee Administration (CDTFA)",
     "slug": "cdtfa"
   },
+  "authority": {
+    "citation": "Cal. Rev. & Tax. Code §7360 (Motor Vehicle Fuel Tax Law)",
+    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=7360"
+  },
+  "data_status": "partial",
   "effective": {},
   "id": "california-fuel-excise-tax",
   "jurisdiction": {
     "level": "state",
     "name": "California",
-    "slug": "california"
+    "slug": "california",
+    "state_abbr": "CA"
   },
-  "name": "Fuel Excise Tax (gasoline)",
-  "notes": "Demo record; amount shown per gallon.",
+  "name": "Motor Vehicle Fuel Tax (gasoline excise)",
+  "notes": "A per-gallon excise tax, adjusted each July 1 by the change in the California Consumer Price Index as the statute directs. The rate for July 2025 through June 2026 was $0.612 per gallon. Sales tax on fuel is a separate levy. Revenue collected has not yet been sourced.",
   "rates": [
-    {}
+    {
+      "applies_to": "each gallon of gasoline, July 1, 2026 through June 30, 2027",
+      "cap": null,
+      "kind": "amount",
+      "value": 0.634
+    }
   ],
   "revenue": null,
   "revenue_year": null,
   "slug": "fuel-excise-tax",
   "sources": [
     {
-      "name": "Example source"
+      "name": "CDTFA — Sales Tax Rates for Fuels (Motor Vehicle Fuel rates by period)",
+      "url": "https://cdtfa.ca.gov/taxes-and-fees/sales-tax-rates-for-fuels.htm"
+    },
+    {
+      "name": "Cal. Rev. & Tax. Code §7360",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=7360"
     }
   ],
   "status": "active",
   "type": "excise",
-  "updated_at": "2025-08-20"
+  "updated_at": "2026-10-02"
 }

@@ -1,29 +1,41 @@
 {
   "agency": {
-    "name": "Vacaville Finance Department",
+    "name": "City of Vacaville Director of Finance",
     "slug": "finance"
   },
+  "authority": {
+    "citation": "Vacaville Municipal Code ch. 3.16 (Transient Occupancy Tax), §3.16.020",
+    "url": "https://ecode360.com/48403921"
+  },
+  "data_status": "partial",
   "effective": {},
   "id": "vacaville-lodging-tax",
   "jurisdiction": {
     "level": "city",
     "name": "Vacaville",
-    "slug": "vacaville"
+    "slug": "vacaville",
+    "state_abbr": "CA"
   },
-  "name": "Lodging (Transient Occupancy) Tax",
-  "notes": "Demo record; applies to hotels and short-term rentals.",
+  "name": "Transient Occupancy Tax (hotel tax)",
+  "notes": "A transient, someone occupying lodging for 30 consecutive days or fewer, pays 8% of the rent to the operator at the time the rent is paid. The operator, or a short-term rental facilitator that collects the payment, remits it to the Director of Finance. The 8% is this tax only. Chapter 3.06 imposes a separate community services tax, stated as not to exceed 2% of rent, on the same short stays, and chapter 3.17 levies a hotel business improvement district assessment. Section 3.17.040(B) states that assessment at 2% of rent except as subsection C provides; the text opened for this record does not include subsection C, so the amount billed is not recorded here. Revenue collected, and the fund that receives this tax, were not in a document opened for this record.",
   "rates": [
-    {}
+    {
+      "applies_to": "rent charged for occupancy of a hotel or short-term rental by a transient, for 30 consecutive days or fewer",
+      "cap": null,
+      "kind": "percent",
+      "value": 8
+    }
   ],
-  "revenue": 200000,
-  "revenue_year": "2025",
+  "revenue": null,
+  "revenue_year": null,
   "slug": "lodging-tax",
   "sources": [
     {
-      "name": "Example ordinance"
+      "name": "Defined in: Vacaville Municipal Code ch. 3.16 — Transient Occupancy Tax",
+      "url": "https://ecode360.com/48403921"
     }
   ],
   "status": "active",
   "type": "lodging",
-  "updated_at": "2025-08-20"
+  "updated_at": "2026-11-21"
 }

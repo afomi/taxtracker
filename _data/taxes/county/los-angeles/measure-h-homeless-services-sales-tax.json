@@ -3,6 +3,11 @@
     "name": "California Department of Tax and Fee Administration (collection); County of Los Angeles (administration of proceeds)",
     "slug": "cdtfa"
   },
+  "authority": {
+    "citation": "L.A. County Measure H (approved March 7, 2017)",
+    "url": null
+  },
+  "data_status": "partial",
   "effective": {
     "end": "2025-03-31",
     "start": "2017-10-01"
@@ -18,7 +23,8 @@
   "jurisdiction": {
     "level": "county",
     "name": "Los Angeles County",
-    "slug": "los-angeles"
+    "slug": "los-angeles",
+    "state_abbr": "CA"
   },
   "name": "Measure H — Sales Tax for Homeless Services and Prevention",
   "notes": "REPEALED / REPLACED. A 0.25% (quarter-cent) countywide transactions-and-use (sales) tax approved by L.A. County voters on March 7, 2017 (two-thirds vote, special-purpose tax). Revenue was legally restricted to homeless services and prevention and held in the Measure H Special Revenue Fund. It was originally scheduled to expire in 2027 but was repealed and replaced early by the 0.50% Measure A effective April 1, 2025 — see [[los-angeles-county-measure-a-homelessness-sales-tax]]. Recorded here for historical/provenance continuity. Revenue figures not yet attached.",
