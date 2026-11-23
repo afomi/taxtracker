@@ -1,0 +1,13 @@
+{% if include.sources.size > 0 %}
+  <ul class="mt-2 text-sm">
+    {% for source in include.sources %}
+      <li>
+        <a
+          class="inline-flex min-h-11 items-center py-2 text-indigo-700 underline decoration-indigo-300 hover:decoration-indigo-600"
+          href="{{ source.url | escape }}"
+          rel="noopener"
+        >{{ source.name | escape }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

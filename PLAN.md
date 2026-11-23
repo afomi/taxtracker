@@ -30,11 +30,10 @@ Stubs may appear there so the stack can be seen, with no rates and no dollars.
 The inventory stays in `_data/taxes`, and a row enters it only after its defining document has been opened.
 Same pass, next place, once Vacaville has been around the loop.
 
-**Paused: gather real records, one tax at a time, with `/gather-tax`.**
-The skeleton is fixed; the work is filling it. Next gaps, in order:
+**Current pass: Vacaville business license and Solano County property tax (2026-11-22).**
+Both records now expose five evidence fields: what a payer owes, what the opened law says the payer receives, actual collections, administration cost, and spending. Tax pages show Defined, Collected, and Spent document slots. Vacaville's 2024 ACFR reports $429,993 in business-license tax revenue for FY2023-24; the budget identifies it as General Fund revenue. General Fund expenditures are shown as pooled fund context, without attributing a share to the license tax. Administration cost and a payer benefit remain undocumented. Solano's opened ACFR schedules do not isolate the 1% levy, so its collections and spending fields remain empty. Next gaps, in order:
 
-- [ ] **Revenue.** All 15 records are `partial` because none has sourced collected revenue.
-  Start with Vacaville and Solano, where the ACFR/budget PDFs are already on hand.
+- [ ] **Revenue.** The inventory has 22 partial records; one now has sourced actual revenue (Vacaville business license, FY2023-24). The other 21 have no collected revenue amount. Find Solano's levy-specific apportionment schedules and Vacaville's license administration costs; broader financial totals and forecasts cannot fill those gaps.
 - [ ] **Re-verify LA Measure ER.** News reports say it passed June 2, 2026 and took effect
   Oct 1, 2026; the record still says `proposed` pending an official source.
 - [ ] **Fill authority URLs** still null: Denver lodger's tax, Colorado income tax, LA Measure H,

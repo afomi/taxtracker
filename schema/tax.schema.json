@@ -2,6 +2,33 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "additionalProperties": false,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "summary": { "type": ["string", "null"], "minLength": 1 },
+        "gap": { "type": "string", "minLength": 1 },
+        "scope": { "enum": ["charge", "fund", "broader"] },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": ["name", "url"]
+          }
+        }
+      },
+      "required": ["summary", "scope", "sources"],
+      "if": { "properties": { "summary": { "type": "string" } } },
+      "then": { "properties": { "sources": { "minItems": 1 } } },
+      "else": { "required": ["gap"] }
+    }
+  },
   "properties": {
     "_rate_jid": { "type": "string" },
     "agency": { "type": "object", "properties": { "name": { "type":"string" }, "slug": { "type":["string","null"] } }, "required": ["name"] },
@@ -16,6 +43,18 @@
     },
     "data_status": { "type": "string", "enum": ["verified", "partial", "needs_source", "demo"] },
     "effective": { "type":"object", "properties": { "start":{"type":"string"}, "end":{"type":["string","null"]} } },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount_paid": { "$ref": "#/$defs/evidence" },
+        "payer_receives": { "$ref": "#/$defs/evidence" },
+        "collected": { "$ref": "#/$defs/evidence" },
+        "administration_cost": { "$ref": "#/$defs/evidence" },
+        "spent": { "$ref": "#/$defs/evidence" }
+      },
+      "required": ["amount_paid", "payer_receives", "collected", "administration_cost", "spent"]
+    },
     "funds": {
       "type": "array",
       "items": {

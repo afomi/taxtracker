@@ -1,0 +1,10 @@
+- key: amount_paid
+  label: What a payer owes
+- key: payer_receives
+  label: What the opened law says the payer receives
+- key: collected
+  label: What was collected
+- key: administration_cost
+  label: What it cost to administer
+- key: spent
+  label: Where the money went

@@ -74,6 +74,9 @@ erDiagram
 
 ## Notes
 
+- **Evidence fields:** The optional `evidence` object records `amount_paid`, `payer_receives`, `collected`, `administration_cost`, and `spent`. When present, all five entries are required. Each has a nullable `summary`, a `scope` (`charge`, `fund`, or `broader`), official `sources` with names and URLs, and an optional `gap` explaining the limit of the evidence. A missing summary requires a gap; a populated summary requires at least one source. Null means unknown, never zero.
+- **Collection scope:** `revenue` and `revenue_year` remain the numeric source of truth. For records with evidence fields, the build requires those values when collected evidence covers the charge, and rejects revenue backed only by broader collections. Budget forecasts do not populate actual revenue.
+- **Document trail:** Tax detail pages always expose Defined, Collected, and Spent slots. Defined uses `authority`; Collected and Spent use the corresponding evidence entries. Fund spending is labeled as pooled fund context and does not imply an allocation of the tax. Administration costs and payer benefits remain unknown unless an opened document supplies them. Existing records without evidence keep empty collection and spending slots until their sources are classified.
 - **Modeled in schema:** Tax (`schema/tax.schema.json`), Jurisdiction, Agency, Rate, Source, Revenue (fields on Tax), Funds (optional array on Tax linking to fund slugs)
 - **Modeled in schema:** Fund (`schema/fund.schema.json`) with embedded Expenditures. Fund files live in `_data/funds/<jurisdiction>/`.
 - **Tax → Fund link:** A tax's `funds[]` array references funds by slug, with optional `share` (proportion of revenue). This enables "where does this tax go?" on detail pages.

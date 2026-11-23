@@ -51,6 +51,70 @@
     },
     "data_status": "partial",
     "effective": {},
+    "evidence": {
+      "administration_cost": {
+        "gap": "Finance administers business licenses alongside accounting, purchasing, utility billing, and other work. The opened department schedules do not isolate the cost of administering this tax.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "FY2025–26 budget, Finance Department, printed pp. 63–67 (PDF pp. 115–119)",
+            "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25173/638881080298870000#page=115"
+          }
+        ],
+        "summary": null
+      },
+      "amount_paid": {
+        "gap": "Section 5.12.070 allows council-adopted CPI increases. No adopting resolution was opened, so the current payable amount remains unconfirmed.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "Municipal Code ch. 5.12, §§5.12.010–5.12.070",
+            "url": "https://ecode360.com/48404181"
+          }
+        ],
+        "summary": "The amounts printed in chapter 5.12 start at $50 annually for most businesses and $75 for NAICS sectors 52, 53, 54, 55, and 62, plus employee additions. Reduced-income and dwelling-unit schedules also apply. These are statutory amounts, not a current invoice."
+      },
+      "collected": {
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "2024 ACFR, Statement of Activities, printed p. 24 (PDF p. 41)",
+            "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25263/638905941539600000#page=41"
+          },
+          {
+            "name": "FY2025–26 budget, Schedule of General Fund Revenue, printed p. 9 (PDF p. 61), FY2023/24 Actual column",
+            "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25173/638881080298870000#page=61"
+          }
+        ],
+        "summary": "The city reported $429,993 in business-license tax revenue for FY2023–24 (year ended June 30, 2024). The budget independently lists the same amount as actual General Fund revenue."
+      },
+      "payer_receives": {
+        "gap": "Chapter 5.12 sets tax schedules and limits. It does not specify a service or benefit supplied to the payer. This does not establish what other chapters or city programs provide.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "Municipal Code ch. 5.12 — scope of the opened chapter",
+            "url": "https://ecode360.com/48404181"
+          }
+        ],
+        "summary": null
+      },
+      "spent": {
+        "gap": "These are expenditures of the pooled General Fund. The documents do not trace the $429,993 from this tax to particular services or recipients.",
+        "scope": "fund",
+        "sources": [
+          {
+            "name": "FY2025–26 budget, General Fund revenue, printed p. 9 (PDF p. 61), FY2023/24 Actual column",
+            "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25173/638881080298870000#page=61"
+          },
+          {
+            "name": "2024 ACFR, governmental fund expenditures, printed p. 29 (PDF p. 46), General column",
+            "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25263/638905941539600000#page=46"
+          }
+        ],
+        "summary": "Business-license tax is listed as General Fund revenue. For FY2023–24, the ACFR reports $134,875,323 in total General Fund expenditures, including public safety, general government, public works, community services, housing, capital outlay, and debt service."
+      }
+    },
     "id": "vacaville-business-license-tax",
     "jurisdiction": {
       "level": "city",
@@ -59,7 +123,7 @@
       "state_abbr": "CA"
     },
     "name": "Business License Tax",
-    "notes": "An annual tax for the privilege of doing business in the city, measured by the code's employee schedule or by dwelling units, not by gross receipts, except for the reduced schedule when gross income is between $1,000 and $2,500. Amounts below are the amounts printed in chapter 5.12. They are not the community services and facilities tax in chapter 3.06, which the city may bill on the same license. Section 5.12.060 caps the total under section 5.12.010 at $500 for one location, and the total under the apartment, hotel, and trailer-park sections at $350. Section 5.12.070 lets the council increase the fees after a 10% rise in the San Francisco Bay Area CPI; no resolution adopting an increase was opened. Home occupations at or under $1,000 of gross receipts are sent to section 5.16.010, which was not opened. Revenue collected was not in a document opened for this record.",
+    "notes": "An annual tax on a person engaged in business in the city, measured by the code's employee schedule or by dwelling units, not by gross receipts, except for the reduced schedule when gross income is between $1,000 and $2,500. Amounts below are the amounts printed in chapter 5.12, including the separate other-business employee schedule in section 5.12.010(D). They are not the community services and facilities tax in chapter 3.06, which the city may bill on the same license. Section 5.12.060 caps the total under section 5.12.010 at $500 for one location, and the total under the apartment, hotel, and trailer-park sections at $350. Section 5.12.070 lets the council increase the fees after a 10% rise in the San Francisco Bay Area CPI; no resolution adopting an increase was opened. Home occupations at or under $1,000 of gross receipts are sent to section 5.16.010, which was not opened. The 2024 ACFR reports $429,993 in business-license tax revenue for the year ended June 30, 2024. The FY2025-26 budget repeats that amount in its FY2023-24 Actual column under General Fund revenue. Neither document isolates license administration costs or attributes particular expenditures to this tax.",
     "rates": [
       {
         "applies_to": "annual base for a business other than NAICS sectors 52, 53, 54, 55, and 62 (ch. 5.12.010(B)); employee additions are separate",
@@ -174,20 +238,72 @@
         "cap": 350,
         "kind": "amount",
         "value": 2
+      },
+      {
+        "applies_to": "added annual amount under the separate other-business schedule in ch. 5.12.010(D), when average employees are 2 to 5",
+        "cap": null,
+        "kind": "amount",
+        "value": 25
+      },
+      {
+        "applies_to": "added annual amount under the separate other-business schedule in ch. 5.12.010(D), when average employees are 6 to 12",
+        "cap": null,
+        "kind": "amount",
+        "value": 50
+      },
+      {
+        "applies_to": "added annual amount under the separate other-business schedule in ch. 5.12.010(D), when average employees are 13 to 25",
+        "cap": null,
+        "kind": "amount",
+        "value": 97.5
+      },
+      {
+        "applies_to": "added annual amount under the separate other-business schedule in ch. 5.12.010(D), when average employees are 26 to 50",
+        "cap": null,
+        "kind": "amount",
+        "value": 122.5
+      },
+      {
+        "applies_to": "added annual amount under the separate other-business schedule in ch. 5.12.010(D), when average employees are 51 to 100",
+        "cap": null,
+        "kind": "amount",
+        "value": 222.5
+      },
+      {
+        "applies_to": "added annual amount under the separate other-business schedule in ch. 5.12.010(D), when average employees are 101 or more",
+        "cap": null,
+        "kind": "amount",
+        "value": 335
       }
     ],
-    "revenue": null,
-    "revenue_year": null,
+    "revenue": 429993,
+    "revenue_year": "FY2023-24",
     "slug": "business-license-tax",
     "sources": [
       {
         "name": "Defined in: Vacaville Municipal Code ch. 5.12 — License Taxes",
         "url": "https://ecode360.com/48404181"
+      },
+      {
+        "name": "Collected: 2024 ACFR, Statement of Activities, printed p. 24 (PDF p. 41)",
+        "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25263/638905941539600000#page=41"
+      },
+      {
+        "name": "General Fund destination and actual revenue: FY2025–26 budget, printed p. 9 (PDF p. 61)",
+        "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25173/638881080298870000#page=61"
+      },
+      {
+        "name": "Administration context: FY2025–26 budget, Finance Department, printed pp. 63–67 (PDF pp. 115–119)",
+        "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25173/638881080298870000#page=115"
+      },
+      {
+        "name": "Spent — pooled fund context: 2024 ACFR, printed p. 29 (PDF p. 46)",
+        "url": "https://www.cityofvacaville.gov/home/showpublisheddocument/25263/638905941539600000#page=46"
       }
     ],
     "status": "active",
     "type": "business",
-    "updated_at": "2026-11-21"
+    "updated_at": "2026-11-22"
   },
   {
     "agency": {
@@ -769,6 +885,74 @@
     },
     "data_status": "partial",
     "effective": {},
+    "evidence": {
+      "administration_cost": {
+        "gap": "The budget says property-tax administration fee revenues are recognized by the Auditor-Controller, Clerk of the Board, Assessor, and Tax Collector. A fee-revenue line or a whole department budget does not establish the actual cost of administering this levy.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "Solano FY2025–26 adopted budget, Budget Construction & Legal Requirements, printed p. 4 (PDF p. 16)",
+            "url": "https://content.solanocounty.gov/sites/default/files/2025-11/Solano_County_FY2025_26_Adopted_Budget.pdf#page=16"
+          }
+        ],
+        "summary": null
+      },
+      "amount_paid": {
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "California Constitution, article XIII A, §1",
+            "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+          },
+          {
+            "name": "Solano FY2024–25 ACFR, Note I-E-3, printed p. 62 (PDF p. 70)",
+            "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=70"
+          }
+        ],
+        "summary": "The general levy is 1% of assessed taxable value. A parcel bill can also include voter-approved debt and direct charges, which are separate from this record. This record does not contain a parcel assessment or a personal bill."
+      },
+      "collected": {
+        "gap": "The levy-collection and custodial-fund schedules report broader property-tax totals. They do not identify a collections amount for the 1% general levy alone.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "Solano FY2024–25 ACFR, Property Tax Levies and Collections, printed p. 185 (PDF p. 193)",
+            "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=193"
+          },
+          {
+            "name": "Solano FY2024–25 ACFR, other custodial funds, printed p. 168 (PDF p. 176)",
+            "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=176"
+          }
+        ],
+        "summary": null
+      },
+      "payer_receives": {
+        "gap": "The section caps the levy and provides for county collection and apportionment under law. It does not specify a service or benefit supplied to an individual payer.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "California Constitution, article XIII A, §1 — scope of the opened section",
+            "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+          }
+        ],
+        "summary": null
+      },
+      "spent": {
+        "gap": "The ACFR describes statutory distribution among counties, cities, schools, and other districts. Its custodial totals do not isolate this levy or show how recipients spent it. A levy-specific apportionment schedule and recipient expenditure documents are still needed.",
+        "scope": "charge",
+        "sources": [
+          {
+            "name": "Solano FY2024–25 ACFR, Note I-E-3, printed p. 62 (PDF p. 70)",
+            "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=70"
+          },
+          {
+            "name": "Solano FY2024–25 ACFR, other custodial funds, printed p. 168 (PDF p. 176)",
+            "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=176"
+          }
+        ],
+        "summary": null
+      }
+    },
     "id": "solano-property-tax",
     "jurisdiction": {
       "level": "county",
@@ -777,7 +961,7 @@
       "state_abbr": "CA"
     },
     "name": "Property Tax (ad valorem, 1% general levy)",
-    "notes": "Article XIII A, section 1 says the maximum ad valorem tax on real property shall not exceed 1% of full cash value, collected by the counties and apportioned according to law to the districts within the counties. The limit does not apply to the voter-approved debt described in subdivision (b). The Auditor-Controller's fiscal year 2026-27 tax-rate-area fund composition lists fund 0059, '1 PCT TAX LIMITATION,' at 1.000000, and lists other funds, including voter-debt funds, with a figure in a column headed Tax Rate. Those other figures differ by tax rate area and are not recorded as rates of this tax. The same year's direct-charge narratives describe special assessments one by one, including assessments the City of Vacaville renews under the Landscaping and Lighting Act of 1972. Each of those is its own charge. None is recorded here. A collected dollar amount for the 1% levy was not in a document opened for this record.",
+    "notes": "Article XIII A, section 1 says the maximum ad valorem tax on real property shall not exceed 1% of full cash value, collected by the counties and apportioned according to law to the districts within the counties. The limit does not apply to the voter-approved debt described in subdivision (b). The Auditor-Controller's fiscal year 2026-27 tax-rate-area fund composition lists fund 0059, '1 PCT TAX LIMITATION,' at 1.000000, and lists other funds, including voter-debt funds, with a figure in a column headed Tax Rate. Those other figures differ by tax rate area and are not recorded as rates of this tax. The same year's direct-charge narratives describe special assessments one by one, including assessments the City of Vacaville renews under the Landscaping and Lighting Act of 1972. Each of those is its own charge. None is recorded here. A collected dollar amount for the 1% levy was not in a document opened for this record. The FY2024-25 ACFR was also opened. Its printed p. 185 (PDF p. 193) reports $848,061,766 of collections for the 2025 levy; printed p. 168 (PDF p. 176) reports $1,055,324,306 in Property Tax Collection custodial-fund collections and $1,075,969,140 in distributions. Those schedules do not isolate the 1% general levy, and custodial distributions are not expenditures by the receiving governments. None of those totals is used as revenue of this record.",
     "rates": [
       {
         "applies_to": "full cash value of real property (general levy; maximum under article XIII A, section 1)",
@@ -813,11 +997,19 @@
       {
         "name": "Solano County Assessor — Property Tax System",
         "url": "https://www.solanocounty.gov/government/assessorrecorder/assessor-division/property-tax-system"
+      },
+      {
+        "name": "Financial context — not a 1% levy total: Solano FY2024–25 ACFR, printed pp. 62, 168, 185",
+        "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf"
+      },
+      {
+        "name": "Administration context: Solano FY2025–26 adopted budget",
+        "url": "https://content.solanocounty.gov/sites/default/files/2025-11/Solano_County_FY2025_26_Adopted_Budget.pdf"
       }
     ],
     "status": "active",
     "type": "property",
-    "updated_at": "2026-11-21"
+    "updated_at": "2026-11-22"
   },
   {
     "agency": {

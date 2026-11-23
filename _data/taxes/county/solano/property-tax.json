@@ -9,6 +9,74 @@
   },
   "data_status": "partial",
   "effective": {},
+  "evidence": {
+    "administration_cost": {
+      "gap": "The budget says property-tax administration fee revenues are recognized by the Auditor-Controller, Clerk of the Board, Assessor, and Tax Collector. A fee-revenue line or a whole department budget does not establish the actual cost of administering this levy.",
+      "scope": "charge",
+      "sources": [
+        {
+          "name": "Solano FY2025–26 adopted budget, Budget Construction & Legal Requirements, printed p. 4 (PDF p. 16)",
+          "url": "https://content.solanocounty.gov/sites/default/files/2025-11/Solano_County_FY2025_26_Adopted_Budget.pdf#page=16"
+        }
+      ],
+      "summary": null
+    },
+    "amount_paid": {
+      "scope": "charge",
+      "sources": [
+        {
+          "name": "California Constitution, article XIII A, §1",
+          "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+        },
+        {
+          "name": "Solano FY2024–25 ACFR, Note I-E-3, printed p. 62 (PDF p. 70)",
+          "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=70"
+        }
+      ],
+      "summary": "The general levy is 1% of assessed taxable value. A parcel bill can also include voter-approved debt and direct charges, which are separate from this record. This record does not contain a parcel assessment or a personal bill."
+    },
+    "collected": {
+      "gap": "The levy-collection and custodial-fund schedules report broader property-tax totals. They do not identify a collections amount for the 1% general levy alone.",
+      "scope": "charge",
+      "sources": [
+        {
+          "name": "Solano FY2024–25 ACFR, Property Tax Levies and Collections, printed p. 185 (PDF p. 193)",
+          "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=193"
+        },
+        {
+          "name": "Solano FY2024–25 ACFR, other custodial funds, printed p. 168 (PDF p. 176)",
+          "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=176"
+        }
+      ],
+      "summary": null
+    },
+    "payer_receives": {
+      "gap": "The section caps the levy and provides for county collection and apportionment under law. It does not specify a service or benefit supplied to an individual payer.",
+      "scope": "charge",
+      "sources": [
+        {
+          "name": "California Constitution, article XIII A, §1 — scope of the opened section",
+          "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SECTION%201.&article=XIII%20A"
+        }
+      ],
+      "summary": null
+    },
+    "spent": {
+      "gap": "The ACFR describes statutory distribution among counties, cities, schools, and other districts. Its custodial totals do not isolate this levy or show how recipients spent it. A levy-specific apportionment schedule and recipient expenditure documents are still needed.",
+      "scope": "charge",
+      "sources": [
+        {
+          "name": "Solano FY2024–25 ACFR, Note I-E-3, printed p. 62 (PDF p. 70)",
+          "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=70"
+        },
+        {
+          "name": "Solano FY2024–25 ACFR, other custodial funds, printed p. 168 (PDF p. 176)",
+          "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf#page=176"
+        }
+      ],
+      "summary": null
+    }
+  },
   "id": "solano-property-tax",
   "jurisdiction": {
     "level": "county",
@@ -17,7 +85,7 @@
     "state_abbr": "CA"
   },
   "name": "Property Tax (ad valorem, 1% general levy)",
-  "notes": "Article XIII A, section 1 says the maximum ad valorem tax on real property shall not exceed 1% of full cash value, collected by the counties and apportioned according to law to the districts within the counties. The limit does not apply to the voter-approved debt described in subdivision (b). The Auditor-Controller's fiscal year 2026-27 tax-rate-area fund composition lists fund 0059, '1 PCT TAX LIMITATION,' at 1.000000, and lists other funds, including voter-debt funds, with a figure in a column headed Tax Rate. Those other figures differ by tax rate area and are not recorded as rates of this tax. The same year's direct-charge narratives describe special assessments one by one, including assessments the City of Vacaville renews under the Landscaping and Lighting Act of 1972. Each of those is its own charge. None is recorded here. A collected dollar amount for the 1% levy was not in a document opened for this record.",
+  "notes": "Article XIII A, section 1 says the maximum ad valorem tax on real property shall not exceed 1% of full cash value, collected by the counties and apportioned according to law to the districts within the counties. The limit does not apply to the voter-approved debt described in subdivision (b). The Auditor-Controller's fiscal year 2026-27 tax-rate-area fund composition lists fund 0059, '1 PCT TAX LIMITATION,' at 1.000000, and lists other funds, including voter-debt funds, with a figure in a column headed Tax Rate. Those other figures differ by tax rate area and are not recorded as rates of this tax. The same year's direct-charge narratives describe special assessments one by one, including assessments the City of Vacaville renews under the Landscaping and Lighting Act of 1972. Each of those is its own charge. None is recorded here. A collected dollar amount for the 1% levy was not in a document opened for this record. The FY2024-25 ACFR was also opened. Its printed p. 185 (PDF p. 193) reports $848,061,766 of collections for the 2025 levy; printed p. 168 (PDF p. 176) reports $1,055,324,306 in Property Tax Collection custodial-fund collections and $1,075,969,140 in distributions. Those schedules do not isolate the 1% general levy, and custodial distributions are not expenditures by the receiving governments. None of those totals is used as revenue of this record.",
   "rates": [
     {
       "applies_to": "full cash value of real property (general levy; maximum under article XIII A, section 1)",
@@ -53,9 +121,17 @@
     {
       "name": "Solano County Assessor — Property Tax System",
       "url": "https://www.solanocounty.gov/government/assessorrecorder/assessor-division/property-tax-system"
+    },
+    {
+      "name": "Financial context — not a 1% levy total: Solano FY2024–25 ACFR, printed pp. 62, 168, 185",
+      "url": "https://content.solanocounty.gov/sites/default/files/2026-02/2025_ACFR_FINAL_v2.pdf"
+    },
+    {
+      "name": "Administration context: Solano FY2025–26 adopted budget",
+      "url": "https://content.solanocounty.gov/sites/default/files/2025-11/Solano_County_FY2025_26_Adopted_Budget.pdf"
     }
   ],
   "status": "active",
   "type": "property",
-  "updated_at": "2026-11-21"
+  "updated_at": "2026-11-22"
 }

@@ -1,0 +1,35 @@
+{% if item.evidence %}
+  <section
+    class="mt-10"
+    aria-labelledby="evidence-heading"
+  >
+    <h2
+      id="evidence-heading"
+      class="text-xl font-semibold text-slate-900"
+    >What the documents show</h2>
+    <dl class="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+      {% for field in site.data.tax_evidence %}
+        {% assign evidence = item.evidence[field.key] %}
+        <div class="py-4">
+          <dt class="font-semibold text-slate-900">{{ field.label }}</dt>
+          <dd class="mt-2 leading-7 text-slate-700">
+            {% if evidence.summary %}
+              {% if evidence.scope == 'fund' %}
+                <p class="mb-2 text-sm font-semibold text-slate-600">Pooled fund context</p>
+              {% elsif evidence.scope == 'broader' %}
+                <p class="mb-2 text-sm font-semibold text-slate-600">Broader financial context</p>
+              {% endif %}
+              <p>{{ evidence.summary | escape }}</p>
+            {% else %}
+              <p>Not yet documented.</p>
+            {% endif %}
+            {% if evidence.gap %}
+              <p class="mt-2 text-base text-slate-600">{{ evidence.gap | escape }}</p>
+            {% endif %}
+            {% include tax_evidence_sources.html sources=evidence.sources %}
+          </dd>
+        </div>
+      {% endfor %}
+    </dl>
+  </section>
+{% endif %}

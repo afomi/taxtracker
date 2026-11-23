@@ -1,0 +1,54 @@
+<section
+  class="mt-8"
+  aria-labelledby="documents-heading"
+>
+  <h2
+    id="documents-heading"
+    class="text-xl font-semibold text-slate-900"
+  >The documents behind this charge</h2>
+  <div class="mt-4 grid gap-6 lg:grid-cols-3">
+    <section aria-labelledby="defined-heading">
+      <h3
+        id="defined-heading"
+        class="font-semibold text-slate-900"
+      >Defined</h3>
+      <p class="mt-2 text-sm text-slate-600">Legal authority for the charge.</p>
+      {% if item.authority.url %}
+        <a
+          class="mt-2 inline-flex min-h-11 items-center py-2 text-sm text-indigo-700 underline decoration-indigo-300 hover:decoration-indigo-600"
+          href="{{ item.authority.url | escape }}"
+          rel="noopener"
+        >{{ item.authority.citation | escape }}</a>
+      {% else %}
+        <p class="mt-2 text-slate-600">Not yet documented.</p>
+        {% if item.authority.citation %}
+          <p class="mt-2 text-sm text-slate-600">{{ item.authority.citation | escape }} — link not yet recorded.</p>
+        {% endif %}
+      {% endif %}
+    </section>
+    {% assign stages = 'collected,spent' | split: ',' %}
+    {% for stage in stages %}
+      {% assign evidence = item.evidence[stage] %}
+      <section aria-labelledby="{{ stage }}-heading">
+        <h3
+          id="{{ stage }}-heading"
+          class="font-semibold text-slate-900"
+        >{{ stage | capitalize }}</h3>
+        {% if evidence.summary %}
+          <p class="mt-2 text-sm text-slate-600">
+            {% if evidence.scope == 'fund' %}
+              Fund context only. Spending from this charge has not been traced.
+            {% elsif evidence.scope == 'broader' %}
+              Broader financial context only. This charge has not been isolated.
+            {% else %}
+              {% if stage == 'collected' %}Reported revenue for this charge.{% else %}Documented use of this charge's revenue.{% endif %}
+            {% endif %}
+          </p>
+          {% include tax_evidence_sources.html sources=evidence.sources %}
+        {% else %}
+          <p class="mt-2 text-slate-600">Not yet documented for this charge.</p>
+        {% endif %}
+      </section>
+    {% endfor %}
+  </div>
+</section>

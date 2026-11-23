@@ -65,40 +65,8 @@ layout: default
     </div>
   </header>
 
-  <section
-    class="mt-8"
-    aria-labelledby="authority-heading"
-  >
-    <h2
-      id="authority-heading"
-      class="text-sm font-semibold uppercase tracking-wide text-slate-500"
-    >
-      Legal authority
-    </h2>
-    {% if item.authority %}
-      {% if item.authority.url %}
-        <a
-          class="mt-2 flex min-h-11 items-center text-lg font-medium text-indigo-700 underline decoration-indigo-300 hover:decoration-indigo-600"
-          href="{{ item.authority.url }}"
-          rel="noopener"
-        >{{ item.authority.citation }}</a>
-      {% else %}
-        <p class="mt-2 text-lg text-slate-800">
-          {{ item.authority.citation }}
-        </p>
-        <p class="text-sm text-slate-500">
-          Link not yet recorded.
-        </p>
-      {% endif %}
-      <p class="mt-2 text-sm leading-6 text-slate-500">
-        The law, ordinance, or ballot measure that imposes this tax.
-      </p>
-    {% else %}
-      <p class="mt-2 text-slate-600">
-        Not yet recorded.
-      </p>
-    {% endif %}
-  </section>
+  {% include tax_document_trail.html %}
+  {% include tax_accountability.html %}
 
   <div class="mt-10 grid gap-10 lg:grid-cols-2">
     <section aria-labelledby="rates-heading">
