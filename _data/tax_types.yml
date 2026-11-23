@@ -89,7 +89,7 @@
 - name: Flush tax
   description: A tax levied on homeowners and businesses in Maryland to fund the upgrading of wastewater treatment plants and reducing pollution in the Chesapeake Bay.
   source: Maryland Department of the Environment
-  url: https://mde.maryland.gov/programs/water/tributaryrestoration/fundprogram/pages/flushfee.aspx
+  url: https://mde.maryland.gov/programs/water/BayRestorationFund/Pages/index.aspx
 - name: Franchise tax
   description: A tax levied on the income or net worth of businesses operating within a state.
   source: State laws
