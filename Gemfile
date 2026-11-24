@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "~> 3.3.0"
+ruby ">= 4.0"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -10,7 +10,7 @@ ruby "~> 3.3.0"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "base64", "~>0.3.0"
+gem "base64", "~> 0.3.0"
 gem "csv", "~> 3.3.5"
 gem "jekyll", "~> 4.3.2"
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
