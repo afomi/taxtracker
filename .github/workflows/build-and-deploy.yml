@@ -10,6 +10,8 @@ on:
   workflow_dispatch:
 
 env:
+  # Install gems exactly as Gemfile.lock pins them; fail rather than re-resolve.
+  BUNDLE_FROZEN: "true"
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
@@ -30,7 +32,7 @@ jobs:
         bundler-cache: true
     - name: Install dependencies
       run: |
-        npm install
+        npm ci
         gem install bundler
         gem install jekyll
         bundle config path vendor/bundle
